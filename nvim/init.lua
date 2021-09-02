@@ -111,96 +111,108 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
 
 -- Comment text
 map('',  '<C-k>',      '<Plug>NERDCommenterToggle<CR>', opts)
-map('i', '<C-k>',      '<Esc><C-k>i',          opts)
+map('i', '<C-k>',      '<Esc><C-k>i',             opts)
+
+-- Quicker window movement
+map('n', '<leader>j',  '<C-w>j',                  opts)
+map('n', '<leader>k',  '<C-w>k',                  opts)
+map('n', '<leader>h',  '<C-w>h',                  opts)
+map('n', '<leader>l',  '<C-w>l',                  opts)
+
+-- Terminal shortcuts
+map('t', '<Esc>',      '<C-\\><C-N>',             opts)
+map('n', '<leader>t',  ':term<CR>i',              opts)
 
 -- Better tabbing
-map('v', '<',          '<gv',                  opts)
-map('v', '>',          '>gv',                  opts)
-map('n', '>',          'v><Esc>',              opts)
-map('n', '<',          'v<<Esc>',              opts)
+map('v', '<',          '<gv',                     opts)
+map('v', '>',          '>gv',                     opts)
+map('n', '>',          'v><Esc>',                 opts)
+map('n', '<',          'v<<Esc>',                 opts)
 
 -- Duplicate and remove rows
-map('n', '<C-l>',      '"_dd',                 opts)
-map('n', '<C-d>',      'Yp',                   opts)
-map('i', '<C-l>',      '<Esc><C-l>i',          opts)
-map('i', '<C-d>',      '<Esc><C-d>i',          opts)
+map('n', '<C-l>',      '"_dd',                    opts)
+map('n', '<C-d>',      'Yp',                      opts)
+map('i', '<C-l>',      '<Esc><C-l>i',             opts)
+map('i', '<C-d>',      '<Esc><C-d>i',             opts)
 
 -- Left-hand navigation
-map('',  'w',          '<Up>',                 opts)
-map('',  's',          '<Down>',               opts)
-map('',  'a',          '<Left>',               opts)
-map('',  'd',          '<Right>',              opts)
-map('',  'W',          '5k',                   opts)
-map('',  'S',          '5j',                   opts)
-map('',  'A',          'b',                    opts)
-map('',  'D',          'e<Right>',             opts)
-map('',  '<S-Up>',     '5k',                   opts)
-map('',  '<S-Down>',   '5j',                   opts)
-map('',  '<S-Left>',   'b',                    opts)
-map('',  '<S-Right>',  'e<Right>',             opts)
-map('i', '<S-Right>',  '<Esc>e<Right>i',       opts)
+map('',  'w',          '<Up>',                    opts)
+map('',  's',          '<Down>',                  opts)
+map('',  'a',          '<Left>',                  opts)
+map('',  'd',          '<Right>',                 opts)
+map('',  'W',          '5k',                      opts)
+map('',  'S',          '5j',                      opts)
+map('',  'A',          'b',                       opts)
+map('',  'D',          'e<Right>',                opts)
+map('',  '<S-Up>',     '5k',                      opts)
+map('',  '<S-Down>',   '5j',                      opts)
+map('',  '<S-Left>',   'b',                       opts)
+map('',  '<S-Right>',  'e<Right>',                opts)
+map('i', '<S-Right>',  '<Esc>e<Right>i',          opts)
 
 -- Beginning and end rows
-map('n', '<A-Right>',  '$l',                   opts)
-map('i', '<A-Right>',  '<Esc>$li',             opts)
-map('n', '<A-Left>',   '0',                    opts)
-map('i', '<A-Left>',   '<Esc>0i',              opts)
+map('n', '<A-Right>',  '$l',                      opts)
+map('i', '<A-Right>',  '<Esc>$li',                opts)
+map('n', '<A-Left>',   '0',                       opts)
+map('i', '<A-Left>',   '<Esc>0i',                 opts)
 
 -- Move lines
-map('n', '<A-Down>',   ':m .+1<CR>==',         opts)
-map('n', '<A-Up>',     ':m .-2<CR>==' ,        opts)
-map('i', '<A-Down>',   '<Esc>:m .+1<CR>==gi',  opts)
-map('i', '<A-Up>',     '<Esc>:m .-2<CR>==gi',  opts)
-map('v', '<A-Down>',   ':m \'>+1<CR>gv=gv',    opts)
-map('v', '<A-Up>',     ':m \'<-2<CR>gv=gv',    opts)
+map('n', '<A-Down>',   ':m .+1<CR>==',            opts)
+map('n', '<A-Up>',     ':m .-2<CR>==' ,           opts)
+map('i', '<A-Down>',   '<Esc>:m .+1<CR>==gi',     opts)
+map('i', '<A-Up>',     '<Esc>:m .-2<CR>==gi',     opts)
+map('v', '<A-Down>',   ':m \'>+1<CR>gv=gv',       opts)
+map('v', '<A-Up>',     ':m \'<-2<CR>gv=gv',       opts)
 
 -- Quick navigation to file top and end
-map('n', '{',          'gg',                   opts)
-map('n', '}',          'G',                    opts)
+map('n', '{',          'gg',                      opts)
+map('n', '}',          'G',                       opts)
 
 -- Copy
-map('n', 'k',          'bvey',                 opts)
-map('v', 'k',          'y',                    opts)
-map('n', 'K',          'yy',                   opts)
+map('n', 'k',          'bvey',                    opts)
+map('v', 'k',          'y',                       opts)
+map('n', 'K',          'yy',                      opts)
 
 -- Paste to a new line
-map('n', 'P',          ':pu<CR>',              opts)
+map('n', 'P',          ':pu<CR>',                 opts)
 
 -- remove highlight
-map('',  'h',          '*N',                   opts)
+map('',  'h',          '*N',                      opts)
 
 -- save sessions
-map('',  '<leader>ss', ':SessionSave<CR>',     opts)
+map('',  '<leader>ss', ':SessionSave<CR>',        opts)
 
-map('n', '<C-n>',      ':NvimTreeToggle<CR>',  opts)
-map('n', '<leader>r',  ':NvimTreeRefresh<CR>', opts)
+map('n', '<C-n>',      ':NvimTreeToggle<CR>',     opts)
+map('n', '<leader>r',  ':NvimTreeRefresh<CR>',    opts)
 
 -- Buffers
-map('n', '<Esc>',      ':noh<CR>',             opts)
-map('n', '<Tab>',      ':bnext<CR>',           opts)
-map('n', '<S-Tab>',    ':bprevious<CR>',       opts)
-map('n', '<C-t>',      ':enew<CR>i',           opts)
+map('n', '<Esc>',      ':noh<CR>',                opts)
+map('n', '<Tab>',      ':bnext<CR>',              opts)
+map('n', '<S-Tab>',    ':bprevious<CR>',          opts)
+map('n', '<C-t>',      ':enew<CR>i',              opts)
 
-map('n', '<C-w>', ':BufferClose<CR>',  { noremap = true, silent = true }) -- Close buffer
+-- Close buffer
+map('t', '<C-w>',      '<C-\\><C-N><CR>:bd!<CR>', opts)
+map('n', '<C-w>',      ':BufferClose<CR>',        opts) 
 
 -- Goto buffer in position...
-map('n', '<A-1>', ':BufferGoto 1<CR>', { noremap = true, silent = true })
-map('n', '<A-2>', ':BufferGoto 2<CR>', { noremap = true, silent = true })
-map('n', '<A-3>', ':BufferGoto 3<CR>', { noremap = true, silent = true })
-map('n', '<A-4>', ':BufferGoto 4<CR>', { noremap = true, silent = true })
-map('n', '<A-5>', ':BufferGoto 5<CR>', { noremap = true, silent = true })
-map('n', '<A-6>', ':BufferGoto 6<CR>', { noremap = true, silent = true })
-map('n', '<A-7>', ':BufferGoto 7<CR>', { noremap = true, silent = true })
-map('n', '<A-8>', ':BufferGoto 8<CR>', { noremap = true, silent = true })
-map('n', '<A-9>', ':BufferGoto 9<CR>', { noremap = true, silent = true })
-map('n', '<A-0>', ':BufferLast<CR>',   { noremap = true, silent = true })
+map('n', '<A-1>',      ':BufferGoto 1<CR>',       opts)
+map('n', '<A-2>',      ':BufferGoto 2<CR>',       opts)
+map('n', '<A-3>',      ':BufferGoto 3<CR>',       opts)
+map('n', '<A-4>',      ':BufferGoto 4<CR>',       opts)
+map('n', '<A-5>',      ':BufferGoto 5<CR>',       opts)
+map('n', '<A-6>',      ':BufferGoto 6<CR>',       opts)
+map('n', '<A-7>',      ':BufferGoto 7<CR>',       opts)
+map('n', '<A-8>',      ':BufferGoto 8<CR>',       opts)
+map('n', '<A-9>',      ':BufferGoto 9<CR>',       opts)
+map('n', '<A-0>',      ':BufferLast<CR>',         opts)
 
 -- Select a word under cursor 
-map('n', 'H', 'viw', opts)
+map('n', 'H',          'viw',                     opts)
 
 -- Bakespace in normal mode
-map('n', '<BS>', 'x', opts)
-map('v', '<BS>', 'x', opts)
+map('n', '<BS>',       'x',                       opts)
+map('v', '<BS>',       'x',                       opts)
 
 ------------------------------------------------- PLUGIN SETTINGS ------------------------------------------------- 
 --
