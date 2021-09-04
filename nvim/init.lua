@@ -2,8 +2,8 @@
 require "paq" {
     "savq/paq-nvim";                  -- Let Paq manage itself
 
+    "b3nj5m1n/kommentary";
     "windwp/nvim-autopairs";
-    "preservim/nerdcommenter";
     "lewis6991/gitsigns.nvim";
     "hrsh7th/nvim-compe";
     "airblade/vim-gitgutter";
@@ -109,9 +109,6 @@ local opts = { noremap = true }
 -- <Tab>: completion.
 map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
 
--- Comment text
-map('',  '<C-k>',      '<Plug>NERDCommenterToggle<CR>', opts)
-map('i', '<C-k>',      '<Esc><C-k>i',             opts)
 
 -- Quicker window movement
 map('n', '<leader>j',  '<C-w>j',                  opts)
@@ -338,13 +335,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap("n", "<C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
 end
-map("n", "<C-f>", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "tsserver" }
+local servers = { "pyright", "tsserver", "dockerls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -496,3 +493,11 @@ vim.g.nvim_tree_bindings = {
   { key = "g?",                           cb = tree_cb("toggle_help") },
 }
  
+--
+-- kommentary
+--
+
+vim.g.kommentary_create_default_mappings = false
+
+map('n', '<C-k>', '<Plug>kommentary_line_default', opts)
+map('v', '<C-k>', '<Plug>kommentary_visual_default', opts)
