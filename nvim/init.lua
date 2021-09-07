@@ -2,7 +2,7 @@
 require "paq" {
     "savq/paq-nvim";                  -- Let Paq manage itself
 
-    "b3nj5m1n/kommentary";
+    "terrortylor/nvim-comment";
     "windwp/nvim-autopairs";
     "lewis6991/gitsigns.nvim";
     "hrsh7th/nvim-compe";
@@ -213,6 +213,9 @@ map('n', 'H',          'viw',                               opts)
 map('n', '<BS>',       '"_x',                               opts)
 map('v', '<BS>',       '"_x',                               opts)
 
+-- Comments
+map('n', '<C-k>',      ':CommentToggle<CR>',                opts)
+map('v', '<C-k>',      ':CommentToggle<CR>',                opts)
 ------------------------------------------------- PLUGIN SETTINGS ------------------------------------------------- 
 --
 -- Barbar
@@ -496,10 +499,8 @@ vim.g.nvim_tree_bindings = {
 }
  
 --
--- kommentary
+-- nvim-comment
 --
-
-vim.g.kommentary_create_default_mappings = false
-
-map('n', '<C-k>', '<Plug>kommentary_line_default', opts)
-map('v', '<C-k>', '<Plug>kommentary_visual_default', opts)
+require('nvim_comment').setup({
+    create_mappings = false
+})
