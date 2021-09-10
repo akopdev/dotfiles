@@ -169,7 +169,7 @@ map('n', '{',               'gg',                                opts)
 map('n', '}',               'G',                                 opts)
 
 -- Copy
-map('n', 'k',               'bvey',                              opts)
+map('n', 'k',               'wbvey',                              opts)
 map('v', 'k',               'y',                                 opts)
 map('n', 'K',               'yy',                                opts)
 
@@ -179,8 +179,10 @@ map('n', 'P',               ':pu<CR>',                           opts)
 -- remove highlight
 map('',  'h',               '*N',                                opts)
 
--- save sessions
+-- Save sessions
 map('',  '<leader>ss',      ':SessionSave<CR>',                  opts)
+
+-- Tree file explorer
 map('n', '<C-n>',           ':NvimTreeToggle<CR>',               opts)
 map('n', '<leader>r',       ':NvimTreeRefresh<CR>',              opts)
 
@@ -207,7 +209,7 @@ map('n', '<A-9>',           ':BufferGoto 9<CR>',                 opts)
 map('n', '<A-0>',           ':BufferLast<CR>',                   opts)
 
 -- Select a word under cursor 
-map('n', 'H',               'viw',                               opts)
+map('n', '<leader>w',       'viw',                               opts)
 
 -- Bakespace in normal mode
 map('n', '<BS>',            '"_x',                               opts)
