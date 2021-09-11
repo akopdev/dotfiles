@@ -54,6 +54,7 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 500
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.diffopt = vim.opt.diffopt + 'vertical'
 vim.opt.conceallevel = 0
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
