@@ -1,0 +1,56 @@
+[user]
+    name = Akop Kesheshyan
+    email = hello@akop.dev
+
+[diff]
+    tool = nvim
+
+[merge]
+    tool = nvim
+
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+
+[mergetool]
+    keepBackup = false
+    prompt = false
+
+[core]
+    editor = nvim
+    excludesfile = ~/.gitignore_global
+
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[delta]
+    features = rose-pine-moon 
+    line-numbers = true
+    side-by-side = true
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "rose-pine-moon"]
+    file-style = omit
+    hunk-header-decoration-style = "#817c9c" box
+    hunk-header-file-style = "#c4a7e7"
+    hunk-header-style = file line-number syntax
+    hunk-header-line-number-style = "#78ccc5"
+    line-numbers-left-style = "#817c9c"
+    line-numbers-right-style = "#817c9c"
+    line-numbers-minus-style = "#c75c6a"
+    line-numbers-plus-style = "#78ccc5"
+    line-numbers-zero-style = "#59546d"
+    plus-style = syntax "#344352"
+    plus-emph-style = bold "#2a273f" "#9ccfd8"
+    minus-style = syntax "#442d40"
+    minus-emph-style = bold "#2a273f" "#ea9a97"
+    dark = true
+    syntax-theme = base16
+    
