@@ -1,4 +1,4 @@
 alias ..="cd .."
 alias ~="cd ~"
-alias p="cd $PROJECTS/$1"
+alias p="goto-projects"
 alias c="clear"
