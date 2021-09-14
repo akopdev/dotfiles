@@ -1,0 +1,8 @@
+#!/bin/zsh
+git branch --color=always --sort=-committerdate |
+grep -v HEAD |
+fzf --ansi  --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+    --bind 'ctrl-m:execute-silent(git checkout $(sed "s/.* //" <<< {}))+abort' \
+    --preview-window right:65% \
+    --preview 'git log -n 50 --graph --color=always --date=short --pretty="format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" $(sed "s/.* //" <<< {})' | 
+sed "s/.* //"
