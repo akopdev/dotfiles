@@ -17,7 +17,7 @@
 
 [core]
     editor = nvim
-    excludesfile = $ZSH/git/.gitignore
+    excludesfile = ~/.dotfiles/git/.gitignore
 
 [pager]
     diff = delta
