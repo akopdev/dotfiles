@@ -3,6 +3,8 @@ export ZSH=$HOME/.dotfiles
 
 export PROJECTS=$HOME/Projects
 
+export EDITOR=nvim
+
 # all of our zsh files
 typeset -U config_files
 config_files=($ZSH/**/*.zsh)
