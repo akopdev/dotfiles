@@ -133,8 +133,8 @@ map('n', '<',               'v<<Esc>',                           opts)
 -- Duplicate and remove rows
 map('n', '<C-l>',           '"_dd',                              opts)
 map('n', '<C-d>',           'Yp',                                opts)
-map('i', '<C-l>',           '<Esc><C-l>i',                       opts)
-map('i', '<C-d>',           '<Esc><C-d>i',                       opts)
+map('i', '<C-l>',           '<C-o>"_dd',                         opts)
+map('i', '<C-d>',           '<Esc>Ypi',                          opts)
 
 -- Left-hand navigation
 map('',  'w',               '<Up>',                              opts)
@@ -149,13 +149,13 @@ map('',  '<S-Up>',          '5k',                                opts)
 map('',  '<S-Down>',        '5j',                                opts)
 map('',  '<S-Left>',        'b',                                 opts)
 map('',  '<S-Right>',       'e<Right>',                          opts)
-map('i', '<S-Right>',       '<Esc>e<Right>i',                    opts)
+map('i', '<S-Right>',       '<C-o>e<Right>',                     opts)
 
 -- Beginning and end rows
 map('n', '<A-Right>',       '$l',                                opts)
-map('i', '<A-Right>',       '<Esc>$li',                          opts)
+map('i', '<A-Right>',       '<C-o>$',                            opts)
 map('n', '<A-Left>',        '0',                                 opts)
-map('i', '<A-Left>',        '<Esc>0i',                           opts)
+map('i', '<A-Left>',        '<C-o>0',                            opts)
 
 -- Move lines
 map('n', '<A-Down>',        ':m .+1<CR>==',                      opts)
