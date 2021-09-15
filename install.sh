@@ -5,6 +5,7 @@ DOTFILES=$(pwd -P)
 # Install dependencies
 
 brew install zsh-autosuggestions
+brew install exa
 
 # Create symlinks
 ln -s "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
