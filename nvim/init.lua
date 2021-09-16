@@ -111,6 +111,8 @@ local opts = { noremap = true }
 -- <Tab>: completion.
 map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
 
+-- Shortcut to save changes
+map('n',  '<leader>w',      ':w<CR>',                            opts)
 
 -- Quicker window movement
 map('n', '<leader><Down>',  '<C-w>j',                            opts)
@@ -210,7 +212,7 @@ map('n', '<A-9>',           ':BufferGoto 9<CR>',                 opts)
 map('n', '<A-0>',           ':BufferLast<CR>',                   opts)
 
 -- Select a word under cursor 
-map('n', '<leader>w',       'viw',                               opts)
+map('n', '<leader>v',       'viw',                               opts)
 
 -- Bakespace in normal mode
 map('n', '<BS>',            '"_x',                               opts)
