@@ -4,6 +4,6 @@ docker ps -a --format '{{.Names}}' |
 
 fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
     --header "Log view" \
-    --bind "ctrl-m:execute(clear && docker logs {} | less -R +G)"
+    --bind "ctrl-m:execute(clear && docker logs {} -f | less -R +G)"
 
 
