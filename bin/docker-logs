@@ -1,9 +1,11 @@
 #!/bin/zsh
 
-docker ps -a --format '{{.Names}}' | 
+clear
 
-fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+docker ps -a --format '{{.Names}}' \
+| fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
     --header "Log view" \
-    --bind "ctrl-m:execute(clear && docker logs {} -f | less -R +G)"
+    --preview "(docker logs {} --tail 100 | less -R +G)" \
+| xargs -I % -o docker logs % -f
 
 

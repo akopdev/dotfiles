@@ -1,8 +1,9 @@
 #!/bin/zsh
 
-docker ps --format '{{.Names}}' | 
+clear
 
-fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-    --bind "ctrl-m:execute(clear && docker exec -i -t {} sh)" \
+docker ps --format '{{.Names}}' \
+| fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
     --header "Exec shell" \
-    --preview "(docker logs {} --tail 50 | less -R +G)" 
+    --preview "(docker logs {} --tail 100 | less -R +G)" \
+| xargs -I % -o docker exec -i -t % sh
