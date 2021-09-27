@@ -83,6 +83,9 @@ fi
 # Install dependencies
 su "$USER" -c '/bin/bash -c "cd ~ && '"$HOME"'/.linuxbrew/bin/brew  install zsh-autosuggestions bc fzf exa ctop neovim nodejs npm"'
 
+# Create project folder used by "p" alias
+[ ! -d "$HOME/Projects" ] && mkdir "$HOME/Projects"
+
 # Create symlinks
 [ ! -d "$HOME/.config" ] && mkdir "$HOME/.config"
 
@@ -95,7 +98,6 @@ if [ ! -f "$HOME/.gitconfig" ]
 then
   ln -s "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
 fi
-
 
 if [ ! -d "$HOME/.config/nvim" ]
 then
