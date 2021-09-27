@@ -28,6 +28,9 @@ then
   # Install essentials
   apt install -y build-essential wget git zsh software-properties-common python-dev python-pip python3-dev python3-pip
 
+  # Make zsh default shell
+  su "$USER" -c 'chsh -s $(which zsh)'
+
   # Install Docker
   if ! command -v docker > /dev/null
   then
