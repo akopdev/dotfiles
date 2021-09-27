@@ -78,7 +78,7 @@ then
 fi
 
 # Install dependencies
-su "$USER" -c '/bin/bash -c "'"$HOME"'/.linuxbrew/bin/brew  install zsh-autosuggestions bc fzf exa ctop neovim nodejs npm"'
+su "$USER" -c '/bin/bash -c "cd ~ && '"$HOME"'/.linuxbrew/bin/brew  install zsh-autosuggestions bc fzf exa ctop neovim nodejs npm"'
 
 # Create symlinks
 [ ! -d "$HOME/.config" ] && mkdir "$HOME/.config"
