@@ -6,7 +6,8 @@ then
   abort "Bash is required to interpret this script."
 fi
 
-DOTFILES=$(pwd -P)
+USER="akopkesheshyan"
+HOME="/home/$USER"
 
 OS="$(uname)"
 if [[ "${OS}" == "Linux" ]]
@@ -18,8 +19,9 @@ then
 
 
   # Let's create normal user first
-  useradd -m akopkesheshyan
-  passwd akopkesheshyan
+  echo "Settings password for $USER:"
+  useradd -m "$USER"
+  passwd "$USER"
 
   # Install essentials
   apt install -y build-essential wget git zsh software-properties-common python-dev python-pip python3-dev python3-pip
@@ -48,17 +50,21 @@ then
   chmod +x /usr/local/bin/kubectl
 
   # If it is a host machine, we should install additional packages
-  apt install -y i3 rofi xorg xorg-xinit kitty
+  apt install -y i3 rofi xorg kitty
 
   # We use brew as our main package manager
-  su akopkesheshyan
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  su "$USER" -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
 
-  export PATH="/home/akopkesheshyan/.linuxbrew/bin:$PATH"
+  export PATH="$HOME/.linuxbrew/bin:$PATH"
 
 fi
+
+DOTFILES="$HOME/.dotfiles"
+
+git clone https://github.com/akopkesheshyan/dotfiles.git "$DOTFILES" 
+
 # Install dependencies
-brew install zsh-autosuggestions bc fzf exa ctop neovim nodejs npm
+su "$USER" -c "brew install zsh-autosuggestions bc fzf exa ctop neovim nodejs npm"
 
 # Create symlinks
 mkdir "$HOME/.config"
