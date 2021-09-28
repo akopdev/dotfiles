@@ -1,9 +1,13 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
-
 export PROJECTS=$HOME/Projects
-
 export EDITOR=nvim
+
+# On linux add PATH to brew 
+if [ -f "$HOME/.linuxbrew/bin/brew" ]
+then
+  eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+fi
 
 # all of our zsh files
 typeset -U config_files
@@ -14,6 +18,8 @@ for file in ${config_files:#*/completion.zsh}
 do
   source $file
 done
+
+source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
@@ -36,9 +42,3 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
-
-# On linux add PATH to brew 
-if [ -f "$HOME/.linuxbrew/bin/brew" ]
-then
-  eval "$($HOME/.linuxbrew/bin/brew shellenv)"
-fi
