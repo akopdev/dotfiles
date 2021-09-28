@@ -108,3 +108,12 @@ if [ ! -d "$HOME/.config/kitty" ]
 then
   ln -s "$DOTFILES/kitty" "$HOME/.config/kitty"
 fi
+
+
+### Setup additional packages
+
+## neovim
+
+git clone --depth=1 https://github.com/savq/paq-nvim.git \
+    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
+
