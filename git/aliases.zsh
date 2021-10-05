@@ -1,4 +1,5 @@
 alias ga="git add"
+alias gap="git add -p"
 alias gaa="git add -A"
 alias gcm="git commit -m"
 alias gcam="git add -A && git commit -m"
