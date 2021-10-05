@@ -81,7 +81,7 @@ then
 fi
 
 # Install dependencies
-su "$USER" -c '/bin/bash -c "cd ~ && '"$HOME"'/.linuxbrew/bin/brew  install zsh-autosuggestions bc fzf exa ctop neovim nodejs npm"'
+su "$USER" -c '/bin/bash -c "cd ~ && '"$HOME"'/.linuxbrew/bin/brew  install zsh-autosuggestions bc fzf exa htop bat git-delta ctop neovim nodejs npm"'
 
 # Create project folder used by "p" alias
 [ ! -d "$HOME/Projects" ] && mkdir "$HOME/Projects"
