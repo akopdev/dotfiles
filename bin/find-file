@@ -1,4 +1,4 @@
 #!/bin/zsh
 
 fzf --ansi --reverse --preview '([[ -f {} ]] && (bat --theme=ansi --style=numbers --color=always {}))' \
-| xargs nvim
+| xargs -r nvim
