@@ -172,11 +172,12 @@ map('n', '{',               'gg',                                opts)
 map('n', '}',               'G',                                 opts)
 
 -- Copy
-map('n', 'k',               'wbvey',                              opts)
+map('n', 'k',               'wbvey',                             opts)
 map('v', 'k',               'y',                                 opts)
 map('n', 'K',               'yy',                                opts)
 
 -- Paste to a new line     
+map('v', 'p',               '"_dP',                              opts)
 map('n', 'P',               ':pu<CR>',                           opts)
 
 -- remove highlight
