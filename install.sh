@@ -110,6 +110,10 @@ then
 fi
 
 
+if [ ! -d "$HOME/.config/bat" ]
+then
+  ln -s "$DOTFILES/bat" "$HOME/.config/bat"
+fi
 ### Setup additional packages
 
 ## neovim
