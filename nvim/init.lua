@@ -154,18 +154,18 @@ map('',  '<S-Right>',       'e<Right>',                          opts)
 map('i', '<S-Right>',       '<C-o>e<Right>',                     opts)
 
 -- Beginning and end rows
-map('n', '<A-Right>',       '$l',                                opts)
-map('i', '<A-Right>',       '<C-o>$',                            opts)
-map('n', '<A-Left>',        '0',                                 opts)
-map('i', '<A-Left>',        '<C-o>0',                            opts)
+map('n', '<C-Right>',       '$l',                                opts)
+map('i', '<C-Right>',       '<C-o>$',                            opts)
+map('n', '<C-Left>',        '0',                                 opts)
+map('i', '<C-Left>',        '<C-o>0',                            opts)
 
 -- Move lines
-map('n', '<A-Down>',        ':m .+1<CR>==',                      opts)
-map('n', '<A-Up>',          ':m .-2<CR>==' ,                     opts)
-map('i', '<A-Down>',        '<Esc>:m .+1<CR>==gi',               opts)
-map('i', '<A-Up>',          '<Esc>:m .-2<CR>==gi',               opts)
-map('v', '<A-Down>',        ':m \'>+1<CR>gv=gv',                 opts)
-map('v', '<A-Up>',          ':m \'<-2<CR>gv=gv',                 opts)
+map('n', '<C-Down>',        ':m .+1<CR>==',                      opts)
+map('n', '<C-Up>',          ':m .-2<CR>==' ,                     opts)
+map('i', '<C-Down>',        '<Esc>:m .+1<CR>==gi',               opts)
+map('i', '<C-Up>',          '<Esc>:m .-2<CR>==gi',               opts)
+map('v', '<C-Down>',        ':m \'>+1<CR>gv=gv',                 opts)
+map('v', '<C-Up>',          ':m \'<-2<CR>gv=gv',                 opts)
 
 -- Quick navigation to file beginning and end
 map('n', '{',               'gg',                                opts)
