@@ -1,5 +1,5 @@
 #!/bin/zsh
-git branch --color=always --sort=-committerdate |
+git branch -a --color=always --sort=-committerdate |
 grep -v HEAD |
 fzf --ansi  --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
     --bind 'ctrl-m:execute-silent(git checkout $(sed "s/.* //" <<< {}))+abort' \
