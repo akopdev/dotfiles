@@ -172,16 +172,14 @@ map('n', '{',               'gg',                                opts)
 map('n', '}',               'G',                                 opts)
 
 -- Copy
-map('n', 'k',               'wbvey',                             opts)
-map('v', 'k',               'y',                                 opts)
-map('n', 'K',               'yy',                                opts)
+map('n', 'y',               'wbvey',                             opts)
 
 -- Paste to a new line     
 map('v', 'p',               '"_dP',                              opts)
 map('n', 'P',               ':pu<CR>',                           opts)
 
--- remove highlight
-map('',  'h',               '*N',                                opts)
+-- highlight
+map('',  'H',               '*N',                                opts)
 
 -- Save sessions
 map('',  '<leader>ss',      ':SessionSave<CR>',                  opts)
@@ -364,7 +362,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "tsserver", "dockerls" }
+local servers = { "pyright", "tsserver", "dockerls", "ansiblels" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
