@@ -173,6 +173,7 @@ map('n', '}',               'G',                                 opts)
 
 -- Copy
 map('n', 'y',               'wbvey',                             opts)
+map('n', 'Y',               'yy',                                opts)
 
 -- Paste to a new line     
 map('v', 'p',               '"_dP',                              opts)
