@@ -267,7 +267,7 @@ vim.g.dashboard_custom_section = {
     b = {description = {'  Recently Used Files'}, command = 'Telescope oldfiles'},
     c = {description = {'  Find File          '}, command = 'Telescope find_files'},
     d = {description = {'  Find Word          '}, command = 'Telescope live_grep'},
-    e = {description = {'  Marks              '}, command = 'Telescope marks'}
+    e = {description = {'  Edit config        '}, command = 'cd ~/.dotfiles/ | edit nvim/init.lua'},
 }
 
 -- 
