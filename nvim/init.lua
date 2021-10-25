@@ -450,11 +450,29 @@ map('n', '<leader>gs', '<cmd>Telescope git_status<cr>', opts)
 map('n', '<leader>d',  '<cmd>Telescope lsp_document_diagnostics theme=get_ivy<cr>', opts)
 map('n', '<leader>a',  '<cmd>Telescope lsp_code_actions theme=get_ivy<cr>', opts)
 
+local actions = require('telescope.actions')
 require('telescope').setup({
   defaults = {
-    layout_config = {
-      horizontal = { preview_width = 85 }
-    },
+    find_command = {'rg', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case'},
+    color_devicons = true,
+    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
+    mappings = {
+        i = {
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-l>"] = actions.smart_send_to_qflist + actions.open_qflist,
+            ["<esc>"] = actions.close,
+            ["<CR>"]  = actions.select_default + actions.center
+        },
+        n = {
+            ["<C-j>"] = actions.move_selection_next,
+            ["<C-k>"] = actions.move_selection_previous,
+            ["<C-l>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        }
+    }
   },
 })
 
