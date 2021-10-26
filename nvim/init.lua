@@ -176,7 +176,7 @@ map('n', 'y',               'wbvey',                             opts)
 map('n', 'Y',               'yy',                                opts)
 
 -- Paste to a new line     
-map('v', 'p',               '"_dP',                              opts)
+map('v', 'p',               '"0p',                              opts)
 map('n', 'P',               ':pu<CR>',                           opts)
 
 -- highlight
@@ -302,7 +302,6 @@ require('gitsigns').setup {
 vim.opt.colorcolumn = "9999" -- Fix for cursorline
 
 require("indent_blankline").setup ({
-    char = '⎸',
     use_treesitter = true,
     space_char_blankline = " ",
     show_first_indent_level = false,
