@@ -1,6 +1,5 @@
-[user]
-    name = Akop Kesheshyan
-    email = hello@akop.dev
+[include]
+    path = ~/.gitconfig.local
 
 [diff]
     tool = nvim
