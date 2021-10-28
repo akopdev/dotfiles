@@ -1,0 +1,6 @@
+#compdef k
+_k() {
+    _kubectl
+}
+
+compdef _k k
