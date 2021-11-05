@@ -172,7 +172,6 @@ map('',  '<leader>ss',      ':SessionSave<CR>',                  opts)
 
 -- Tree file explorer
 map('n', '<C-n>',           ':NvimTreeToggle<CR>',               opts)
-map('n', '<leader>r',       ':NvimTreeRefresh<CR>',              opts)
 
 -- Buffers
 map('n', '<Esc>',           ':noh<CR>',                          opts)
@@ -504,6 +503,7 @@ require('nvim-tree').setup ({
       -- list of mappings to set on the tree manually
       list = {
           { key = "<CR>",                         cb = tree_cb("edit") },
+          { key = "<leader>",                     cb = tree_cb("edit") },
           { key = "<S-Right>",                    cb = tree_cb("cd") },
           { key = "<C-v>",                        cb = tree_cb("vsplit") },
           { key = "<C-x>",                        cb = tree_cb("split") },
