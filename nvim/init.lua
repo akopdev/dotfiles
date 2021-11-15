@@ -134,7 +134,7 @@ map('n', '<',               'v<<Esc>',                           opts)
 
 -- Duplicate and remove rows
 map('n', 'dd',              '"_dd',                              opts)
-map('n', 'd',               'Yp',                                opts)
+map('n', '<C-d>',           'Yp',                                opts)
 
 -- Quicker right-hand navigation
 map('',  '<S-k>',           '5k',                                opts)
@@ -503,7 +503,7 @@ require('nvim-tree').setup ({
       -- list of mappings to set on the tree manually
       list = {
           { key = "<CR>",                         cb = tree_cb("edit") },
-          { key = "<leader>",                     cb = tree_cb("edit") },
+          { key = "<leader><leader>",             cb = tree_cb("edit") },
           { key = "<S-Right>",                    cb = tree_cb("cd") },
           { key = "<C-v>",                        cb = tree_cb("vsplit") },
           { key = "<C-x>",                        cb = tree_cb("split") },
