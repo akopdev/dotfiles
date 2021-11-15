@@ -20,6 +20,7 @@ do
 done
 
 source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$(brew --prefix)/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
@@ -41,4 +42,3 @@ zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
-bindkey -v
