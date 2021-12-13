@@ -113,6 +113,7 @@ map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
 
 -- Shortcut to save changes
 map('n',  '<leader>w',      ':w<CR>',                            opts)
+map('n',  'qq',      ':q<CR>',                            opts)
 
 -- Quicker window movement
 map('n', '<leader>j',       '<C-w>j',                            opts)
