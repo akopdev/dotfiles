@@ -5,7 +5,8 @@ require "paq" {
     "terrortylor/nvim-comment";
     "windwp/nvim-autopairs";
     "lewis6991/gitsigns.nvim";
-    "hrsh7th/nvim-compe";
+    "hrsh7th/nvim-cmp";
+    "hrsh7th/cmp-nvim-lsp";
     "airblade/vim-gitgutter";
     "plasticboy/vim-markdown";
     "ryanoasis/vim-devicons";
@@ -108,12 +109,9 @@ vim.cmd 'colorscheme rose-pine'
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true }
 
--- <Tab>: completion.
-map('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', { expr = true })
-
 -- Shortcut to save changes
 map('n',  '<leader>w',      ':w<CR>',                            opts)
-map('n',  'qq',      ':q<CR>',                            opts)
+map('n',  'qq',             ':q<CR>',                            opts)
 
 -- Quicker window movement
 map('n', '<leader>j',       '<C-w>j',                            opts)
@@ -209,23 +207,43 @@ vim.g.bufferline = {
 }
 
 -- 
--- Compe
+-- nvim-cmp
 --
 
-vim.o.completeopt = 'menuone,noselect'
+vim.o.completeopt = 'menuone,noinsert,noselect'
 
-require('compe').setup ({
-  enabled = true;
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = false;
-    vsnip = true;
-    ultisnips = false;
-    luasnip = true;
-  };
+local cmp = require'cmp'
+
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+    mapping = {
+        ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ['<C-k>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+        ['<C-j>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+        ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+        ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+        ['<C-e>'] = cmp.mapping({
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        }),
+        -- Accept currently selected item. If none selected, `select` first item.
+        -- Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = cmp.config.sources(
+        {
+            { name = 'nvim_lsp' },
+            { name = 'vsnip' }, -- For vsnip users.
+        }, 
+        {
+            { name = 'buffer' },
+        }
+    )
 })
 
 
@@ -323,7 +341,7 @@ local on_attach = function(client, bufnr)
 
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
@@ -462,7 +480,7 @@ require('nvim-treesitter.configs').setup ({
 --
 -- Neovim tree
 --
-vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache' } -- empty by default
+-- vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache' } -- empty by default
 vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' } -- empty by default, don't auto open tree on specific filetypes.
 vim.g.nvim_tree_quit_on_open = 1 -- 0 by default, closes the tree when you open a file
 vim.g.nvim_tree_indent_markers = 1 -- 0 by default, this option shows indent markers when folders are open
@@ -529,7 +547,11 @@ require('nvim-tree').setup ({
           { key = "g?",                           cb = tree_cb("toggle_help") },
       }
     }
+  },
+  filters = {
+    custom = {'.git', 'node_modules', '.cache'}
   }
+
 })
 
 
