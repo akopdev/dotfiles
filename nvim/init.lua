@@ -25,7 +25,7 @@ require "paq" {
     "hrsh7th/vim-vsnip-integ";
 
     "neovim/nvim-lspconfig";
-    "kabouzeid/nvim-lspinstall";
+    "williamboman/nvim-lsp-installer";
     "sheerun/vim-polyglot";
 
     "rose-pine/neovim";
@@ -305,7 +305,15 @@ require("indent_blankline").setup ({
 -- LSP Config
 --
 
-require('lspinstall').setup() -- important
+require('nvim-lsp-installer').settings({
+    ui = {
+        icons = {
+            server_installed = "✓",
+            server_pending = "➜",
+            server_uninstalled = "✗"
+        }
+    }
+})
 
 local nvim_lsp = require('lspconfig')
 
