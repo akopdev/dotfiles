@@ -190,8 +190,8 @@ map('n', '<BS>',            '"_x',                               opts)
 map('v', '<BS>',            '"_x',                               opts)
 
 -- Comments
-map('n', '<leader>k',       ':CommentToggle<CR>',                opts)
-map('v', '<leader>k',       ':CommentToggle<CR>',                opts)
+map('n', '<leader>c',       ':CommentToggle<CR>',                opts)
+map('v', '<leader>c',       ':CommentToggle<CR>',                opts)
 
 
 ------------------------------------------------- PLUGIN SETTINGS ------------------------------------------------- 
