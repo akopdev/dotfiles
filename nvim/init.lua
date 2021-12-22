@@ -442,6 +442,11 @@ map('n', '<leader>a',  '<cmd>Telescope lsp_code_actions theme=get_ivy<cr>', opts
 
 local actions = require('telescope.actions')
 require('telescope').setup({
+  pickers = {
+    find_files = {
+        hidden = true
+    },
+  },
   defaults = {
     find_command = {'rg', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case'},
     color_devicons = true,
