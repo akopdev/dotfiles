@@ -119,6 +119,16 @@ if [ ! -d "$HOME/.config/ranger" ]
 then
   ln -s "$DOTFILES/ranger" "$HOME/.config/ranger"
 fi
+
+if [ ! -d "$HOME/.config/i3" ]
+then
+  ln -s "$DOTFILES/i3" "$HOME/.config/i3"
+fi
+
+if [ ! -d "$HOME/.config/i3status" ]
+then
+  ln -s "$DOTFILES/i3status" "$HOME/.config/i3status"
+fi
 ### Setup additional packages
 
 ## neovim
