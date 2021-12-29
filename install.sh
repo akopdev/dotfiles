@@ -129,6 +129,12 @@ if [ ! -d "$HOME/.config/i3status" ]
 then
   ln -s "$DOTFILES/i3status" "$HOME/.config/i3status"
 fi
+
+if [ ! -d "$HOME/.local/share/rofi/themes" ]
+then
+  mkdir "$HOME/.local/share/rofi" 
+  ln -s "$DOTFILES/rofi" "$HOME/.local/share/rofi/themes"
+fi
 ### Setup additional packages
 
 ## neovim
