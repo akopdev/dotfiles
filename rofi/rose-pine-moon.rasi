@@ -7,7 +7,7 @@
  */
 
 * {
-    red:                         rgba ( 236, 235, 240, 100 % );
+    red:                         rgba ( 235, 112, 145, 100 % );
     blue:                        rgba ( 156, 207, 216, 100 % );
     lightfg:                     rgba ( 245, 245, 247, 100 % );
     lightbg:                     rgba ( 42, 39, 63, 100 % );
@@ -58,7 +58,7 @@ listview {
     fixed-height:     0;
     border:           2px solid 0px 0px ;
     border-color:     @separatorcolor;
-    spacing:          2px ;
+    spacing:          0 ;
     scrollbar:        false;
     padding:          8px 0px 0px ;
 }
@@ -68,7 +68,7 @@ element-text, element-icon {
 }
 element {
     border:           0;
-    padding:          1px ;
+    padding:          6px ;
 }
 element normal.normal {
     background-color: @normal-background;
@@ -128,8 +128,8 @@ button selected {
 inputbar {
     spacing:          0px;
     text-color:       @normal-foreground;
-    padding:          1px ;
-    children:         [ prompt,textbox-prompt-colon,entry,case-indicator ];
+    padding:          6px ;
+    children:         [ textbox-prompt-colon,entry,case-indicator ];
 }
 case-indicator {
     spacing:          0;
@@ -145,8 +145,8 @@ prompt {
 }
 textbox-prompt-colon {
     expand:           false;
-    str:              ":";
-    margin:           0px 0.3000em 0.0000em 0.0000em ;
-    text-color:       inherit;
+    str:              ">";
+    margin:           0px 0.6000em 0.0000em 0.0000em ;
+    text-color:       @red;
 }
  
