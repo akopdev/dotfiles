@@ -114,6 +114,11 @@ if [ ! -d "$HOME/.config/bat" ]
 then
   ln -s "$DOTFILES/bat" "$HOME/.config/bat"
 fi
+
+if [ ! -d "$HOME/.config/ranger" ]
+then
+  ln -s "$DOTFILES/ranger" "$HOME/.config/ranger"
+fi
 ### Setup additional packages
 
 ## neovim
