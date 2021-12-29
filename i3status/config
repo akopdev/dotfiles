@@ -12,7 +12,7 @@ battery 0 {
     threshold_type = "time"
     integer_battery_capacity = "true"
     low_threshold = "15"
-    format = " %status %percentage "
+    format = "%status %percentage "
     format_down = ""
     status_chr = ""
     status_bat = ""
@@ -26,11 +26,11 @@ volume master {
     device = "default"
     mixer_idx = "0"
     mixer = "Master"
-    format = " ♪ %volume "
+    format = "♪ %volume "
 }
 
 time {
-    format = " %A, %d %B %H:%M"
+    format = "%A, %d %B %H:%M"
 }
 
 order += "battery 0"

@@ -6,7 +6,15 @@ set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:monospace 8
+font pango:MesloLGS NF Regular 10
+
+# Hide window title bar
+default_border pixel 1
+default_floating_border pixel 1
+
+for_window [class="^.*"] border pixel 1
+new_window 1pixel
+hide_edge_borders smart
 
 # Basic bar configuration using the Base16 variables.
 set $base00 #232136
@@ -58,7 +66,7 @@ focus_follows_mouse no
 bindsym $mod+Return exec kitty
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+w kill
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show run -theme rose-pine-moon 
@@ -192,14 +200,14 @@ bar {
     position top
 
     colors {
-        background $base00
-        separator  $base03
-        statusline $base04
+        background $base0C
+        separator  $base0C
+        statusline $base00
 
         # State             Border  BG      Text
-        focused_workspace   $base05 $base0C $base00
-        active_workspace    $base05 $base03 $base00
-        inactive_workspace  $base03 $base01 $base05
+        focused_workspace   $base0D $base0D $base00
+        active_workspace    $base0C $base0C $base05
+        inactive_workspace  $base0C $base0C $base00
         urgent_workspace    $base08 $base08 $base00
         binding_mode        $base00 $base0A $base00
     }
