@@ -193,7 +193,7 @@ bar {
 
     colors {
         background $base00
-        separator  $base01
+        separator  $base03
         statusline $base04
 
         # State             Border  BG      Text
