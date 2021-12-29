@@ -38,7 +38,8 @@
 }
 window {
     background-color: @background;
-    border:           1;
+    border:           2;
+    border-radius:    5;
     padding:          5;
 }
 mainbox {
@@ -55,11 +56,11 @@ textbox {
 }
 listview {
     fixed-height:     0;
-    border:           1px solid 0px 0px ;
+    border:           2px solid 0px 0px ;
     border-color:     @separatorcolor;
     spacing:          2px ;
-    scrollbar:        true;
-    padding:          2px 0px 0px ;
+    scrollbar:        false;
+    padding:          8px 0px 0px ;
 }
 element-text, element-icon {
     background-color: inherit;
