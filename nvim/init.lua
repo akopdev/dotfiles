@@ -5,8 +5,13 @@ require "paq" {
     "terrortylor/nvim-comment";
     "windwp/nvim-autopairs";
     "lewis6991/gitsigns.nvim";
-    "hrsh7th/nvim-cmp";
+
     "hrsh7th/cmp-nvim-lsp";
+    "hrsh7th/cmp-buffer";
+    "hrsh7th/cmp-path";
+    "hrsh7th/cmp-cmdline";
+    "hrsh7th/nvim-cmp";
+
     "airblade/vim-gitgutter";
     "plasticboy/vim-markdown";
     "ryanoasis/vim-devicons";
@@ -244,6 +249,22 @@ cmp.setup({
             { name = 'buffer' },
         }
     )
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    sources = {
+      { name = 'buffer' }
+    }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+    sources = cmp.config.sources({
+      { name = 'path' }
+    }, {
+      { name = 'cmdline' }
+    })
 })
 
 
