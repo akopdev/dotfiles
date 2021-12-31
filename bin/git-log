@@ -6,6 +6,11 @@ git log --graph --color=always --abbrev-commit \
 fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
     --header $(basename `git rev-parse --show-toplevel`) \
     --bind "ctrl-n:preview-down,ctrl-p:preview-up" \
+    --bind "ctrl-y:execute:
+        (grep -o '[a-f0-9]\{7\}' | head -1 |
+        xargs -I $ zsh -c 'git rev-list --format=%B --max-count=1 $ | tail +2 | xclip -selection c') << 'FZF-EOF'
+        {}
+        FZF-EOF" \
     --bind "ctrl-m:execute:
         (grep -o '[a-f0-9]\{7\}' | head -1 |
         xargs -I % zsh -c 'git show --color=always % | delta --diff-so-fancy --side-by-side --paging=always && clear') << 'FZF-EOF'
