@@ -10,6 +10,8 @@ require "paq" {
     "hrsh7th/cmp-buffer";
     "hrsh7th/cmp-path";
     "hrsh7th/cmp-cmdline";
+    "hrsh7th/cmp-vsnip";
+    "hrsh7th/vim-vsnip";
     "hrsh7th/nvim-cmp";
 
     "airblade/vim-gitgutter";
@@ -25,9 +27,6 @@ require "paq" {
     "lukas-reineke/indent-blankline.nvim";
     "glepnir/dashboard-nvim";
     "tpope/vim-fugitive";
-    "rafamadriz/friendly-snippets";
-    "hrsh7th/vim-vsnip";
-    "hrsh7th/vim-vsnip-integ";
 
     "neovim/nvim-lspconfig";
     "williamboman/nvim-lsp-installer";
@@ -218,6 +217,7 @@ vim.g.bufferline = {
 --
 
 vim.o.completeopt = 'menuone,noinsert,noselect'
+vim.g.vsnip_snippet_dir = '~/.config/nvim/vsnip'
 
 local cmp = require'cmp'
 
