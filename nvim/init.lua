@@ -71,6 +71,8 @@ vim.opt.autoindent = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.foldenable = false
 vim.opt.breakindent = true
+vim.o.title = true
+vim.o.titlestring = "%{substitute(getcwd(), '.*/', '', '')}"
 
 vim.g.mapleader = ' '
 
