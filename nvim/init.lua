@@ -404,6 +404,29 @@ nvim_lsp["yamlls"].setup {
       }
     } 
 }
+
+
+-- Angular
+nvim_lsp["angularls"].setup {
+    on_attach = on_attach,
+}
+
+-- Go lang
+nvim_lsp["gopls"].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = {"gopls", "serve"},
+    settings = {
+        gopls = {
+            experimentalPostfixCompletions = true,
+            analyses = {
+                unusedparams = true,
+                shadow = true,
+            },
+            staticcheck = true,
+       }
+    }
+}
 -- Customizing how diagnostics are displayed
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
   virtual_text = false,

@@ -2,6 +2,9 @@
 export ZSH=$HOME/.dotfiles
 export PROJECTS=$HOME/Projects
 export EDITOR=nvim
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # On linux add PATH to brew 
 if [ -f "$HOME/.linuxbrew/bin/brew" ]
