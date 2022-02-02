@@ -62,6 +62,12 @@ focus_follows_mouse no
 # start a terminal
 bindsym $mod+Return exec kitty
 
+# take a screenshot
+bindsym --release $mod+s exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
+
+# open file manager
+bindsym $mod+space exec kitty -e ranger 
+
 # kill focused window
 bindsym $mod+w kill
 
@@ -73,6 +79,10 @@ bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
 bindsym $mod+semicolon focus right
+
+# moving to next and previous workspace
+bindsym $mod+Tab workspace prev
+bindsym $mod+Shift+Tab workspace next
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -86,12 +96,6 @@ bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
 bindsym $mod+Shift+semicolon move right
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
 # split in horizontal orientation
 bindsym $mod+h split h
 
@@ -102,11 +106,8 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+t layout tabbed
-bindsym $mod+s layout toggle split
-
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+s layout toggle split
 
 # focus the parent container
 bindsym $mod+a focus parent
