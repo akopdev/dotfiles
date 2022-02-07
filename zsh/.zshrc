@@ -2,14 +2,14 @@
 export ZSH=$HOME/.dotfiles
 export PROJECTS=$HOME/Projects
 export EDITOR=nvim
-export GOROOT=/usr/local/go
+export GOROOT=/usr/local
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
 # On linux add PATH to brew 
-if [ -f "$HOME/.linuxbrew/bin/brew" ]
+if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]
 then
-  eval "$($HOME/.linuxbrew/bin/brew shellenv)"
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # all of our zsh files
