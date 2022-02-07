@@ -1,144 +1,171 @@
-#!/bin/bash
-set -u
+#!/usr/bin/env bash
 
-if [ -z "${BASH_VERSION:-}" ]
-then
-  abort "Bash is required to interpret this script."
+BOLD='\033[0;1m'
+GREEN='\033[1;32m'
+PURPLE='\033[1;35m'
+RED='\033[1;31m'
+RESET='\033[0m'
+YELLOW='\033[1;33m'
+
+LOG_LEVEL_EMERGENCY=10
+LOG_LEVEL_ALERT=10
+LOG_LEVEL_CRITICAL=10
+LOG_LEVEL_ERROR=10
+LOG_LEVEL_WARNING=10
+LOG_LEVEL_NOTICE=10
+LOG_LEVEL_INFO=10
+LOG_LEVEL_DEBUG=10
+
+LOG_LEVEL=$LOG_LEVEL_INFO
+
+HOME="/home/$(whoami)"
+DOTFILES="${HOME}/.dotfiles"
+
+
+error() {
+  if [[ $LOG_LEVEL -ge $LOG_LEVEL_ERROR ]]; then
+    echo -e "${RED}[error]  ${RESET} $*" > /dev/stderr
+  fi
+}
+
+info() {
+  if [[ $LOG_LEVEL -ge $LOG_LEVEL_INFO ]]; then
+    echo -e "${GREEN}[info] ${RESET} $*" > /dev/stderr
+  fi
+}
+
+warn() {
+  if [[ $LOG_LEVEL -ge $LOG_LEVEL_WARNING ]]; then
+    echo -e "${YELLOW}[warning]${RESET} $*" > /dev/stderr
+  fi
+}
+
+abort() {
+  error "$@"
+  exit 1
+}
+
+have_sudo_access() {
+  if [[ ! -x "/usr/bin/sudo" ]]; then
+    return 1
+  fi
+
+  local -a SUDO=("/usr/bin/sudo")
+  if [[ -n "${SUDO_ASKPASS-}" ]]; then
+    SUDO+=("-A")
+  elif [[ -n "${NONINTERACTIVE-}" ]]; then
+    SUDO+=("-n")
+  fi
+
+  if [[ -z "${HAVE_SUDO_ACCESS-}" ]]; then
+    if [[ -n "${NONINTERACTIVE-}" ]]; then
+      "${SUDO[@]}" -l mkdir &>/dev/null
+    else
+      "${SUDO[@]}" -v && "${SUDO[@]}" -l mkdir &>/dev/null
+    fi
+    HAVE_SUDO_ACCESS="$?"
+  fi
+
+  if [[ -z "${IS_LINUX-}" ]] && [[ "${HAVE_SUDO_ACCESS}" -ne 0 ]]; then
+    abort "Need sudo access on macOS (e.g. the user ${USER} needs to be an Administrator)!"
+  fi
+
+  return "${HAVE_SUDO_ACCESS}"
+}
+
+shell_join() {
+  local arg
+  printf "%s" "${1}"
+  shift
+  for arg in "$@"
+  do
+    printf " "
+    printf "%s" "${arg// /\ }"
+  done
+}
+
+execute() {
+  if [[ ! "$@" ]]; then
+    abort "$(printf "Failed during: %s" "$(shell_join "$@")")"
+  fi
+}
+
+execute_sudo() {
+  local -a args=("$@")
+  if have_sudo_access; then
+    if [[ -n "${SUDO_ASKPASS-}" ]]; then
+      args=("-A" "${args[@]}")
+    fi
+    execute "/usr/bin/sudo" "${args[@]}"
+  else
+    execute "${args[@]}"
+  fi
+}
+
+link_dir() {
+  if [ ! -d "${HOME}/${1}" ]; then
+    ln -s "${BASH_SOURCE[1]%"/setup.sh"}" "$HOME/${1}"
+  fi
+}
+
+link_file() {
+  if [ ! -f "${HOME}/${1}" ]; then
+    ln -s "${BASH_SOURCE[1]%"/setup.sh"}/${1}" "$HOME/${1}"
+  fi
+}
+
+bi() {
+  if [[ ! $(brew list $1 &>/dev/null) ]]; then
+    info " Installing ${1} ..."
+    brew install $1
+  fi
+}
+
+
+
+# Check operation system
+OS="$(uname)"
+if [[ "${OS}" == "Linux" ]]; then
+  if [[ ! -f /etc/debian_version ]]; then
+    abort "We support only Debian based distributives"
+  fi
+
+  IS_LINUX=1
+
+  info "Installing base packages ..."
+  execute_sudo apt-get install -y build-essential \
+    wget \
+    git \
+    zsh \
+    software-properties-common \
+    python3-dev \
+    python3-pip
+
+  info "Installing Brew for linux ..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+elif [[ "${OS}" != "Darwin" ]]; then
+  abort "Not supported OS."
 fi
 
-USER="akopkesheshyan"
-HOME="/home/$USER"
-
-if [[ "$(uname)" == "Linux" ]]
-then
-  # --------------------------------------------------------------------
-  # We assume that docker, k8s, and brew are already installed on MacOS
-  # however for linux we should setup everything from scratch
-  # --------------------------------------------------------------------
-
-
-  # Let's create normal user first
-  if ! id "$USER" &>/dev/null
-  then
-    echo "Settings password for $USER:"
-    useradd -m "$USER"
-    passwd "$USER"
-  fi
-
-  # Install essentials
-  apt install -y build-essential wget git zsh software-properties-common python-dev python-pip python3-dev python3-pip
-
-  # Make zsh default shell
-  su "$USER" -c 'chsh -s $(which zsh)'
-
-  # Install Docker
-  if ! command -v docker > /dev/null
-  then
-    apt install -y apt-transport-https ca-certificates gnupg lsb-release
-
-    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-    apt update
-    apt install -y docker-ce docker-ce-cli containerd.io
-  fi
-
-  # Install minikube and k8s tools 
-  if ! command minikube > /dev/null
-  then
-    apt install -y qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils virtinst libvirt-daemon virt-manager conntrack
-
-    wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-    mv minikube-linux-amd64 /usr/local/bin/minikube
-    chmod +x /usr/local/bin/minikube
-  fi
-
-  if ! command kubectl > /dev/null
-  then
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-    mv ./kubectl /usr/local/bin/kubectl
-    chmod +x /usr/local/bin/kubectl
-  fi
-
-  # If it is a host machine, we should install additional packages
-  apt install -y i3 rofi xorg kitty
-
-  # We use brew as our main package manager
-  su "$USER" -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
-  su "$USER" -c '/bin/bash -c "eval $('"$HOME"'/.linuxbrew/bin/brew shellenv)"'
-
-  echo 'eval "$('"$HOME"'/.linuxbrew/bin/brew shellenv)"' >> "$HOME/.bashrc"
-
+if [[ -n "${ZSH_VERSION}" ]]; then
+  info "Make zsh the default shell"
+  chsh -s $(which zsh)
 fi
 
-DOTFILES="$HOME/.dotfiles"
-
-if [ ! -d "$DOTFILES" ]
-then
+if [[ ! -d "${DOTFILES}" ]]; then
+  info "Download dotfiles ..."
   git clone https://github.com/akopkesheshyan/dotfiles.git "$DOTFILES" 
 fi
 
-# Install dependencies
-su "$USER" -c '/bin/bash -c "cd ~ && '"$HOME"'/.linuxbrew/bin/brew  install zsh-autosuggestions zsh-vi-mode bc fzf exa htop bat git-delta ctop neovim nodejs npm"'
+info "Setting up local folders ..."
+for folder in "Projects" ".config"; do
+  if [[ ! -d "${HOME}/${folder}" ]]; then 
+    mkdir "${HOME}/${folder}"
+  fi
+done
 
-# Create project folder used by "p" alias
-[ ! -d "$HOME/Projects" ] && mkdir "$HOME/Projects"
-
-# Create symlinks
-[ ! -d "$HOME/.config" ] && mkdir "$HOME/.config"
-
-if [ ! -f "$HOME/.zshrc" ]
-then
-  ln -s "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
-fi
-
-if [ ! -f "$HOME/.gitconfig" ]
-then
-  ln -s "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
-fi
-
-if [ ! -d "$HOME/.config/nvim" ]
-then
-  ln -s "$DOTFILES/nvim" "$HOME/.config/nvim"
-fi
-
-if [ ! -d "$HOME/.config/kitty" ]
-then
-  ln -s "$DOTFILES/kitty" "$HOME/.config/kitty"
-fi
-
-
-if [ ! -d "$HOME/.config/bat" ]
-then
-  ln -s "$DOTFILES/bat" "$HOME/.config/bat"
-fi
-
-if [ ! -d "$HOME/.config/ranger" ]
-then
-  ln -s "$DOTFILES/ranger" "$HOME/.config/ranger"
-fi
-
-if [ ! -d "$HOME/.config/i3" ]
-then
-  ln -s "$DOTFILES/i3" "$HOME/.config/i3"
-fi
-
-if [ ! -d "$HOME/.config/i3status" ]
-then
-  ln -s "$DOTFILES/i3status" "$HOME/.config/i3status"
-fi
-
-if [ ! -d "$HOME/.local/share/rofi/themes" ]
-then
-  mkdir "$HOME/.local/share/rofi" 
-  ln -s "$DOTFILES/rofi" "$HOME/.local/share/rofi/themes"
-fi
-### Setup additional packages
-
-## neovim
-
-git clone --depth=1 https://github.com/savq/paq-nvim.git \
-    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
-
+install_scripts=($DOTFILES/*/setup.sh)
+for file in ${install_scripts}; do
+  source $file
+done
