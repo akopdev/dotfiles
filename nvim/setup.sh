@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 pkg_install nvim
+pkg_install python3
 pkg_install go
 pkg_install gopls
 

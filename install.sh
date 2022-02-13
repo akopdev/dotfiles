@@ -18,27 +18,25 @@ LOG_LEVEL_DEBUG=10
 
 LOG_LEVEL=$LOG_LEVEL_INFO
 
-NONINTERACTIVE=1
-
 HOME="/home/$(whoami)"
 DOTFILES="${HOME}/.dotfiles"
 INSTALL_SCRIPT_VERSION="1.0.0"
 
 error() {
   if [[ $LOG_LEVEL -ge $LOG_LEVEL_ERROR ]]; then
-    echo -e "${RED}[error]  ${RESET} $*" 1>&2
+    echo -e "${RED}[X]${RESET} $*" 1>&2
   fi
 }
 
 info() {
   if [[ $LOG_LEVEL -ge $LOG_LEVEL_INFO ]]; then
-    echo -e "${GREEN}[info] ${RESET} $*" 1>&2
+    echo -e "${GREEN}[+]${RESET} $*" 1>&2
   fi
 }
 
 warn() {
   if [[ $LOG_LEVEL -ge $LOG_LEVEL_WARNING ]]; then
-    echo -e "${YELLOW}[warning]${RESET} $*" 1>&2
+    echo -e "${YELLOW}[!]${RESET} $*" 1>&2
   fi
 }
 
@@ -78,7 +76,24 @@ check_if_installed() {
   command -v ${1} &> /dev/null
 }
 
-info "Running install script version ${INSTALL_SCRIPT_VERSION}"
+clear
+cat << EOF
+ _____        _    __ _ _           
+|  __ \      | |  / _(_) |          
+| |  | | ___ | |_| |_ _| | ___  ___ 
+| |  | |/ _ \| __|  _| | |/ _ \/ __|
+| |__| | (_) | |_| | | | |  __/\__ \ 
+|_____/ \___/ \__|_| |_|_|\___||___/
+
+by Akop Kesheshyan           v${INSTALL_SCRIPT_VERSION}
+
+EOF
+
+read -p "This script will make changes on your current machine, continue? " -n 1 -r
+echo # add extra line after prompt
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  exit 1
+fi
 
 # Should not be a root user
 if [[ $(id -u) == 0 ]]; then
@@ -107,9 +122,7 @@ if [[ "${OS}" == "Linux" ]]; then
               wget \
               git \
               zsh \
-              software-properties-common \
-              python3-dev \
-              python3-pip
+              software-properties-common
 
   info "Installing brew package manager ..."
   yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -167,3 +180,6 @@ else
     source $file
   done
 fi
+
+info "The installation was successfully completed!"
+exit 0
