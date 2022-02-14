@@ -31,13 +31,13 @@ setopt HIST_REDUCE_BLANKS
 setopt complete_aliases
 
 # Edit the current command line in $EDITOR
-autoload -U edit-command-line
-zle -N edit-command-line
+# autoload -U edit-command-line
+# zle -N edit-command-line
 
-bindkey '^E' edit-command-line          # ctrl  + e
-bindkey '^[[1;2D' backward-word         # shift + left
-bindkey '^[[1;2C' forward-word          # shirt + right
-bindkey '^[[1;3D' beginning-of-line     # alt   + left
-bindkey '^[[1;3C' end-of-line           # alt   + right
+# bindkey '^E' edit-command-line          # ctrl  + e
+# bindkey '^[[1;2D' backward-word         # shift + left
+# bindkey '^[[1;2C' forward-word          # shirt + right
+# bindkey '^[[1;3D' beginning-of-line     # alt   + left
+# bindkey '^[[1;3C' end-of-line           # alt   + right
 # bindkey '^[[3~' delete-char
 # bindkey '^?' backward-delete-chart

@@ -20,86 +20,29 @@ LOG_LEVEL=$LOG_LEVEL_INFO
 
 HOME="/home/$(whoami)"
 DOTFILES="${HOME}/.dotfiles"
-
+INSTALL_SCRIPT_VERSION="1.0.0"
 
 error() {
   if [[ $LOG_LEVEL -ge $LOG_LEVEL_ERROR ]]; then
-    echo -e "${RED}[error]  ${RESET} $*" > /dev/stderr
+    echo -e "${RED}[X]${RESET} $*" 1>&2
   fi
 }
 
 info() {
   if [[ $LOG_LEVEL -ge $LOG_LEVEL_INFO ]]; then
-    echo -e "${GREEN}[info] ${RESET} $*" > /dev/stderr
+    echo -e "${GREEN}[+]${RESET} $*" 1>&2
   fi
 }
 
 warn() {
   if [[ $LOG_LEVEL -ge $LOG_LEVEL_WARNING ]]; then
-    echo -e "${YELLOW}[warning]${RESET} $*" > /dev/stderr
+    echo -e "${YELLOW}[!]${RESET} $*" 1>&2
   fi
 }
 
 abort() {
   error "$@"
   exit 1
-}
-
-have_sudo_access() {
-  if [[ ! -x "/usr/bin/sudo" ]]; then
-    return 1
-  fi
-
-  local -a SUDO=("/usr/bin/sudo")
-  if [[ -n "${SUDO_ASKPASS-}" ]]; then
-    SUDO+=("-A")
-  elif [[ -n "${NONINTERACTIVE-}" ]]; then
-    SUDO+=("-n")
-  fi
-
-  if [[ -z "${HAVE_SUDO_ACCESS-}" ]]; then
-    if [[ -n "${NONINTERACTIVE-}" ]]; then
-      "${SUDO[@]}" -l mkdir &>/dev/null
-    else
-      "${SUDO[@]}" -v && "${SUDO[@]}" -l mkdir &>/dev/null
-    fi
-    HAVE_SUDO_ACCESS="$?"
-  fi
-
-  if [[ -z "${IS_LINUX-}" ]] && [[ "${HAVE_SUDO_ACCESS}" -ne 0 ]]; then
-    abort "Need sudo access on macOS (e.g. the user ${USER} needs to be an Administrator)!"
-  fi
-
-  return "${HAVE_SUDO_ACCESS}"
-}
-
-shell_join() {
-  local arg
-  printf "%s" "${1}"
-  shift
-  for arg in "$@"
-  do
-    printf " "
-    printf "%s" "${arg// /\ }"
-  done
-}
-
-execute() {
-  if [[ ! "$@" ]]; then
-    abort "$(printf "Failed during: %s" "$(shell_join "$@")")"
-  fi
-}
-
-execute_sudo() {
-  local -a args=("$@")
-  if have_sudo_access; then
-    if [[ -n "${SUDO_ASKPASS-}" ]]; then
-      args=("-A" "${args[@]}")
-    fi
-    execute "/usr/bin/sudo" "${args[@]}"
-  else
-    execute "${args[@]}"
-  fi
 }
 
 link_dir() {
@@ -114,14 +57,53 @@ link_file() {
   fi
 }
 
-bi() {
-  if [[ ! $(brew list $1 &>/dev/null) ]]; then
-    info " Installing ${1} ..."
-    brew install $1
+check_if_pkg_installed() {
+  brew list ${1} &> /dev/null
+}
+
+pkg_install() {
+  info "Installing ${1} ..."
+  if ! check_if_pkg_installed ${1}; then
+    brew install ${1} || abort "Failed to install ${1}."
   fi
 }
 
+apt_install() {
+  sudo apt-get update && sudo apt-get install -y "$@"
+}
 
+check_if_installed() {
+  command -v ${1} &> /dev/null
+}
+
+clear
+cat << EOF
+ _____        _    __ _ _           
+|  __ \      | |  / _(_) |          
+| |  | | ___ | |_| |_ _| | ___  ___ 
+| |  | |/ _ \| __|  _| | |/ _ \/ __|
+| |__| | (_) | |_| | | | |  __/\__ \ 
+|_____/ \___/ \__|_| |_|_|\___||___/
+
+by Akop Kesheshyan           v${INSTALL_SCRIPT_VERSION}
+
+EOF
+
+read -p "This script will make changes on your current machine, continue? " -n 1 -r
+echo # add extra line after prompt
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  exit 1
+fi
+
+# Should not be a root user
+if [[ $(id -u) == 0 ]]; then
+abort "Don't run this as root!
+
+This is how to create a new user:
+
+# adduser <username>
+# usermod -aG sudo <username>"
+fi
 
 # Check operation system
 OS="$(uname)"
@@ -132,30 +114,41 @@ if [[ "${OS}" == "Linux" ]]; then
 
   IS_LINUX=1
 
-  info "Installing base packages ..."
-  execute_sudo apt-get install -y build-essential \
-    wget \
-    git \
-    zsh \
-    software-properties-common \
-    python3-dev \
-    python3-pip
+  info "Installing core packages ..."
+  apt_install build-essential \
+              procps \
+              curl \
+              file \
+              wget \
+              git \
+              zsh \
+              software-properties-common
 
-  info "Installing Brew for linux ..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  info "Installing brew package manager ..."
+  yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # make visible to shell
+  echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/$(whoami)/.profile
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+  # Check, if brew was installed correctly
+  if ! check_if_installed "brew"; then
+    abort "Failed to install brew package manager"
+  fi
+
+  # Change default shell to zsh
+  if [[ -n "${ZSH_VERSION}" ]]; then
+    info "Make zsh the default shell"
+    chsh -s $(which zsh)
+  fi
 
 elif [[ "${OS}" != "Darwin" ]]; then
   abort "Not supported OS."
 fi
 
-if [[ -n "${ZSH_VERSION}" ]]; then
-  info "Make zsh the default shell"
-  chsh -s $(which zsh)
-fi
-
 if [[ ! -d "${DOTFILES}" ]]; then
   info "Download dotfiles ..."
-  git clone https://github.com/akopkesheshyan/dotfiles.git "$DOTFILES" 
+  git clone --branch install https://github.com/akopkesheshyan/dotfiles.git "$DOTFILES" 
 fi
 
 info "Setting up local folders ..."
@@ -165,7 +158,28 @@ for folder in "Projects" ".config"; do
   fi
 done
 
-install_scripts=($DOTFILES/*/setup.sh)
-for file in ${install_scripts}; do
+pkg_install node
+
+info "Installing npm packages"
+for npm_package in `cat ${DOTFILES}/npm-packages.txt`; do
+    npm i -g ${npm_package}
+done
+
+# Run general setup scripts
+for file in $DOTFILES/**/setup.sh; do
   source $file
 done
+
+# Run OS specific scripts
+if [[ ! -z "${IS_LINUX-}" ]]; then
+  for file in $DOTFILES/**/setup-linux.sh; do
+    source $file
+  done
+else
+  for file in $DOTFILES/**/setup-osx.sh; do
+    source $file
+  done
+fi
+
+info "The installation was successfully completed!"
+exit 0
