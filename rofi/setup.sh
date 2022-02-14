@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-link_dir ".local/share/rofi"
+link_dir ".config/rofi"
