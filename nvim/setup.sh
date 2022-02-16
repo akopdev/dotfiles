@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-pkg_install nvim
-pkg_install python3
-pkg_install go
-pkg_install gopls
-
-if [[ ! -d "${HOME}/go" ]]; then
-    mkdir "${HOME}/go"
-fi
-
 link_dir ".config/nvim"
 
 info "Installing plugin manager for nvim"
@@ -22,4 +13,4 @@ pip install --user \
     neovim \
     pyright
 
-nvim -E +PaqInstall +qall || true
+nvim -E +PaqInstall +PaqUpdate +q
