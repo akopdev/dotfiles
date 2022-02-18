@@ -72,7 +72,7 @@ bindsym $mod+space exec kitty -e ranger
 bindsym $mod+w kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id rofi -show drun -theme rose-pine-moon 
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme .config/rofi/themes/rose-pine-moon 
 
 # change focus
 bindsym $mod+j focus left

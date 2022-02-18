@@ -1,0 +1,13 @@
+typescript
+pyright
+typescript-language-server
+bash-language-server
+yaml-language-server
+dockerfile-language-service
+vscode-html-languageserver-bin
+vscode-html-languageservice
+vscode-langservers-extracted
+@angular/language-server
+@angular/cli
+yarn
+eslint

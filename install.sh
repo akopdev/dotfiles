@@ -1,144 +1,142 @@
-#!/bin/bash
-set -u
+#!/usr/bin/env bash
 
-if [ -z "${BASH_VERSION:-}" ]
-then
-  abort "Bash is required to interpret this script."
+BOLD='\033[0;1m'
+GREEN='\033[1;32m'
+PURPLE='\033[1;35m'
+RED='\033[1;31m'
+RESET='\033[0m'
+YELLOW='\033[1;33m'
+
+LOG_LEVEL_EMERGENCY=10
+LOG_LEVEL_ALERT=10
+LOG_LEVEL_CRITICAL=10
+LOG_LEVEL_ERROR=10
+LOG_LEVEL_WARNING=10
+LOG_LEVEL_NOTICE=10
+LOG_LEVEL_INFO=10
+LOG_LEVEL_DEBUG=10
+
+LOG_LEVEL=$LOG_LEVEL_INFO
+
+HOME="/home/$(whoami)"
+DOTFILES="${HOME}/.dotfiles"
+INSTALL_SCRIPT_VERSION="1.0.0"
+
+clear
+cat << EOF
+ _____        _    __ _ _           
+|  __ \      | |  / _(_) |          
+| |  | | ___ | |_| |_ _| | ___  ___ 
+| |  | |/ _ \| __|  _| | |/ _ \/ __|
+| |__| | (_) | |_| | | | |  __/\__ \ 
+|_____/ \___/ \__|_| |_|_|\___||___/
+
+by Akop Kesheshyan           v${INSTALL_SCRIPT_VERSION}
+
+EOF
+
+read -p "This script will make changes on your current machine, continue? " -n 1 -r
+echo # add extra line after prompt
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+  exit 1
 fi
 
-USER="akopkesheshyan"
-HOME="/home/$USER"
+# Should not be a root user
+if [[ $(id -u) == 0 ]]; then
+cat << EOF
+Don't run this as root!
 
-if [[ "$(uname)" == "Linux" ]]
-then
-  # --------------------------------------------------------------------
-  # We assume that docker, k8s, and brew are already installed on MacOS
-  # however for linux we should setup everything from scratch
-  # --------------------------------------------------------------------
+This is how to create a new user:
 
-
-  # Let's create normal user first
-  if ! id "$USER" &>/dev/null
-  then
-    echo "Settings password for $USER:"
-    useradd -m "$USER"
-    passwd "$USER"
-  fi
-
-  # Install essentials
-  apt install -y build-essential wget git zsh software-properties-common python-dev python-pip python3-dev python3-pip
-
-  # Make zsh default shell
-  su "$USER" -c 'chsh -s $(which zsh)'
-
-  # Install Docker
-  if ! command -v docker > /dev/null
-  then
-    apt install -y apt-transport-https ca-certificates gnupg lsb-release
-
-    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
-      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-    apt update
-    apt install -y docker-ce docker-ce-cli containerd.io
-  fi
-
-  # Install minikube and k8s tools 
-  if ! command minikube > /dev/null
-  then
-    apt install -y qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils virtinst libvirt-daemon virt-manager conntrack
-
-    wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-    mv minikube-linux-amd64 /usr/local/bin/minikube
-    chmod +x /usr/local/bin/minikube
-  fi
-
-  if ! command kubectl > /dev/null
-  then
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
-    mv ./kubectl /usr/local/bin/kubectl
-    chmod +x /usr/local/bin/kubectl
-  fi
-
-  # If it is a host machine, we should install additional packages
-  apt install -y i3 rofi xorg kitty
-
-  # We use brew as our main package manager
-  su "$USER" -c '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
-  su "$USER" -c '/bin/bash -c "eval $('"$HOME"'/.linuxbrew/bin/brew shellenv)"'
-
-  echo 'eval "$('"$HOME"'/.linuxbrew/bin/brew shellenv)"' >> "$HOME/.bashrc"
-
+# adduser <username>
+# usermod -aG sudo <username>
+EOF
+exit 1
 fi
 
-DOTFILES="$HOME/.dotfiles"
-
-if [ ! -d "$DOTFILES" ]
-then
+if [[ ! -d "${DOTFILES}" ]]; then
+  info "Download dotfiles ..."
   git clone https://github.com/akopkesheshyan/dotfiles.git "$DOTFILES" 
 fi
 
-# Install dependencies
-su "$USER" -c '/bin/bash -c "cd ~ && '"$HOME"'/.linuxbrew/bin/brew  install zsh-autosuggestions zsh-vi-mode bc fzf exa htop bat git-delta ctop neovim nodejs npm"'
+source ${DOTFILES}/install/common.sh
 
-# Create project folder used by "p" alias
-[ ! -d "$HOME/Projects" ] && mkdir "$HOME/Projects"
+# Check operation system
+OS="$(uname)"
+if [[ "${OS}" == "Linux" ]]; then
+  if [[ ! -f /etc/debian_version ]]; then
+    abort "We support only Debian based distributives"
+  fi
 
-# Create symlinks
-[ ! -d "$HOME/.config" ] && mkdir "$HOME/.config"
+  IS_LINUX=1
 
-if [ ! -f "$HOME/.zshrc" ]
-then
-  ln -s "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
+  info "Installing core packages ..."
+  apt_install build-essential \
+              procps \
+              curl \
+              file \
+              zsh \
+              software-properties-common
+
+  info "Installing brew package manager ..."
+  yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+  # make visible to shell
+  echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/$(whoami)/.profile
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+  # Check, if brew was installed correctly
+  if ! check_if_installed "brew"; then
+    abort "Failed to install brew package manager"
+  fi
+
+  # Change default shell to zsh
+  if [[ -n "${ZSH_VERSION}" ]]; then
+    info "Make zsh the default shell"
+    chsh -s $(which zsh)
+  fi
+
+elif [[ "${OS}" != "Darwin" ]]; then
+  abort "Not supported OS."
 fi
 
-if [ ! -f "$HOME/.gitconfig" ]
-then
-  ln -s "$DOTFILES/git/.gitconfig" "$HOME/.gitconfig"
+info "Setting up local folders ..."
+for folder in "Projects" ".config"; do
+  if [[ ! -d "${HOME}/${folder}" ]]; then 
+    mkdir "${HOME}/${folder}"
+  fi
+done
+
+info "Installing brew packages"
+for brew_package in `cat ${DOTFILES}/install/brew-packages.txt`
+do
+  pkg_install ${brew_package}
+done
+
+info "Installing npm packages"
+for npm_package in `cat ${DOTFILES}/install/npm-packages.txt`
+do
+  npm i -g ${npm_package}
+done
+
+# Run general setup scripts
+for file in $DOTFILES/**/setup.sh
+do
+  source $file
+done
+
+# Run OS specific scripts
+if [[ ! -z "${IS_LINUX-}" ]]; then
+  for file in $DOTFILES/**/setup-linux.sh 
+  do
+    source $file
+  done
+else
+  for file in $DOTFILES/**/setup-osx.sh 
+  do
+    source $file
+  done
 fi
 
-if [ ! -d "$HOME/.config/nvim" ]
-then
-  ln -s "$DOTFILES/nvim" "$HOME/.config/nvim"
-fi
-
-if [ ! -d "$HOME/.config/kitty" ]
-then
-  ln -s "$DOTFILES/kitty" "$HOME/.config/kitty"
-fi
-
-
-if [ ! -d "$HOME/.config/bat" ]
-then
-  ln -s "$DOTFILES/bat" "$HOME/.config/bat"
-fi
-
-if [ ! -d "$HOME/.config/ranger" ]
-then
-  ln -s "$DOTFILES/ranger" "$HOME/.config/ranger"
-fi
-
-if [ ! -d "$HOME/.config/i3" ]
-then
-  ln -s "$DOTFILES/i3" "$HOME/.config/i3"
-fi
-
-if [ ! -d "$HOME/.config/i3status" ]
-then
-  ln -s "$DOTFILES/i3status" "$HOME/.config/i3status"
-fi
-
-if [ ! -d "$HOME/.local/share/rofi/themes" ]
-then
-  mkdir "$HOME/.local/share/rofi" 
-  ln -s "$DOTFILES/rofi" "$HOME/.local/share/rofi/themes"
-fi
-### Setup additional packages
-
-## neovim
-
-git clone --depth=1 https://github.com/savq/paq-nvim.git \
-    "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/pack/paqs/start/paq-nvim
-
+info "The installation was successfully completed!"
+exit 0
