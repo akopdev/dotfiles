@@ -491,7 +491,7 @@ map('n', '<leader>ff', '<cmd>Telescope find_files theme=get_ivy<cr>', opts)
 map('n', '<leader>gc', '<cmd>Telescope git_commits<cr>', opts)
 map('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', opts)
 map('n', '<leader>gs', '<cmd>Telescope git_status<cr>', opts)
-map('n', '<leader>d',  '<cmd>Telescope lsp_document_diagnostics theme=get_ivy<cr>', opts)
+map('n', '<leader>d',  '<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>', opts)
 map('n', '<leader>a',  '<cmd>Telescope lsp_code_actions theme=get_ivy<cr>', opts)
 
 local actions = require('telescope.actions')
