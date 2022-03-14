@@ -2,7 +2,7 @@
 export ZSH=$HOME/.dotfiles
 export PROJECTS=$HOME/Projects
 export EDITOR=nvim
-export GOROOT=/usr/local
+export GOROOT=$(brew --prefix golang)/libexec
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
