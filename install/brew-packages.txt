@@ -19,3 +19,4 @@ xclip
 ctop
 docker
 docker-compose
+gitlab-ci-local
