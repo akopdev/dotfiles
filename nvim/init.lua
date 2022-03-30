@@ -150,7 +150,9 @@ map('',  '<S-l>',           'e<Right>',                          opts)
 -- Beginning and end rows
 map('n', '<C-l>',           '$l',                                opts)
 map('i', '<C-l>',           '<C-o>$',                            opts)
+map('v', '<C-l>',           '$',                                 opts)
 map('n', '<C-h>',           '0',                                 opts)
+map('v', '<C-h>',           '0',                                 opts)
 map('i', '<C-h>',           '<C-o>0',                            opts)
 
 -- Move lines
@@ -165,8 +167,8 @@ map('v', '<C-k>',           ':m \'<-2<CR>gv=gv',                 opts)
 map('n', 'y',               'wbvey',                             opts)
 map('n', 'Y',               'yy',                                opts)
 
--- Paste to a new line     
-map('v', 'p',               '"0p',                               opts)
+-- Paste     
+map('v', 'p',               '"_dP<Esc>',                               opts)
 map('n', 'P',               ':pu<CR>',                           opts)
 
 -- highlight
