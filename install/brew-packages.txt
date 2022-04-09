@@ -20,3 +20,4 @@ ctop
 docker
 docker-compose
 gitlab-ci-local
+feh
