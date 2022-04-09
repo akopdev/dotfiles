@@ -96,8 +96,8 @@ bindsym $mod+w exec "xdotool getactivewindow | xargs -I '{}' i3-nagbar -t warnin
 bindsym $mod+d exec --no-startup-id rofi -show drun -theme .config/rofi/themes/rose-pine-moon 
 
 # change focus
-bindsym $mod+j focus next
-bindsym $mod+k focus prev
+bindsym $mod+j focus right
+bindsym $mod+k focus left
 
 # use macos-like approach
 bindsym $mod+Tab focus next
