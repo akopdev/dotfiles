@@ -4,11 +4,17 @@ set $mod Mod4
 # Basic font
 font pango:MesloLGS NF Regular 10
 
+# Change gap size
+gaps outer 5
+gaps inner 20
+gaps top 5
+smart_gaps on
+
 # Hide window title bar
 default_border pixel 1
 default_floating_border pixel 1
 
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 new_window 1pixel
 hide_edge_borders smart
 
@@ -45,6 +51,8 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 
+# Run startup wallpaper
+exec_always --no-startup-id feh --bg-fill $(ls --no-icons .wallpapers/*.(png|jpg) | shuf -n 1)
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -60,29 +68,40 @@ floating_modifier $mod
 focus_follows_mouse no
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+space exec kitty
 
 # take a screenshot
 bindsym --release $mod+s exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
 
 # open file manager
-bindsym $mod+space exec kitty -e ranger 
+bindsym $mod+f exec kitty -e ranger 
+
+# open browser
+bindsym $mod+b exec firefox
 
 # kill focused window
-bindsym $mod+w kill
+set $close "Do you really want to close the window? (y/n)"
+
+mode $close {
+    bindsym y kill, mode default
+    bindsym Return kill, mode default
+
+    bindsym n mode default
+    bindsym Escape mode default
+}
+
+bindsym $mod+w exec "xdotool getactivewindow | xargs -I '{}' i3-nagbar -t warning -m 'Do you really want to close this?' -b 'Yes' 'killall i3-nagbar; i3-msg [id='{}'] kill' -b 'No' 'killall i3-nagbar; i3-msg nop'"
 
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id rofi -show drun -theme .config/rofi/themes/rose-pine-moon 
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+j focus next
+bindsym $mod+k focus prev
 
-# moving to next and previous workspace
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
+# use macos-like approach
+bindsym $mod+Tab focus next
+bindsym $mod+Shift+Tab focus prev
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -92,25 +111,10 @@ bindsym $mod+Right focus right
 
 # move focused window
 bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
-# split in horizontal orientation
-bindsym $mod+h split h
-
-# split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+Shift+k move right
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Shift+t layout tabbed
-bindsym $mod+Shift+s layout toggle split
-
-# focus the parent container
-bindsym $mod+a focus parent
+bindsym $mod+Enter fullscreen toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -160,14 +164,8 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
         bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym k resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -178,7 +176,6 @@ mode "resize" {
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -190,15 +187,15 @@ bar {
     position top
 
     colors {
-        background $base0C
-        separator  $base0C
-        statusline $base00
+        background $base01
+        separator  $base01
+        statusline $base01
 
         # State             Border  BG      Text
-        focused_workspace   $base0D $base0D $base00
+        focused_workspace   $base0B $base0B $base00
         active_workspace    $base0C $base0C $base05
-        inactive_workspace  $base0C $base0C $base00
-        urgent_workspace    $base08 $base08 $base00
-        binding_mode        $base00 $base0A $base00
+        inactive_workspace  $base00 $base00 $base0F
+        urgent_workspace    $base08 $base08 $base0F
+        binding_mode        $base00 $base0A $base0F
     }
 }

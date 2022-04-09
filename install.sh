@@ -71,11 +71,17 @@ if [[ "${OS}" == "Linux" ]]; then
   IS_LINUX=1
 
   info "Installing core packages ..."
+  # add extra repos for i3-gaps
+  add-apt-repository -y ppa:regolith-linux/release
+  add-apt-repository -y ppa:regolith-linux/stable
   apt_install build-essential \
               procps \
               curl \
               file \
               zsh \
+              i3-gaps \
+              rofi \
+              feh \
               software-properties-common
 
   info "Installing brew package manager ..."
