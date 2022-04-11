@@ -68,7 +68,7 @@ floating_modifier $mod
 focus_follows_mouse no
 
 # start a terminal
-bindsym $mod+space exec kitty
+bindsym $mod+t exec kitty
 
 # take a screenshot
 bindsym --release $mod+s exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
@@ -93,7 +93,7 @@ mode $close {
 bindsym $mod+w exec "xdotool getactivewindow | xargs -I '{}' i3-nagbar -t warning -m 'Do you really want to close this?' -b 'Yes' 'killall i3-nagbar; i3-msg [id='{}'] kill' -b 'No' 'killall i3-nagbar; i3-msg nop'"
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec --no-startup-id rofi -show drun -theme .config/rofi/themes/rose-pine-moon 
+bindsym $mod+space exec --no-startup-id rofi -show drun -theme .config/rofi/themes/rose-pine-moon 
 
 # change focus
 bindsym $mod+j focus right
@@ -114,7 +114,7 @@ bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move right
 
 # enter fullscreen mode for the focused container
-bindsym $mod+Enter fullscreen toggle
+bindsym $mod+Return fullscreen toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -189,7 +189,7 @@ bar {
     colors {
         background $base01
         separator  $base01
-        statusline $base01
+        statusline $base0F
 
         # State             Border  BG      Text
         focused_workspace   $base0B $base0B $base00
