@@ -246,8 +246,8 @@ cmp.setup({
     },
     sources = cmp.config.sources(
         {
-            { name = 'nvim_lsp' },
             { name = 'vsnip' }, -- For vsnip users.
+            { name = 'nvim_lsp' },
         }, 
         {
             { name = 'buffer' },
@@ -386,7 +386,7 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "pyright", "tsserver", "dockerls", "ansiblels", "jsonls", "html", "bashls" }
+local servers = { "pyright", "tsserver", "dockerls",  "jsonls", "html", "bashls" }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
@@ -400,9 +400,14 @@ end
 -- Add kubernetes auto completion
 nvim_lsp["yamlls"].setup {
     on_attach = on_attach,
+    capabilities = capabilities,
     settings = {
         yaml = {
-           schemas = { kubernetes = "*.yaml" },
+           schemas = { 
+                ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+                ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab-ci.yml",
+                kubernetes = "globPattern",
+            },
       }
     } 
 }
@@ -411,6 +416,7 @@ nvim_lsp["yamlls"].setup {
 -- Angular
 nvim_lsp["angularls"].setup {
     on_attach = on_attach,
+    capabilities = capabilities,
 }
 
 -- Go lang
