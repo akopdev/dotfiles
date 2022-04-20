@@ -74,7 +74,7 @@
         "body": [
             "try:",
             "\t${1:pass}",
-            "except ${2:expression} as ${3:identifier}:",
+            "except ${2:Exception} as ${3:e}:",
             "\t${4:pass}"
         ],
         "description": "Code snippet for a try/except statement"
