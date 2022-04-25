@@ -168,7 +168,7 @@ map('n', 'y',               'wbvey',                             opts)
 map('n', 'Y',               'yy',                                opts)
 
 -- Paste     
-map('v', 'p',               '"_dP<Esc>',                               opts)
+map('v', 'p',               '"_dP<Esc>',                         opts)
 map('n', 'P',               ':pu<CR>',                           opts)
 
 -- highlight
@@ -201,6 +201,8 @@ map('v', '<BS>',            '"_x',                               opts)
 map('n', '<leader>c',       ':CommentToggle<CR>',                opts)
 map('v', '<leader>c',       ':CommentToggle<CR>',                opts)
 
+-- Vertical split 
+map('n', '|',               ':vsplit<CR>',                       opts)
 
 ------------------------------------------------- PLUGIN SETTINGS ------------------------------------------------- 
 --
@@ -406,6 +408,7 @@ nvim_lsp["yamlls"].setup {
            schemas = { 
                 ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
                 ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab-ci.yml",
+                ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "/docker-compose*.yml",
                 kubernetes = "globPattern",
             },
       }
