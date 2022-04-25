@@ -21,3 +21,4 @@ docker
 docker-compose
 gitlab-ci-local
 feh
+s3cmd
