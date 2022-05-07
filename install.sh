@@ -1,12 +1,5 @@
 #!/usr/bin/env bash
 
-BOLD='\033[0;1m'
-GREEN='\033[1;32m'
-PURPLE='\033[1;35m'
-RED='\033[1;31m'
-RESET='\033[0m'
-YELLOW='\033[1;33m'
-
 LOG_LEVEL_EMERGENCY=10
 LOG_LEVEL_ALERT=10
 LOG_LEVEL_CRITICAL=10
@@ -18,7 +11,7 @@ LOG_LEVEL_DEBUG=10
 
 LOG_LEVEL=$LOG_LEVEL_INFO
 
-HOME="/home/$(whoami)"
+HOME=$(eval echo ~$username)
 DOTFILES="${HOME}/.dotfiles"
 INSTALL_SCRIPT_VERSION="1.0.0"
 
