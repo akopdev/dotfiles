@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+BOLD='\033[0;1m'
+GREEN='\033[1;32m'
+PURPLE='\033[1;35m'
+RED='\033[1;31m'
+RESET='\033[0m'
+YELLOW='\033[1;33m'
+
 error() {
   if [[ $LOG_LEVEL -ge $LOG_LEVEL_ERROR ]]; then
     echo -e "${RED}[X]${RESET} $*" 1>&2
@@ -43,6 +50,15 @@ pkg_install() {
   info "Installing ${1} ..."
   if ! check_if_pkg_installed ${1}; then
     brew install ${1} || abort "Failed to install ${1}."
+  fi
+}
+
+pkg_update() {
+  info "Update ${1} ..."
+  if ! check_if_pkg_installed ${1}; then
+    pkg_install ${1}
+  else
+    brew upgrade ${1} || abort "Failed to update ${1}."
   fi
 }
 
