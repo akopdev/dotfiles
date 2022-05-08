@@ -36,11 +36,15 @@ require "paq" {
     "romgrk/barbar.nvim";
     "mvllow/modes.nvim";
     "hoob3rt/lualine.nvim";
+
+    "lewis6991/spellsitter.nvim";
 }
 
 -------------------------------------------------- BASE SETTINGS --------------------------------------------------
 
 vim.cmd 'filetype plugin on'
+vim.opt.spell = true
+vim.opt.spelllang = { 'en_gb' }
 vim.opt.number = true
 vim.opt.ruler = true
 vim.opt.encoding = 'utf-8'
@@ -252,6 +256,7 @@ cmp.setup({
             { name = 'nvim_lsp' },
         }, 
         {
+            { name = 'spell' },
             { name = 'buffer' },
         }
     )
@@ -631,4 +636,11 @@ require('nvim-tree').setup ({
 --
 require('nvim_comment').setup({
     create_mappings = false
+})
+
+--
+-- spellsitter
+--
+require('spellsitter').setup ({
+  enable = true,
 })
