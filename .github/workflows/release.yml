@@ -1,19 +1,15 @@
 name: Publish release
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ main ]
 jobs:
   build:
     name: Build and publish application
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Get release version
-        id: get_version
-        run: echo ::set-output name=version::${GITHUB_REF#refs/tags/}
-
       - name: Build application container
-        run: docker build . --tag ${{ github.repository }}:${{ steps.get_version.outputs.version }}
+        run: docker build . --tag ${{ github.repository }}:$(date +%s)
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
@@ -26,5 +22,5 @@ jobs:
         with:
           push: true
           tags: |
-            ${{ github.repository }}:stable
-            ${{ github.repository }}:${{ steps.get_version.outputs.version }}
+            ${{ github.repository }}:latest
+            ${{ github.repository }}:$(date +%s)
