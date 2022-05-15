@@ -3,6 +3,6 @@
 link_file ".zshrc"
 
 if [[ ! -d "${HOME}/go" ]]; then
-    mkdir "${HOME}/go/{bin,src,pkg}"
+    mkdir -p ${HOME}/go/{bin,src,pkg}
 fi
 
