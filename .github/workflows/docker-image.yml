@@ -26,4 +26,3 @@ jobs:
           push: true
           tags: |
             akopkesheshyan/${{ github.repository }}:latest
-            akopkesheshyan/${{ github.repository }}:$(date +%s)
