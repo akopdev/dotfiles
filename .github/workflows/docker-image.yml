@@ -25,4 +25,4 @@ jobs:
         with:
           push: true
           tags: |
-            akopkesheshyan/${{ github.repository }}:latest
+            ${{ github.repository }}:latest
