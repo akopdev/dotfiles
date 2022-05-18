@@ -4,7 +4,7 @@ export PROJECTS=$HOME/Projects
 export EDITOR=nvim
 export GOROOT=$(brew --prefix golang)/libexec
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin
 
 # On linux add PATH to brew 
 if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]
