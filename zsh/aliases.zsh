@@ -10,6 +10,7 @@ alias lt="exa --group-directories-first --icons --tree --all --level=3 --ignore-
 alias f="find"
 alias ff="find-file"
 alias passgen="passgen"
+alias top="htop"
 if [ "$TERM" = "xterm-kitty" ]; then
     alias ssh="kitty +kitten ssh"
 fi
