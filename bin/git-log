@@ -8,7 +8,7 @@ fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
     --bind "ctrl-n:preview-down,ctrl-p:preview-up" \
     --bind "ctrl-y:execute:
         (grep -o '[a-f0-9]\{7\}' | head -1 |
-        xargs -I $ zsh -c 'git rev-list --format=%B --max-count=1 $ | tail +2 | xargs echo -n | xclip -selection clipboard') << 'FZF-EOF'
+        xargs -I $ zsh -c 'git rev-list --format=%B --max-count=1 $ | tail +2 | xargs echo -n | copy') << 'FZF-EOF'
         {}
         FZF-EOF" \
     --bind "ctrl-m:execute:

@@ -1,0 +1,8 @@
+#!/bin/bash
+text=$(cat)
+OS="$(uname)"
+if [[ "${OS}" == "Linux" ]]; then
+  echo "${text}" | xclip -selection clipboard -r
+elif [[ "${OS}" == "Darwin" ]]; then
+  echo "${text}" | pbcopy
+fi

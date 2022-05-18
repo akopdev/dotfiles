@@ -28,7 +28,7 @@ if [[ ! -z "${image}" ]]; then
   tag=$(get_docker_image_tags ${image} | fzf)
 
   if [[ ! -z "${tag}" ]]; then
-    echo "${image}:${tag}" | xclip -selection clipboard -r
-    echo "${image}:${tag} was copied to clipboard"
+    echo "${image}:${tag}" | copy
+    echo "Docker image \033[0;1m${image}:${tag}\033[0m was copied to clipboard"
   fi
 fi
