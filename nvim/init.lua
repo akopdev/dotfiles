@@ -197,7 +197,7 @@ map('n', '<C-w>',           ':BufferClose<CR>',                  opts)
 -- Select a word under cursor 
 map('n', '<leader>v',       'viw',                               opts)
 
--- Bakespace in normal mode
+-- Backspace in normal mode
 map('n', '<BS>',            '"_x',                               opts)
 map('v', '<BS>',            '"_x',                               opts)
 
@@ -557,8 +557,6 @@ require('nvim-treesitter.configs').setup ({
 --
 -- vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache' } -- empty by default
 vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' } -- empty by default, don't auto open tree on specific filetypes.
-vim.g.nvim_tree_quit_on_open = 1 -- 0 by default, closes the tree when you open a file
-vim.g.nvim_tree_indent_markers = 1 -- 0 by default, this option shows indent markers when folders are open
 vim.g.nvim_tree_git_hl = 1 --0 by default, will enable file highlight for git attributes (can be used without the icons).
 vim.g.nvim_tree_add_trailing = 1 -- 0 by default, append a trailing slash to folder names
 vim.g.nvim_tree_special_files = { 'README.md', 'Makefile', 'MAKEFILE' } -- List of filenames that gets highlighted with NvimTreeSpecialFile
@@ -571,8 +569,6 @@ require('nvim-tree').setup ({
   hijack_cursor       = true,
   -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually) 
   update_cwd          = true,
- -- closes neovim automatically when the tree is the last **WINDOW** in the view
-  auto_close          = true,
   -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
   open_on_tab         = true,
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
@@ -622,6 +618,16 @@ require('nvim-tree').setup ({
           { key = "g?",                           cb = tree_cb("toggle_help") },
       }
     }
+  },
+  actions = {
+      open_file = {
+          quit_on_open = true
+      }
+  },
+  renderer = {
+      indent_markers = {
+          enable = true
+      }
   },
   filters = {
     custom = {'.git$', 'node_modules', '.cache'}
