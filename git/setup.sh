@@ -6,6 +6,8 @@ if [[ -f "${HOME}/.gitconfig" ]]; then
   mv "${HOME}/.gitconfig" "${HOME}/.gitconfig.backup"
 fi
 
-cp "${DOTFILES}/git/gitconfig.local.example" "${HOME}/.gitconfig.local"
+if [[ ! -f "${HOME}/.gitconfig.local" ]]; then
+  cp "${DOTFILES}/git/gitconfig.local.example" "${HOME}/.gitconfig.local"
+fi
 
 link_file ".gitconfig"
