@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+current=$(git branch --show-current)
+master=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+
+error() {
+  echo "Error: ${@}"
+}
+
+if [[ ${current} == ${master} ]]; then
+  error "You need to switch to branch in order to be able to rebase master"
+  return 1
+fi
+
+if [[ ! -z $(git status --porcelain) ]]; then
+  error "You need to commit your current changes"
+  return 1
+fi
+
+git checkout ${master} &>/dev/null
+git pull --all
+
+echo "Rebase ${master} to ${current} ..."
+git checkout ${current} &>/dev/null
+git rebase ${master}
