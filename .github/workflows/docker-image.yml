@@ -12,7 +12,7 @@ jobs:
     - name: Lint bash scripts 
       uses: ludeeus/action-shellcheck@master
       with:
-        ignore_names: "*.zsh"
+        ignore_names: "*.zsh .zshrc"
 
   build:
     needs: lint
