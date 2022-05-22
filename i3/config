@@ -74,7 +74,7 @@ bindsym $mod+t exec kitty
 bindsym --release $mod+s exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
 
 # open file manager
-bindsym $mod+f exec kitty -e ranger 
+bindsym $mod+f exec kitty -e fff 
 
 # open browser
 bindsym $mod+b exec firefox
@@ -113,7 +113,7 @@ bindsym $mod+Right focus right
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move right
 
-# enter fullscreen mode for the focused container
+# enter full screen mode for the focused container
 bindsym $mod+Return fullscreen toggle
 
 # Define names for default workspaces for which we configure key bindings later on.
@@ -155,7 +155,7 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# restart i3 in place (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
@@ -199,3 +199,42 @@ bar {
         binding_mode        $base00 $base0A $base0F
     }
 }
+
+
+mode "mouse" {
+
+	# set your three speeds here
+	set $slow 10
+	set $quick 30
+
+	# Mouse movement (slow/fine-tuned) -- vim keybindings
+	bindsym h exec xdotool mousemove_relative --sync -- -$slow 0
+	bindsym j exec xdotool mousemove_relative --sync 0 $slow
+	bindsym k exec xdotool mousemove_relative --sync -- 0 -$slow
+	bindsym l exec xdotool mousemove_relative --sync $slow 0
+
+	# Mouse movement (quicker) -- vim keybindings
+	bindsym Shift+h exec xdotool mousemove_relative --sync -- -$quick 0
+	bindsym Shift+j exec xdotool mousemove_relative --sync 0 $quick
+	bindsym Shift+k exec xdotool mousemove_relative --sync -- 0 -$quick
+	bindsym Shift+l exec xdotool mousemove_relative --sync $quick 0
+
+	# Left Click
+	bindsym d exec xdotool click 1
+
+	# Right Click
+	bindsym a exec xdotool click 3
+
+	# start dragging
+	bindsym Shift+d exec xdotool mousedown 1
+
+	# release dragging
+	bindsym Shft+s exec xdotool mouseup 1
+
+	# return to normal keybindings -- IMPORTANT!!
+
+
+	bindsym Caps_Lock mode "default"
+}
+
+bindsym Caps_Lock mode "mouse"
