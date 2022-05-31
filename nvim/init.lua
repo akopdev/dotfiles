@@ -38,6 +38,8 @@ require "paq" {
     "hoob3rt/lualine.nvim";
 
     "lewis6991/spellsitter.nvim";
+
+    "akinsho/toggleterm.nvim";
 }
 
 -------------------------------------------------- BASE SETTINGS --------------------------------------------------
@@ -128,10 +130,6 @@ map('n', '<leader>j',       '<C-w>j',                            opts)
 map('n', '<leader>k',       '<C-w>k',                            opts)
 map('n', '<leader>h',       '<C-w>h',                            opts)
 map('n', '<leader>l',       '<C-w>l',                            opts)
-
--- Terminal shortcuts
-map('t', '<Esc>',           '<C-\\><C-N>',                       opts)
-map('n', '<leader>t',       ':term<CR>i',                        opts)
 
 -- Better tabbing
 map('v', '<',               '<gv',                               opts)
@@ -650,3 +648,35 @@ require('nvim_comment').setup({
 require('spellsitter').setup ({
   enable = true,
 })
+
+
+--
+-- toggleterm
+--
+local function termwidth()
+  math.floor(vim.api.nvim_win_get_width(0) * 0.8)
+end
+
+local function termheight()
+  math.floor(vim.api.nvim_win_get_height(0) * 0.8)
+end
+
+require("toggleterm").setup {
+  open_mapping = [[<leader>t]],
+  direction = "float",
+  hide_numbers = true,
+  shade_terminals = true,
+  shading_factor = 1,
+  start_in_insert = true,
+  insert_mappings = true,
+  terminal_mappings = true,
+  persist_size = true,
+  close_on_exit = true,
+  shell = vim.o.shell,
+  float_opts = {
+    border = 'single',
+    width = termwidth,
+    height = termheight,
+    winblend = 3,
+  }
+}
