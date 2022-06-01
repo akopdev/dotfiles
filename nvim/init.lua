@@ -501,12 +501,10 @@ require('nvim-autopairs').setup({
 --
 
 map('n', '<leader>f',  '<cmd>Telescope live_grep<cr>', opts)
-map('n', '<leader>ff', '<cmd>Telescope find_files theme=get_ivy<cr>', opts) 
-map('n', '<leader>gc', '<cmd>Telescope git_commits<cr>', opts)
-map('n', '<leader>gb', '<cmd>Telescope git_branches<cr>', opts)
-map('n', '<leader>gs', '<cmd>Telescope git_status<cr>', opts)
-map('n', '<leader>d',  '<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>', opts)
-map('n', '<leader>a',  '<cmd>Telescope lsp_code_actions theme=get_ivy<cr>', opts)
+map('n', '<leader>ff', '<cmd>Telescope find_files theme=ivy<cr>', opts) 
+map('n', '<leader>d',  '<cmd>Telescope diagnostics bufnr=0 theme=ivy<cr>', opts)
+map('n', '<leader>a',  '<cmd>Telescope lsp_code_actions theme=ivy<cr>', opts)
+map('n', '<leader>s',  '<cmd>Telescope spell_suggest theme=cursor<cr>', opts)
 
 local actions = require('telescope.actions')
 require('telescope').setup({
