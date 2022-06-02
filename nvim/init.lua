@@ -174,10 +174,10 @@ map('v', 'p',               '"_dP<Esc>',                         opts)
 map('n', 'P',               ':pu<CR>',                           opts)
 
 -- highlight
-map('',  's',               '*N',                                opts)
+map('n',  's',               '*N',                                opts)
 
 -- Save sessions
-map('',  '<leader>ss',      ':SessionSave<CR>',                  opts)
+map('n',  '<leader>ss',      ':SessionSave<CR>',                  opts)
 
 -- Tree file explorer
 map('n', '<C-n>',           ':NvimTreeToggle<CR>',               opts)
@@ -660,7 +660,6 @@ local function termheight()
 end
 
 require("toggleterm").setup {
-  open_mapping = [[<leader>t]],
   direction = "float",
   hide_numbers = true,
   shade_terminals = true,
@@ -678,3 +677,6 @@ require("toggleterm").setup {
     winblend = 3,
   }
 }
+
+map('n', '<leader>t', '<CMD>ToggleTerm<CR>', opts)
+map('t', '<leader>t', '<CMD>ToggleTerm<CR>', opts)
