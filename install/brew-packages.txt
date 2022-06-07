@@ -27,3 +27,4 @@ zsh-autosuggestions
 zsh-vi-mode
 k9s
 ncdu
+mosh
