@@ -231,10 +231,9 @@ mode "mouse" {
 	# release dragging
 	bindsym Shft+s exec xdotool mouseup 1
 
-	# return to normal keybindings -- IMPORTANT!!
-
-
-	bindsym Caps_Lock mode "default"
+    # back to normal: Enter or Escape or $mod+r
+    bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 
-bindsym Caps_Lock mode "mouse"
+bindsym $mod+m mode "mouse"
