@@ -3,7 +3,7 @@
 unset PROJECT_DIR
 
 if [ -z "$1" ]; then
-  PROJECT_NAME="$(exa --icons -D $PROJECTS | fzf --layout=reverse --height=40% --layout=reverse --info=inline --border --margin=1 | tail -c +5)"
+  PROJECT_NAME="$(exa --icons -D $PROJECTS | fzf --preview='(bat --color=always --style=changes --paging=never --language=md ${PROJECTS}/{2}/README.md || (clear && git log --graph --color=always --abbrev-commit)) << {}' | tail -c +5)"
   if [ ! -z $PROJECT_NAME ]; then
     PROJECT_DIR="$PROJECTS/$PROJECT_NAME"
   fi
@@ -16,4 +16,3 @@ if [ ! -z $PROJECT_DIR ] && [ -d $PROJECT_DIR ]; then
 else
   cd $PROJECTS
 fi
-

@@ -1,11 +1,7 @@
-#!/bin/zsh
-
-clear
+#!/usr/bin/env bash
 
 docker ps -a --format '{{.Names}}' \
-| fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-    --header "Log view" \
-    --preview "(docker logs {} --tail 100 | less -R +G)" \
+| fzf --tiebreak=index --preview "(docker logs {} --tail 100 | less -R +G)" \
 | xargs -I % -o docker logs % -f
 
 
