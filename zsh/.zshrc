@@ -25,6 +25,13 @@ done
 source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$(brew --prefix)/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 
+# rebind some of keys defined by zsh-vi-mode plugin
+# see https://github.com/jeffreytse/zsh-vi-mode#execute-extra-commands
+function zvm_after_init() {
+  bindkey -s "^N" 'nvim^M'
+  bindkey -s '^P' 'projects^M'
+}
+
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
