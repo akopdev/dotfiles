@@ -1,17 +1,7 @@
 #!/usr/bin/env bash
 
-LOG_LEVEL_EMERGENCY=10
-LOG_LEVEL_ALERT=10
-LOG_LEVEL_CRITICAL=10
-LOG_LEVEL_ERROR=10
-LOG_LEVEL_WARNING=10
-LOG_LEVEL_NOTICE=10
-LOG_LEVEL_INFO=10
-LOG_LEVEL_DEBUG=10
-
-LOG_LEVEL=$LOG_LEVEL_INFO
-
-HOME=$(eval echo ~$username)
+# shellcheck disable=SC2154
+HOME=$(eval echo "~${username}")
 DOTFILES="${HOME}/.dotfiles"
 SCRIPT_VERSION="1.0.0"
 
@@ -46,40 +36,43 @@ echo "'${DOTFILES}' not found. Please, run install.sh first!"
 exit 1
 fi
 
-
-source ${DOTFILES}/install/common.sh
+# shellcheck source=/dev/null
+source "${DOTFILES}"/install/common.sh
 
 info "Pull latest version"
-cd ${DOTFILES} && git pull
+cd "${DOTFILES}" && git pull
 
 info "Updating brew packages"
-for brew_package in `cat ${DOTFILES}/install/brew-packages.txt`
+while read -r brew_package; 
 do
-  pkg_update ${brew_package}
-done
+  pkg_update "${brew_package}"
+done < "${DOTFILES}"/install/brew-packages.txt
 
 info "Updating npm packages"
-for npm_package in `cat ${DOTFILES}/install/npm-packages.txt`
+while read -r npm_package;
 do
-  npm i -g ${npm_package}
-done
+  npm i -g "${npm_package}"
+done < "${DOTFILES}"/install/npm-packages.txt
 
 # Run general setup scripts
-for file in $DOTFILES/**/setup.sh
+for file in "${DOTFILES}"/**/setup.sh
 do
-  source $file
+  # shellcheck source=/dev/null
+  source "$file"
 done
 
 # Run OS specific scripts
-if [[ ! -z "${IS_LINUX-}" ]]; then
-  for file in $DOTFILES/**/setup-linux.sh 
+if [[ -n "${IS_LINUX-}" ]]; then
+  for file in "$DOTFILES"/**/setup-linux.sh 
   do
-    source $file
+  # shellcheck source=/dev/null
+    source "$file"
   done
 else
-  for file in $DOTFILES/**/setup-osx.sh 
+  for file in "${DOTFILES}"/**/setup-osx.sh 
   do
-    source $file
+  # shellcheck source=/dev/null
+    source "$file"
   done
 fi
 
