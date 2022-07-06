@@ -1,7 +1,3 @@
-alias ..="cd .."
-alias ~="cd ~"
-alias p="projects"
-alias :q="exit"
 alias c="clear"
 alias ls="exa --group-directories-first --icons --all"
 alias l="exa --group-directories-first --icons --oneline --all"
