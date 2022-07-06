@@ -38,7 +38,7 @@ Right from the box, you will get configured OS with this list of pre-installed s
 ### Infrastructure management
 - [awscli](https://aws.amazon.com/cli/) Official Amazon AWS command-line interface
 - [docker-compose](https://docs.docker.com/compose) Isolated development environments using Docker
-- [docker]()
+- [docker](https://www.docker.com) Pack, ship and run any application as a lightweight container
 - [helm](https://helm.sh) Kubernetes package manager
 - [k9s](https://k9scli.io) Kubernetes cli tool to  manage clusters
 - [kubernetes-cli](https://kubernetes.io) Kubernetes command-line interface
