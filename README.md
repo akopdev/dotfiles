@@ -33,6 +33,7 @@ Right from the box, you will get configured OS with this list of pre-installed s
 - [gitlab-ci-local](https://github.com/firecow/gitlab-ci-local) Run gitlab pipelines locally
 - [glab](https://github.com/profclems/glab) Work with Gitlab issues, merge requests, watch running pipelines directly from your CLI
 - [neovim](https://neovim.io) Vim based IDE 
+- [shellcheck](https://github.com/koalaman/shellcheck) A shell script static analysis tool
 
 ### Infrastructure management
 - [awscli](https://aws.amazon.com/cli/) Official Amazon AWS command-line interface
