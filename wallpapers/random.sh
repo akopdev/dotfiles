@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-feh --bg-fill $(ls .wallpapers/*.{png,jpg} | shuf -n 1)
+feh --bg-fill "$(find .wallpapers/*.{png,jpg} | shuf -n 1)"
 

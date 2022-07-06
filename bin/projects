@@ -1,18 +1,19 @@
-#!/bin/zsh
+#!/usr/bin/env bash
 
 unset PROJECT_DIR
 
 if [ -z "$1" ]; then
-  PROJECT_NAME="$(exa --icons -D $PROJECTS | fzf --preview='(bat --color=always --style=changes --paging=never --language=md ${PROJECTS}/{2}/README.md || (clear && git log --graph --color=always --abbrev-commit)) << {}' | tail -c +5)"
-  if [ ! -z $PROJECT_NAME ]; then
-    PROJECT_DIR="$PROJECTS/$PROJECT_NAME"
+  # shellcheck disable=SC2016
+  PROJECT_NAME="$(exa --icons -D "${PROJECTS}" | fzf --preview='(bat --color=always --style=changes --paging=never --language=md "${PROJECTS}/{2}/README.md" || (clear && git log --graph --color=always --abbrev-commit)) << {}' | tail -c +5)"
+  if [[ -n ${PROJECT_NAME} ]]; then
+    PROJECT_DIR="${PROJECTS}/${PROJECT_NAME}"
   fi
 else
-  PROJECT_DIR="$PROJECTS/$1"
+  PROJECT_DIR="${PROJECTS}/${1}"
 fi
 
-if [ ! -z $PROJECT_DIR ] && [ -d $PROJECT_DIR ]; then
-  cd $PROJECT_DIR && nvim
+if [[ -n "${PROJECT_DIR}" ]] && [ -d "${PROJECT_DIR}" ]; then
+  cd "${PROJECT_DIR}" || exit && nvim
 else
-  cd $PROJECTS
+  cd "${PROJECTS}" || exit
 fi

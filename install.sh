@@ -1,17 +1,7 @@
 #!/usr/bin/env bash
 
-LOG_LEVEL_EMERGENCY=10
-LOG_LEVEL_ALERT=10
-LOG_LEVEL_CRITICAL=10
-LOG_LEVEL_ERROR=10
-LOG_LEVEL_WARNING=10
-LOG_LEVEL_NOTICE=10
-LOG_LEVEL_INFO=10
-LOG_LEVEL_DEBUG=10
-
-LOG_LEVEL=$LOG_LEVEL_INFO
-
-HOME=$(eval echo ~$username)
+# shellcheck disable=SC2154
+HOME=$(eval echo "~${username}")
 DOTFILES="${HOME}/.dotfiles"
 INSTALL_SCRIPT_VERSION="1.0.0"
 
@@ -52,7 +42,8 @@ if [[ ! -d "${DOTFILES}" ]]; then
   git clone https://github.com/akopkesheshyan/dotfiles.git "$DOTFILES" 
 fi
 
-source ${DOTFILES}/install/common.sh
+# shellcheck source=/dev/null
+source "${DOTFILES}"/install/common.sh
 
 # Check operation system
 OS="$(uname)"
@@ -81,7 +72,7 @@ if [[ "${OS}" == "Linux" ]]; then
   yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # make visible to shell
-  echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> /home/$(whoami)/.profile
+  echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'" >> "/home/$(whoami)/.profile"
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
   # Check, if brew was installed correctly
@@ -92,7 +83,7 @@ if [[ "${OS}" == "Linux" ]]; then
   # Change default shell to zsh
   if [[ -n "${ZSH_VERSION}" ]]; then
     info "Make zsh the default shell"
-    chsh -s $(which zsh)
+    chsh -s "$(which zsh)"
   fi
 
 elif [[ "${OS}" != "Darwin" ]]; then
@@ -107,33 +98,36 @@ for folder in "Projects" ".config"; do
 done
 
 info "Installing brew packages"
-for brew_package in `cat ${DOTFILES}/install/brew-packages.txt`
+while read -r brew_package; 
 do
-  pkg_install ${brew_package}
-done
+  pkg_install "${brew_package}"
+done < "${DOTFILES}"/install/brew-packages.txt
 
 info "Installing npm packages"
-for npm_package in `cat ${DOTFILES}/install/npm-packages.txt`
+while read -r npm_package;
 do
-  npm i -g ${npm_package}
-done
+  npm i -g "${npm_package}"
+done < "${DOTFILES}"/install/npm-packages.txt
 
 # Run general setup scripts
-for file in $DOTFILES/**/setup.sh
+for file in "${DOTFILES}"/**/setup.sh
 do
-  source $file
+  # shellcheck source=/dev/null
+  source "$file"
 done
 
 # Run OS specific scripts
-if [[ ! -z "${IS_LINUX-}" ]]; then
-  for file in $DOTFILES/**/setup-linux.sh 
+if [[ -n "${IS_LINUX-}" ]]; then
+  for file in "${DOTFILES}"/**/setup-linux.sh 
   do
-    source $file
+    # shellcheck source=/dev/null
+    source "$file"
   done
 else
-  for file in $DOTFILES/**/setup-osx.sh 
+  for file in "${DOTFILES}"/**/setup-osx.sh 
   do
-    source $file
+    # shellcheck source=/dev/null
+    source "$file"
   done
 fi
 
