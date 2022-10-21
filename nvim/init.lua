@@ -553,9 +553,6 @@ require('nvim-treesitter.configs').setup ({
 --
 -- vim.g.nvim_tree_ignore = { '.git', 'node_modules', '.cache' } -- empty by default
 vim.g.nvim_tree_auto_ignore_ft = { 'startify', 'dashboard' } -- empty by default, don't auto open tree on specific filetypes.
-vim.g.nvim_tree_git_hl = 1 --0 by default, will enable file highlight for git attributes (can be used without the icons).
-vim.g.nvim_tree_add_trailing = 1 -- 0 by default, append a trailing slash to folder names
-vim.g.nvim_tree_special_files = { 'README.md', 'Makefile', 'MAKEFILE' } -- List of filenames that gets highlighted with NvimTreeSpecialFile
 
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
 require('nvim-tree').setup ({
@@ -581,7 +578,7 @@ require('nvim-tree').setup ({
     -- width of the window, can be either a number (columns) or a string in `%`
     width = 40,
     -- if true the tree will resize itself after opening a file
-    auto_resize = false,
+    adaptive_size = false,
     mappings = {
       -- custom only false will merge the list with the default mappings
       -- if true, it will only use your list to set the mappings
@@ -623,11 +620,19 @@ require('nvim-tree').setup ({
   renderer = {
       indent_markers = {
           enable = true
-      }
+      },
+      icons = {
+          show = {
+              folder_arrow = false
+          }
+      },
+      add_trailing = true,
+      highlight_git = true,
+      special_files = { 'README.md', 'Makefile', 'MAKEFILE' },
   },
   filters = {
     custom = {'.git$', 'node_modules', '.cache'}
-  }
+  },
 
 })
 
