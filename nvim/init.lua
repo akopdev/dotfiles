@@ -280,15 +280,16 @@ cmp.setup.cmdline(':', {
 -- 
 -- Dashboard
 -- 
+local db = require('dashboard')
 
-vim.g.dashboard_default_executive = 'telescope'
+db.default_executive = 'telescope'
 
-vim.g.dashboard_custom_section = {
-    a = {description = {'  Load Last Session  '}, command = 'SessionLoad'},
-    b = {description = {'  Recently Used Files'}, command = 'Telescope oldfiles'},
-    c = {description = {'  Find File          '}, command = 'Telescope find_files'},
-    d = {description = {'  Find Word          '}, command = 'Telescope live_grep'},
-    e = {description = {'  Edit config        '}, command = 'cd ~/.dotfiles/ | edit nvim/init.lua'},
+db.custom_center = {
+    {desc = '  Load Last Session  ', action = 'SessionLoad'},
+    {desc = '  Recently Used Files', action = 'Telescope oldfiles'},
+    {desc = '  Find File          ', action = 'Telescope find_files'},
+    {desc = '  Find Word          ', action = 'Telescope live_grep'},
+    {desc = '  Edit config        ', action = 'cd ~/.dotfiles/ | edit nvim/init.lua'},
 }
 
 -- 
@@ -379,7 +380,7 @@ local on_attach = function(client, bufnr)
 
 end
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
