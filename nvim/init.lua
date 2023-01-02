@@ -543,7 +543,7 @@ require('telescope').setup({
 --
 
 require('nvim-treesitter.configs').setup ({
-  ensure_installed = { "bash", "css", "go", "graphql", "html", "javascript", "jsdoc", "json", "jsonc", "php", "python", "regex", "ruby", "scss", "rust", "swift", "toml", "tsx", "typescript", "vue", "yaml" } , -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "bash", "css", "go", "graphql", "html", "javascript", "jsdoc", "json", "jsonc", "php", "python", "regex", "ruby", "scss", "toml", "tsx", "typescript", "vue", "yaml" } , -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
     enable = true, -- false will disable the whole extension
   },
