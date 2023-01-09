@@ -5,7 +5,7 @@ docker
 docker-compose
 exa
 feh
-fff
+ranger
 fzf
 git-delta
 gitlab-ci-local
