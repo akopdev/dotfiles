@@ -2,7 +2,11 @@
 text=$(cat)
 OS="$(uname)"
 if [[ "${OS}" == "Linux" ]]; then
-  echo "${text}" | xclip -selection clipboard -r
+  if [[ $(grep -i Microsoft /proc/version) ]]; then
+    echo "${text}" | clip.exe
+  else
+    echo "${text}" | xclip -selection clipboard -r
+  fi
 elif [[ "${OS}" == "Darwin" ]]; then
   echo "${text}" | pbcopy
 fi
