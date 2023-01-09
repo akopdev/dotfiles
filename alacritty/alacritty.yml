@@ -41,6 +41,9 @@ schemes:
         foreground: "#6e6a86"
         background: "#2a273f"
 colors: *RosePine
+live_config_reload: true
+cursor:
+  style: Beam
 env:
   TERM: xterm-256color
 font:
@@ -59,6 +62,24 @@ font:
   size: 12.0
 key_bindings:
     # (Windows, Linux, and BSD only)
-  - { key: V,         mods: Alt, action: Paste                       }
-  - { key: C,         mods: Alt, action: Copy                        }
-  - { key: Space,     mods: Control, chars: "\x00"                   }
+  - { key: V,         mods: Alt,      action: Paste      }
+  - { key: C,         mods: Alt,      action: Copy       }
+  - { key: Space,     mods: Control,  chars: "\x00"      }
+    # shortcuts for tmux
+  - { key: W,         mods: Alt,     chars: "\x00\x77"   }
+  - { key: D,         mods: Alt,     chars: "\x00\x64"   }
+  - { key: T,         mods: Alt,     chars: "\x00\x74"   }
+  - { key: H,         mods: Alt,     chars: "\x00\x68"   }
+  - { key: J,         mods: Alt,     chars: "\x00\x6a"   }
+  - { key: K,         mods: Alt,     chars: "\x00\x6b"   }
+  - { key: L,         mods: Alt,     chars: "\x00\x6c"   }
+  - { key: Minus,     mods: Alt,     chars: "\x00\x2d"   }
+  - { key: Key1,      mods: Alt,     chars: "\x00\x31"   }
+  - { key: Key2,      mods: Alt,     chars: "\x00\x32"   }
+  - { key: Key3,      mods: Alt,     chars: "\x00\x33"   }
+  - { key: Key4,      mods: Alt,     chars: "\x00\x34"   }
+  - { key: Key5,      mods: Alt,     chars: "\x00\x35"   }
+  - { key: Key6,      mods: Alt,     chars: "\x00\x36"   }
+  - { key: Key7,      mods: Alt,     chars: "\x00\x37"   }
+  - { key: Key8,      mods: Alt,     chars: "\x00\x38"   }
+  - { key: Key9,      mods: Alt,     chars: "\x00\x39"   }
