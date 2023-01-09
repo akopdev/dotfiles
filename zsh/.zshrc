@@ -1,16 +1,17 @@
 # shortcut to this dotfiles path is $ZSH
 export ZSH=$HOME/.dotfiles
 export PROJECTS=$HOME/Projects
-export EDITOR=nvim
-export GOROOT=$(brew --prefix golang)/libexec
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin
+export EDITOR=nvim
 
 # On linux add PATH to brew 
 if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]
 then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+export GOROOT=$(brew --prefix golang)/libexec
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin
 
 # all of our zsh files
 typeset -U config_files
