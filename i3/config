@@ -68,13 +68,13 @@ floating_modifier $mod
 focus_follows_mouse no
 
 # start a terminal
-bindsym $mod+t exec kitty
+bindsym $mod+t exec alacritty
 
 # take a screenshot
 bindsym --release $mod+s exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
 
 # open file manager
-bindsym $mod+f exec kitty -e fff 
+bindsym $mod+f exec alacritty -e fff 
 
 # open browser
 bindsym $mod+b exec firefox

@@ -6,6 +6,3 @@ alias lt="exa --group-directories-first --icons --tree --all --level=3 --ignore-
 alias f="find-word"
 alias ff="find-file"
 alias top="htop"
-if [ "$TERM" = "xterm-kitty" ]; then
-    alias ssh="kitty +kitten ssh"
-fi
