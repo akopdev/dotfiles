@@ -42,6 +42,8 @@ schemes:
         background: "#2a273f"
 colors: *RosePine
 live_config_reload: true
+window:
+  opacity: 0.9
 cursor:
   style: Beam
 env:
