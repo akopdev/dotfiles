@@ -1,6 +1,6 @@
 import: 
-  - ~/.dotfiles/alacritty/colors.yml
-  - ~/.dotfiles/alacritty/basic.yml
+  - colors.yml
+  - basic.yml
 
 font:
   size: 12.0
@@ -32,6 +32,4 @@ key_bindings:
 shell:
   program: wsl
   args:
-    - -l
-    - -c
     - "tmux attach || tmux"
