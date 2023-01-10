@@ -3,16 +3,14 @@ export ZSH=$HOME/.dotfiles
 export PROJECTS=$HOME/Projects
 export GOPATH=$HOME/go
 export EDITOR=nvim
-
 # On linux add PATH to brew 
-if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]
+if [ ! $(command -v "brew" &> /dev/null) ]
 then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-
-export GOROOT=$(brew --prefix golang)/libexec
+export BREW_PREFIX="${$(dirname $(which go))%/bin}"
+export GOROOT="${BREW_PREFIX}/opt/go/libexec"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin
-
 # all of our zsh files
 typeset -U config_files
 config_files=($ZSH/**/*.zsh)
@@ -22,10 +20,8 @@ for file in ${config_files:#*/completion.zsh}
 do
   source $file
 done
-
-source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-source "$(brew --prefix)/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
-
+source "${BREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "${BREW_PREFIX}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh"
 # rebind some of keys defined by zsh-vi-mode plugin
 # see https://github.com/jeffreytse/zsh-vi-mode#execute-extra-commands
 function zvm_after_init() {
