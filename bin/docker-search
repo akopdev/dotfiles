@@ -28,6 +28,6 @@ if [[ -n "${image}" ]]; then
 
   if [[ -n "${tag}" ]]; then
     echo "${image}:${tag}" | copy
-    echo "Docker image \033[0;1m${image}:${tag}\033[0m was copied to clipboard"
+    printf "Docker image \033[0;1m%s\033[0m was copied to clipboard" "${image}:${tag}"
   fi
 fi
