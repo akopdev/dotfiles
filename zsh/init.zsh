@@ -3,7 +3,6 @@ export CLICOLOR=true
 export DISPLAY=:0
 
 fpath=($ZSH/bin $fpath)
-
 autoload -U $ZSH/bin/*(:t)
 
 HISTFILE=~/.zsh_history
