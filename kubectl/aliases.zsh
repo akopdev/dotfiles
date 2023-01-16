@@ -1,7 +1,0 @@
-alias k="kubectl"
-alias kga="kubectl get all"
-alias kgp="kubectl get pods"
-alias kgs="kubectl get services"
-alias kdp="kubectl describe pods"
-alias kds="kubectl describe services"
-alias kl="kubectl logs"

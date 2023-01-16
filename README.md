@@ -90,6 +90,8 @@ $ZSH/update.sh
 | -------- | ------------------------------------------- |
 | Ctrl+n   | Open neovim in current folder               |
 | Ctrl+p   | List all projects                           |
+| Ctrl+f   | Find file by its content                    |
+| Ctrl+e   | Open file explorer                          |
 | f        | Find file by its content                    |
 | ff       | Find file by name                           |
 | help     | Nice way to explore command help manual     |
@@ -121,6 +123,7 @@ $ZSH/update.sh
 
 | Command | Description                                  |
 | ------- | -------------------------------------------- |
+| d       | docker                                  |
 | de      | docker exec                                  |
 | dk      | docker kill                                  |
 | dl      | docker logs                                  |
@@ -131,13 +134,12 @@ $ZSH/update.sh
 
 | Command | Description                                  |
 | ------- | -------------------------------------------- |
-| kga     | kubectl get all                              |
+| k       | kubectl                                      |
+| kg      | kubectl get all                              |
 | kgp     | kubectl get pods                             |
 | kgs     | kubectl get services                         |
 | kdp     | kubectl describe pods                        |
 | kds     | kubectl describe services                    |
 | kl      | kubectl logs                                 |
-
-> You can use `k` shortcut to get access to all `kubectl` commands
 
 

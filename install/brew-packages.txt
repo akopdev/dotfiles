@@ -29,5 +29,4 @@ s3cmd
 shellcheck
 tmux
 xclip
-zsh-autosuggestions
-zsh-vi-mode
+zinit
