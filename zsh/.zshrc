@@ -76,6 +76,13 @@ function zvm_after_init() {
   bindkey -s '^E' 'ranger^M'
 }
 
+function zvm_after_lazy_keybindings() {
+  zvm_bindkey vicmd 'H' vi-backward-word
+  zvm_bindkey vicmd 'L' vi-forward-word
+  zvm_bindkey vicmd '^H' vi-first-non-blank
+  zvm_bindkey vicmd '^L' vi-end-of-line
+}
+
 # Replace zsh's default completion selection menu with fzf!
 zinit light Aloxaf/fzf-tab
 
