@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case --hidden "
+INITIAL_QUERY="${*:-}"
+FZF_DEFAULT_COMMAND="$RG_PREFIX $(printf %q "$INITIAL_QUERY")" \
+fzf --ansi \
+  --disabled --query "$INITIAL_QUERY" \
+  --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
+  --delimiter : \
+  --preview 'bat --color=always {1} --highlight-line {2}' \
+  --preview-window 'up,80%,border-bottom,+{2}+3/3,~3' \
+| awk -F ':' '{print $1 " +"$2}' \
+| xargs -r --no-run-if-empty nvim 

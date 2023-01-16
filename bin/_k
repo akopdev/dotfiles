@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-#compdef k
-_k() {
-    _kubectl
-}
-
-compdef _k k
