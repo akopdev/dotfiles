@@ -8,8 +8,7 @@ if [ ! $(command -v "brew" &> /dev/null) ]
 then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
-export BREW_PREFIX="$(brew --prefix)"
-export GOROOT="${BREW_PREFIX}/opt/go/libexec"
+export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
@@ -47,14 +46,14 @@ source "${ZSH}/zsh/aliases.zsh"
 source "${ZSH}/zsh/prompt.zsh"
 
 # configuring completions
-fpath=($BREW_PREFIX/share/zsh/site-functions $fpath)
+fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
 
 # initialize autocomplete here, otherwise functions won't be loaded
 autoload -U compinit
 compinit
 
 # Initialize plug-in manager
-source "${BREW_PREFIX}/opt/zinit/zinit.zsh"
+source "${HOMEBREW_PREFIX}/opt/zinit/zinit.zsh"
 
 # Replace Ctrl-r with an fzf-driven, searchable list of history
 zinit ice lucid wait'0'
