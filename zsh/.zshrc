@@ -28,20 +28,19 @@ setopt NO_LIST_BEEP
 setopt LOCAL_OPTIONS # allow functions to have local options
 setopt LOCAL_TRAPS # allow functions to have local traps
 setopt HIST_VERIFY
-setopt SHARE_HISTORY # share history between sessions ???
+setopt HIST_SAVE_NO_DUPS 
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_ALL_DUPS  # don' record dupes in history
+setopt APPEND_HISTORY # adds history
+setopt SHARE_HISTORY # share history between all terminals
 setopt EXTENDED_HISTORY # add timestamps to history
 setopt PROMPT_SUBST
 setopt CORRECT
 setopt COMPLETE_IN_WORD
+setopt AUTOCD # navigate through folders without cd
 
-setopt APPEND_HISTORY # adds history
-setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
-setopt HIST_IGNORE_ALL_DUPS  # don' record dupes in history
-setopt HIST_REDUCE_BLANKS
+stty stop undef		# Disable ctrl-s to freeze terminal.
 
-# don't expand aliases _before_ completion has finished
-#   like: git comm-[tab]
-# setopt complete_aliases
 
 # all of our zsh files
 source "${ZSH}/zsh/aliases.zsh"
@@ -94,7 +93,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --border
  --reverse 
  --margin=1  
- --preview-window='up,80%,border-bottom,+{2}+3/3,~3' 
+ --preview-window='up,80%,border-bottom' 
  --bind='ctrl-n:preview-down,ctrl-p:preview-up'
  --bind='ctrl-w:toggle-preview-wrap'
  --color=fg:#e0def4,hl:#6e6a86
