@@ -44,7 +44,7 @@ require "paq" {
 
 -------------------------------------------------- BASE SETTINGS --------------------------------------------------
 
-vim.cmd 'filetype plugin on'
+-- vim.cmd([[filetype plugin on]])
 vim.opt.spell = true
 vim.opt.spelllang = { 'en_gb' }
 vim.opt.number = true
@@ -112,9 +112,14 @@ require("nvim-web-devicons").setup ({
 })
 
 vim.g.rose_pine_variant = 'moon'
-vim.cmd 'colorscheme rose-pine'
+-- vim.cmd 'colorscheme rose-pine'
 
-
+-- Load nord colorscheme with A protected call
+local colorscheme = "rose-pine"
+local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+if not status_ok then
+  return
+end
 -------------------------------------------------- KEY BINDINGS --------------------------------------------------- 
 
 -- Tab in general mode will move to text buffer
