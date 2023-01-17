@@ -4,10 +4,14 @@ export PROJECTS=$HOME/Projects
 export GOPATH=$HOME/go
 export EDITOR=nvim
 # On linux add PATH to brew 
-if [ ! $(command -v "brew" &> /dev/null) ]
-then
+if ! command -v "brew" &> /dev/null; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+if [ -z "$HOMEBREW_PREFIX" ]; then
+  HOMEBREW_PREFIX=$(brew --prefix)
+fi
+
 export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin
 export LSCOLORS="exfxcxdxbxegedabagacad"
