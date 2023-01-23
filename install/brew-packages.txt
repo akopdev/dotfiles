@@ -30,3 +30,4 @@ shellcheck
 tmux
 xclip
 zinit
+fd

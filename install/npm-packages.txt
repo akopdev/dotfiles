@@ -12,3 +12,4 @@ vscode-langservers-extracted
 @angular/cli
 yarn
 eslint
+neovim

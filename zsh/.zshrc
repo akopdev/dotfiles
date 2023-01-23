@@ -1,8 +1,9 @@
 # shortcut to this dotfiles path is $ZSH
-export ZSH=$HOME/.dotfiles
-export PROJECTS=$HOME/Projects
-export GOPATH=$HOME/go
-export EDITOR=nvim
+export ZSH="${HOME}/.dotfiles"
+export PROJECTS="${HOME}/Projects"
+export GOPATH="${HOME}/go"
+export EDITOR="nvim"
+export LANG="en_US.UTF-8"
 # On linux add PATH to brew 
 if ! command -v "brew" &> /dev/null; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
