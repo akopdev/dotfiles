@@ -40,7 +40,8 @@ RUN chown -R ${username} /home
 # Switch to non-root user to finish account setup
 USER ${username}
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:${PATH}"
-RUN /bin/bash -c /home/${username}/.dotfiles/install/docker.sh
+RUN mkdir -p /home/${username}/go/{bin,src,pkg}
+RUN /bin/bash -c /home/${username}/.dotfiles/bin/dotfiles update
 
 
 # Let's launch SSH service, so user can connect to container
