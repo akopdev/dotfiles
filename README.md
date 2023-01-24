@@ -76,7 +76,7 @@ Right from the box, you will get configured OS with this list of pre-installed s
 If you have already installed dotfiles, you can frequently run an update script that will bring the latest changes and dependencies to your machine. 
 
 ```sh 
-$ZSH/update.sh
+dotfiles update
 ```
 
 > As Homebrew is currently not supporting version definitions, you will always get the latest available version of the package directly from the server. 
