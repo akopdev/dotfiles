@@ -1,0 +1,6 @@
+pyright
+neovim
+pip-tools
+flake8
+pytest
+poetry

@@ -137,6 +137,9 @@ _update() {
     sudo apt-get update && sudo apt-get -y upgrade
   fi
 
+  info "Installing python packages"
+  pip3 install -U -r "${DOTFILES}"/pip-packages.txt
+
   info "Updating brew packages"
   while read -r brew_package; 
   do
