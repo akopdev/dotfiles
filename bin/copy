@@ -2,7 +2,7 @@
 text=$(cat)
 OS="$(uname)"
 if [[ "${OS}" == "Linux" ]]; then
-  if [[ $(grep -i Microsoft /proc/version) ]]; then
+  if grep -i -q Microsoft /proc/version; then
     echo "${text}" | clip.exe
   else
     echo "${text}" | xclip -selection clipboard -r
