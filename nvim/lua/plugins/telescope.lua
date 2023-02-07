@@ -3,10 +3,7 @@ if not status_ok then
     return
 end
 
-local status_ok, actions = pcall(require, "telescope.actions")
-if not actions_status_ok then
-    return
-end
+local actions = require "telescope.actions"
 
 telescope.setup {
   pickers = {

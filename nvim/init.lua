@@ -16,7 +16,6 @@ local core_modules = {
     "plugins/nvimtree",
     "plugins/spellsitter",
     "plugins/telescope",
-    "plugins/toggleterm",
     "plugins/treesitter",
 }
 

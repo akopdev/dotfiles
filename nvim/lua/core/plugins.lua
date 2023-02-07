@@ -77,10 +77,6 @@ return packer.startup(function(use)
     use "hoob3rt/lualine.nvim"
  
     use "lewis6991/spellsitter.nvim"
- 
-    use "akinsho/toggleterm.nvim"
- 
-    use "github/copilot.vim"
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
