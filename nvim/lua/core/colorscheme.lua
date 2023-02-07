@@ -18,12 +18,6 @@ vim.g.solarized_termcolors = 256
 vim.g.solarized_termtrans = 1
 vim.g.onedark_terminal_italics = 1
 vim.g.rose_pine_variant = 'moon'
-vim.g.bufferline = {
-    icons = false,
-    tabpages = true,
-    icon_separator_active = '',
-    icon_separator_inactive = '',
-}
 
 -- Load colorscheme with A protected call
 local theme_status_ok, _ = pcall(vim.cmd, "colorscheme rose-pine")

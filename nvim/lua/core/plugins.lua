@@ -74,7 +74,7 @@ return packer.startup(function(use)
     use "rose-pine/neovim"
     use "romgrk/barbar.nvim"
     use "mvllow/modes.nvim"
-    use "hoob3rt/lualine.nvim"
+    use "nvim-lualine/lualine.nvim"
  
     use "lewis6991/spellsitter.nvim"
 

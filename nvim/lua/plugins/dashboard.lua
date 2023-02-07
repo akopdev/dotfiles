@@ -5,6 +5,11 @@ end
 
 dashboard.setup {
     theme = 'hyper',
+    hide = {
+        statusline = false,
+        tabline = false,
+        winbar = false
+    },
     config = {
         shortcut = {
             {desc = '  Find File', action = 'Telescope find_files', key = 'ff' },

@@ -13,6 +13,7 @@ local core_modules = {
     "plugins/indent_blackline",
     "plugins/lsp",
     "plugins/lualine",
+    "plugins/barbar",
     "plugins/nvimtree",
     "plugins/spellsitter",
     "plugins/telescope",
