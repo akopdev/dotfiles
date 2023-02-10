@@ -17,7 +17,7 @@ telescope.setup {
     preview_title = false,
     layout_strategy = 'vertical',
     layout_config = { height = 0.95 },
-    find_command = {'rg', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case'},
+    find_command = {'rg', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case', '--ignore-file $ZSH/fzf-ignore'},
     color_devicons = true,
     file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
     grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,

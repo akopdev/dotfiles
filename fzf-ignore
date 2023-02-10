@@ -1,0 +1,16 @@
+*.ttf
+*.woff
+*.woff2
+*.eot
+*.png
+*.jpg
+*.jepg
+*.gif
+*.zip
+*.rar
+*.lock
+*.svg
+package-lock.json
+.git/*
+node_modules/*
+__pycache__/*

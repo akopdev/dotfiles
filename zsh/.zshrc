@@ -96,6 +96,7 @@ zinit light Aloxaf/fzf-tab
 zinit load zsh-users/zsh-autosuggestions
 
 # fzf global setup
+export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --glob "!.git/*" --ignore-file ~/dotfiles/fzf-ignore'
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --border
  --reverse 
