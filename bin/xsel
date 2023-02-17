@@ -13,13 +13,11 @@ do
       # powershell.exe Get-Clipboard always adds an extra
       # line break so we will added sed with -z
       powershell.exe Get-Clipboard | sed 's/\r$//'
-      exit 0
       ;;
       
     -i )
       # for copy we'll direct stdin to clip.exe
       tee <&0 | clip.exe
-      exit 0
       ;;
   esac
 done
