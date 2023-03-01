@@ -1,5 +1,4 @@
 typescript
-pyright
 typescript-language-server
 bash-language-server
 yaml-language-server
