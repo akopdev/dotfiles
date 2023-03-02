@@ -20,7 +20,7 @@ vim.g.onedark_terminal_italics = 1
 vim.g.rose_pine_variant = 'moon'
 
 -- Load colorscheme with A protected call
-local theme_status_ok, _ = pcall(vim.cmd, "colorscheme rose-pine")
+local theme_status_ok, theme = pcall(require, "rose-pine")
 if not theme_status_ok then
   return
 end
@@ -38,3 +38,12 @@ modes.setup{
     },
     line_opacity = 0.2
 }
+
+theme.setup {
+    dark_variant  = 'moon'
+}
+
+local colorscheme_status_ok, _ = pcall(vim.cmd, "colorscheme rose-pine")
+if not colorscheme_status_ok then
+  return
+end
