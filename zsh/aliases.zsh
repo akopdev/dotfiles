@@ -36,6 +36,7 @@ alias gl="git-log"
 alias gd="git diff"
 alias gb="git-branch"
 alias gcb="git checkout -b"
+alias gcp="git cherry-pick"
 alias grm="git-rebase-master"
 alias gr="git rebase -i"
 
