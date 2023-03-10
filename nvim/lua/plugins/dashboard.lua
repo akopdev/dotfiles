@@ -12,9 +12,9 @@ dashboard.setup {
     },
     config = {
         shortcut = {
-            {desc = '  Find File', action = 'Telescope find_files', key = 'ff' },
-            {desc = '  Find Word', action = 'Telescope live_grep', key ='fw' },
-            {desc = '  Edit config', action = 'cd ~/.dotfiles/ | edit nvim/init.lua', key = 'c'},
+            {desc = '  Find', action = 'Telescope live_grep', key ='f' },
+            {desc = '  Config', action = 'cd ~/.dotfiles/ | edit nvim/init.lua', key = 'c'},
+            {desc = '✗  Quite', action = ':q', key = 'q'},
         },
         project = {
             action = 'cd '
