@@ -32,3 +32,4 @@ xclip
 zinit
 fd
 azure-cli
+jq
