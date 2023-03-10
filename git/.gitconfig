@@ -46,3 +46,5 @@
 [delta "interactive"]
     keep-plus-minus-markers = false
 
+[credential]
+	helper = store
