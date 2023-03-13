@@ -8,7 +8,6 @@ feh
 ranger
 fzf
 git-delta
-gitlab-ci-local
 glab
 go
 gopls
@@ -33,3 +32,5 @@ zinit
 fd
 azure-cli
 jq
+pgcli
+goband
