@@ -81,3 +81,8 @@ map('n', '<leader>g',  '<CMD>Telescope gh gist<CR>',                        opts
 -- Toggle term
 map('n', '<leader>t',  '<CMD>ToggleTerm<CR>',                               opts)
 map('t', '<leader>t',  '<CMD>ToggleTerm<CR>',                               opts)
+-- Quickfix list
+map('n', '<C-J>',      ':cn<CR>',                                           opts)
+map('n', '<C-K>',      ':cp<CR>',                                           opts)
+map('n', '<C-C>',      ':cclose<CR>',                                       opts)
+map('n', '<C-O>',      ':copen<CR>',                                        opts)
