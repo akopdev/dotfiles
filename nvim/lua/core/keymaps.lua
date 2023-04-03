@@ -82,3 +82,8 @@ map('n', '<leader>a',  ':Telescope lsp_code_actions theme=ivy<CR>',         opts
 map('n', '<leader>s',  ':Telescope spell_suggest theme=cursor<CR>',         opts)
 map('n', '<leader>g',  ':Telescope gh gist<CR>',                            opts)
 map('n', '<leader>m',  ':Telescope marks<CR>',                              opts)
+-- Quickfix list
+map('n', '<C-J>',      ':cn<CR>',                                           opts)
+map('n', '<C-K>',      ':cp<CR>',                                           opts)
+map('n', '<C-C>',      ':cclose<CR>',                                       opts)
+map('n', '<C-O>',      ':copen<CR>',                                        opts)
