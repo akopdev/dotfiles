@@ -4,6 +4,9 @@ vim.g.mapleader = ' '
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true }
 
+-- Marks
+map('n', 'm',          '<Nop>',                                             opts)
+map('n', '<leader>b',  ':BookmarksListAll<CR>',                             opts)
 -- Shortcut to save changes
 map('n',  '<leader>w', ':w<CR>',                                            opts)
 map('n',  'qq',        ':q<CR>',                                            opts)
@@ -72,12 +75,10 @@ map('v', '<leader>c',  ':CommentToggle<CR>',                                opts
 -- Vertical split 
 map('n', '|',          ':vsplit<CR>',                                       opts)
 -- Telescope
-map('n', '<leader>f',  '<CMD>Telescope live_grep<CR>',                      opts)
-map('n', '<leader>ff', '<CMD>Telescope find_files theme=ivy<CR>',           opts) 
-map('n', '<leader>d',  '<CMD>Telescope diagnostics bufnr=0 theme=ivy<CR>',  opts)
-map('n', '<leader>a',  '<CMD>Telescope lsp_code_actions theme=ivy<CR>',     opts)
-map('n', '<leader>s',  '<CMD>Telescope spell_suggest theme=cursor<CR>',     opts)
-map('n', '<leader>g',  '<CMD>Telescope gh gist<CR>',                        opts)
--- Toggle term
-map('n', '<leader>t',  '<CMD>ToggleTerm<CR>',                               opts)
-map('t', '<leader>t',  '<CMD>ToggleTerm<CR>',                               opts)
+map('n', '<leader>f',  ':Telescope live_grep<CR>',                          opts)
+map('n', '<leader>ff', ':Telescope find_files theme=ivy<CR>',               opts) 
+map('n', '<leader>d',  ':Telescope diagnostics bufnr=0 theme=ivy<CR>',      opts)
+map('n', '<leader>a',  ':Telescope lsp_code_actions theme=ivy<CR>',         opts)
+map('n', '<leader>s',  ':Telescope spell_suggest theme=cursor<CR>',         opts)
+map('n', '<leader>g',  ':Telescope gh gist<CR>',                            opts)
+map('n', '<leader>m',  ':Telescope marks<CR>',                              opts)
