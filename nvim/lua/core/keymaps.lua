@@ -4,9 +4,6 @@ vim.g.mapleader = ' '
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true }
 
--- Marks
-map('n', 'm',          '<Nop>',                                             opts)
-map('n', '<leader>b',  ':BookmarksListAll<CR>',                             opts)
 -- Shortcut to save changes
 map('n',  '<leader>w', ':w<CR>',                                            opts)
 map('n',  'qq',        ':q<CR>',                                            opts)
