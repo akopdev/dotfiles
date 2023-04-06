@@ -5,8 +5,18 @@ end
 
 bufferline.setup {
     auto_hide = false,
-    icons = false,
+    icons = { 
+        filetype = { 
+            enabled = false 
+        },
+        inactive = {
+            separator = {
+                left = ''
+            },
+        },
+        separator = {
+            left = ''
+        },
+    },
     tabpages = true,
-    icon_separator_active = '',
-    icon_separator_inactive = '',
 }
