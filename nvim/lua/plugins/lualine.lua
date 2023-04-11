@@ -6,6 +6,7 @@ end
 lualine.setup {
     options = {
       theme = 'rose-pine',
+      globalstatus = true,
     },
     extensions= {
       'fugitive',

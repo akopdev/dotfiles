@@ -40,7 +40,8 @@ modes.setup{
 }
 
 theme.setup {
-    dark_variant  = 'moon'
+    dark_variant  = 'moon',
+	disable_float_background = true,
 }
 
 local colorscheme_status_ok, _ = pcall(vim.cmd, "colorscheme rose-pine")
