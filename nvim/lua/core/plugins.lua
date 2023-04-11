@@ -78,6 +78,8 @@ return packer.startup(function(use)
  
     use "lewis6991/spellsitter.nvim"
 
+    use "shatur/neovim-session-manager"
+
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

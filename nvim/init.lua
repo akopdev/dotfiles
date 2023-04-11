@@ -18,6 +18,7 @@ local core_modules = {
     "plugins/spellsitter",
     "plugins/telescope",
     "plugins/treesitter",
+    "plugins/session_manager",
 }
 
 --- Using pcall we can handle better any loading issues
