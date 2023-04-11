@@ -50,7 +50,7 @@ map('n', 'P',          ':pu<CR>',                                           opts
 -- highlight
 map('n', 's',          '*N',                                                opts)
 -- Save sessions
-map('n', '<leader>ss', ':SessionManager save_current_session<CR>',                                  opts)
+map('n', '<leader>ss', ':SessionManager save_current_session<CR>',          opts)
 -- Tree file explorer
 map('n', '<C-n>',      ':NvimTreeToggle<CR>',                               opts)
 -- Buffers
@@ -77,8 +77,9 @@ map('n', '<leader>ff', ':Telescope find_files theme=ivy<CR>',               opts
 map('n', '<leader>d',  ':Telescope diagnostics bufnr=0 theme=ivy<CR>',      opts)
 map('n', '<leader>a',  ':Telescope lsp_code_actions theme=ivy<CR>',         opts)
 map('n', '<leader>s',  ':Telescope spell_suggest theme=cursor<CR>',         opts)
-map('n', '<leader>g',  ':Telescope gh gist<CR>',                            opts)
-map('n', '<leader>m',  ':Telescope marks<CR>',                              opts)
+map('n', '<leader>gg', ':Telescope gh gist<CR>',                            opts)
+map('n', '<leader>gb', ':Telescope git_branches<CR>',                       opts)
+map('n', '<leader>q',  ':Telescope quickfix<CR>',                           opts)
 -- Quickfix list
-map('n', 'qj',      ':cn<CR>',                                           opts)
-map('n', 'qk',      ':cp<CR>',                                           opts)
+map('n', 'qj',      ':cn<CR>',                                              opts)
+map('n', 'qk',      ':cp<CR>',                                              opts)
