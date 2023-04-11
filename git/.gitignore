@@ -68,6 +68,7 @@ desktop.ini
 # VMS                #
 ######################
 .git
+.gitconfig
 
 ######################
 # Node               #
