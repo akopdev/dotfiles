@@ -9,5 +9,5 @@ if not status_ok then
 end
 
 session_manager.setup {
- autoload_mode = session_manager_config.AutoloadMode.CurrentDir
+ autoload_mode = session_manager_config.AutoloadMode.Disabled
 }

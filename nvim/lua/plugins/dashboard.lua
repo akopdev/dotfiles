@@ -4,20 +4,22 @@ if not status_ok then
 end
 
 dashboard.setup {
-    theme = 'hyper',
+    theme = 'doom',
     hide = {
         statusline = false,
         tabline = false,
         winbar = false
     },
     config = {
-        shortcut = {
-            {desc = '  Find', action = 'Telescope live_grep', key ='f' },
-            {desc = '  Config', action = 'cd ~/.dotfiles/ | edit nvim/init.lua', key = 'c'},
-            {desc = '✗  Quite', action = ':q', key = 'q'},
+        week_header = {
+           enable = true,
         },
-        project = {
-            action = 'cd '
-        }
+        center = {
+            {desc = 'Load Session', action = 'SessionManager load_current_dir_session', key ='l' },
+            {desc = 'Find Text', action = 'Telescope live_grep', key ='f' },
+            {desc = 'Change Branch', action = 'Telescope git_branches', key = 'b'},
+            {desc = 'Open Dotfiles', action = 'cd ~/.dotfiles/ | edit nvim/init.lua', key = 'c'},
+            {desc = 'Quite', action = ':q', key = 'q'},
+        },
     }
 }
