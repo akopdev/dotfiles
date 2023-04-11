@@ -9,5 +9,6 @@ if not status_ok then
 end
 
 session_manager.setup {
- autoload_mode = session_manager_config.AutoloadMode.Disabled
+    autoload_mode = session_manager_config.AutoloadMode.Disabled,
+    autosave_last_session = false
 }
