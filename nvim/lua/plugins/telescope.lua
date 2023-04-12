@@ -28,14 +28,13 @@ telescope.setup {
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-l>"] = actions.smart_send_to_qflist + actions.open_qflist,
+            ["<C-f>"] = actions.preview_scrolling_down,
+            ["<C-b>"] = actions.preview_scrolling_up,
+            ["<ESC>"] = actions.close,
             ["<CR>"]  = actions.select_default + actions.center
         },
         n = {
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
             ["<C-l>"] = actions.smart_send_to_qflist + actions.open_qflist,
-            ["J"] = actions.preview_scrolling_down,
-            ["K"] = actions.preview_scrolling_up,
         }
     }
   },
