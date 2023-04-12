@@ -102,8 +102,8 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --reverse 
  --margin=1  
  --preview-window='up,80%,border-bottom' 
- --bind='ctrl-n:preview-down,ctrl-p:preview-up'
- --bind='ctrl-w:toggle-preview-wrap'
+ --bind='ctrl-f:preview-down,ctrl-b:preview-up'
+ --bind='ctrl-p:toggle-preview'
  --color=fg:#e0def4,hl:#6e6a86
  --color=fg+:#908caa,bg+:#232136,hl+:#908caa
  --color=info:#9ccfd8,prompt:#f6c177,pointer:#c4a7e7
