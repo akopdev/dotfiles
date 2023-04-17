@@ -31,9 +31,9 @@ map('',  '<S-l>',      'e<Right>',                                          opts
 map('n', '<C-l>',      '$l',                                                opts)
 map('i', '<C-l>',      '<C-o>$',                                            opts)
 map('v', '<C-l>',      '$',                                                 opts)
-map('n', '<C-h>',      '0',                                                 opts)
-map('v', '<C-h>',      '0',                                                 opts)
-map('i', '<C-h>',      '<C-o>0',                                            opts)
+map('n', '<C-h>',      '^',                                                 opts)
+map('v', '<C-h>',      '^',                                                 opts)
+map('i', '<C-h>',      '<C-o>^',                                            opts)
 -- Move lines
 map('n', '<C-j>',      ':m .+1<CR>==',                                      opts)
 map('n', '<C-k>',      ':m .-2<CR>==' ,                                     opts)
