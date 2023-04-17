@@ -9,8 +9,10 @@ key_bindings:
   - { key: Space,     mods: Control,  chars: "\x00"             }
   - { key: N,         mods: Alt,      action: SpawnNewInstance  }
   - { key: Return,    mods: Alt,      action: ToggleFullscreen  }
-  - { key: V,         mods: Alt,      action: Paste             }
-  - { key: C,         mods: Alt,      action: Copy              }
+  - { key: P,         mods: Alt,      action: Paste             }
+  - { key: Y,         mods: Alt,      action: Copy              }
+  - { key: Z,         mods: Alt,      chars: "\x00\x7a"         }
+  - { key: V,         mods: Alt,      chars: "\x00\x76"         }
   - { key: W,         mods: Alt,      chars: "\x00\x77"         }
   - { key: D,         mods: Alt,      chars: "\x00\x64"         }
   - { key: T,         mods: Alt,      chars: "\x00\x74"         }
