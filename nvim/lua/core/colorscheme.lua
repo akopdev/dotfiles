@@ -3,11 +3,6 @@ if not status_ok then
     return
 end
 
-local modes_status_ok, modes = pcall(require, "modes")
-if not modes_status_ok then    
-    return
-end
-
 local set = vim.opt
 
 set.background = 'dark'
@@ -27,16 +22,6 @@ end
 
 devicons.setup {
     default = true
-}
-
-modes.setup{
-    colors = {
-        copy = "#f5c359",
-        delete = "#c75c6a",
-        insert = "#78ccc5",
-        visual = "#9745be",
-    },
-    line_opacity = 0.2
 }
 
 theme.setup {

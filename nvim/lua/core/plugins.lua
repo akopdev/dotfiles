@@ -73,7 +73,6 @@ return packer.startup(function(use)
  
     use "rose-pine/neovim"
     use "romgrk/barbar.nvim"
-    use "mvllow/modes.nvim"
     use "nvim-lualine/lualine.nvim"
  
     use "shatur/neovim-session-manager"
