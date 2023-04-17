@@ -14,8 +14,8 @@ lualine.setup {
       'nvim-tree'
     },
     sections = {
-      lualine_a = {'mode'},
-      lualine_b = {},
+      lualine_a = {'branch'},
+      lualine_b = {'diff'},
       lualine_c = { 
         {
           'filename',
@@ -23,8 +23,8 @@ lualine.setup {
           path = 1             -- 0 = just filename, 1 = relative path, 2 = absolute path
         }
       },
-      lualine_x = {},
-      lualine_y = {'diff'},
-      lualine_z = {'branch'}
+      lualine_x = {''},
+      lualine_y = {'progress'},
+      lualine_z = {'mode'}
     }
 }
