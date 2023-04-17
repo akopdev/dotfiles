@@ -74,11 +74,12 @@ map('n', '|',          ':vsplit<CR>',                                       opts
 -- Telescope
 map('n', '<leader>f',  ':Telescope live_grep<CR>',                          opts)
 map('n', '<leader>ff', ':Telescope find_files theme=ivy<CR>',               opts) 
-map('n', '<leader>d',  ':Telescope diagnostics bufnr=0 theme=ivy<CR>',      opts)
-map('n', '<leader>a',  ':Telescope lsp_code_actions theme=ivy<CR>',         opts)
+map('n', '<leader>cd', ':Telescope diagnostics bufnr=0 theme=ivy<CR>',      opts)
+map('n', '<leader>ca', ':Telescope lsp_code_actions theme=ivy<CR>',         opts)
 map('n', '<leader>gg', ':Telescope gh gist<CR>',                            opts)
 map('n', '<leader>gb', ':Telescope git_branches<CR>',                       opts)
 map('n', '<leader>q',  ':Telescope quickfix<CR>',                           opts)
+map('n', '<leader>r',  ':Telescope command_history<CR>',                    opts)
 -- Quickfix list
 map('n', 'qj',      ':cn<CR>',                                              opts)
 map('n', 'qk',      ':cp<CR>',                                              opts)
