@@ -15,7 +15,6 @@ local core_modules = {
     "plugins/lualine",
     "plugins/barbar",
     "plugins/nvimtree",
-    "plugins/spellsitter",
     "plugins/telescope",
     "plugins/treesitter",
     "plugins/session_manager",

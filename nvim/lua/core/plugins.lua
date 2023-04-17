@@ -76,8 +76,6 @@ return packer.startup(function(use)
     use "mvllow/modes.nvim"
     use "nvim-lualine/lualine.nvim"
  
-    use "lewis6991/spellsitter.nvim"
-
     use "shatur/neovim-session-manager"
 
     -- Automatically set up your configuration after cloning packer.nvim
