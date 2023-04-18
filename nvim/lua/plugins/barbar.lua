@@ -13,13 +13,13 @@ barbar.setup {
         },
         inactive = {
             separator = {
-                left = ' ',
-                right = ' '
+                left = '',
+                right = ''
             },
         },
         separator = {
-            left = ' ',
-            right = ' '
+            left = '',
+            right = ''
         },
     },
     tabpages = false,

@@ -76,6 +76,12 @@ return packer.startup(function(use)
     use "nvim-lualine/lualine.nvim"
  
     use "shatur/neovim-session-manager"
+    use({
+      'mvllow/modes.nvim',
+      config = function()
+        require('modes').setup()
+      end
+    })
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
