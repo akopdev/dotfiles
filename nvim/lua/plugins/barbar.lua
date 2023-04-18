@@ -13,12 +13,17 @@ barbar.setup {
         },
         inactive = {
             separator = {
-                left = ''
+                left = ' ',
+                right = ' '
             },
         },
         separator = {
-            left = ''
+            left = ' ',
+            right = ' '
         },
     },
-    tabpages = true,
+    tabpages = false,
+    sidebar_filetypes = {
+        NvimTree = true,
+    },
 }

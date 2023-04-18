@@ -27,6 +27,9 @@ devicons.setup {
 theme.setup {
     dark_variant  = 'moon',
     disable_float_background = true,
+    highlight_groups = {
+        BufferInactive = { bg = 'surface', fg = 'muted'},
+    }
 }
 
 local colorscheme_status_ok, _ = pcall(vim.cmd, "colorscheme rose-pine")
