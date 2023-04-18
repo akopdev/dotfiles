@@ -13,6 +13,11 @@ if not cmp_status_ok then
   return
 end
 
+local lsp_signature_status_ok, lsp_signature = pcall(require, "lsp_signature")
+if not lsp_signature_status_ok then
+  return
+end
+
 nvim_lsp_installer.settings{
     ui = {
         icons = {
@@ -28,6 +33,9 @@ nvim_lsp_installer.settings{
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Show function signature when you type
+  lsp_signature.on_attach(client, bufnr) 
 
   --Enable completion triggered by <c-x><c-o>
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
