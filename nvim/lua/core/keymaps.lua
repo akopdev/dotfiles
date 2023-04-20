@@ -42,10 +42,11 @@ map('i', '<C-k>',      '<Esc>:m .-2<CR>==gi',                               opts
 map('v', '<C-j>',      ':m \'>+1<CR>gv=gv',                                 opts)
 map('v', '<C-k>',      ':m \'<-2<CR>gv=gv',                                 opts)
 -- Copy
-map('n', 'y',          'wbvey',                                             opts)
+map('n', 'y',          'wbvey<Esc>',                                        opts)
 map('n', 'Y',          'yy',                                                opts)
 -- Paste     
-map('v', 'p',          '"_dP<Esc>',                                         opts)
+map('v', 'p',          '"_di<C-R>"<Esc>',                                   opts)
+map('n', 'p',          'a<C-R>"<Esc>',                                      opts)
 map('n', 'P',          ':pu<CR>',                                           opts)
 -- highlight
 map('n', 's',          '*N',                                                opts)
@@ -60,7 +61,7 @@ map('n', '<S-Tab>',    ':BufferPrevious<CR>',                               opts
 map('n', '<C-t>',      ':enew<CR>i',                                        opts)
 -- Close buffer
 map('t', '<C-w>',      '<C-\\><C-N><CR>:BufferClose!<CR>',                  opts)
-map('n', '<C-w>',      ':BufferClose<CR>',                                  opts) 
+map('n', '<C-w>',      ':BufferClose<CR>',                                  opts)
 -- Select a word under cursor 
 map('n', '<leader>v',  'viw',                                               opts)
 -- Backspace in normal mode
@@ -73,7 +74,7 @@ map('v', '<leader>c',  ':CommentToggle<CR>',                                opts
 map('n', '|',          ':vsplit<CR>',                                       opts)
 -- Telescope
 map('n', '<leader>f',  ':Telescope live_grep<CR>',                          opts)
-map('n', '<leader>ff', ':Telescope find_files theme=ivy<CR>',               opts) 
+map('n', '<leader>ff', ':Telescope find_files theme=ivy<CR>',               opts)
 map('n', '<leader>cd', ':Telescope diagnostics bufnr=0 theme=ivy<CR>',      opts)
 map('n', '<leader>ca', ':Telescope lsp_code_actions theme=ivy<CR>',         opts)
 map('n', '<leader>gg', ':Telescope gh gist<CR>',                            opts)
@@ -81,5 +82,12 @@ map('n', '<leader>gb', ':Telescope git_branches<CR>',                       opts
 map('n', '<leader>q',  ':Telescope quickfix<CR>',                           opts)
 map('n', '<leader>r',  ':Telescope command_history<CR>',                    opts)
 -- Quickfix list
-map('n', 'qj',      ':cn<CR>',                                              opts)
-map('n', 'qk',      ':cp<CR>',                                              opts)
+map('n', 'qj',         ':cn<CR>',                                           opts)
+map('n', 'qk',         ':cp<CR>',                                           opts)
+-- LSP
+map('n', 'gd',         ':Telescope lsp_definitions<CR>',                    opts)
+map('n', 'gr',         ':Telescope lsp_references<CR>',                     opts)
+map('n', 'gi',         ':Telescope lsp_implementations<CR>',                opts)
+map('n', '<leader>d',  ':lua vim.diagnostic.open_float()<CR>',              opts)
+map('n', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>',                opts)
+map("n", "<leader>cf", ':lua vim.lsp.buf.format({ async = true })<CR>',     opts)

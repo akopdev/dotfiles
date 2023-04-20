@@ -51,10 +51,9 @@ return packer.startup(function(use)
     use "hrsh7th/cmp-vsnip"
     use "hrsh7th/vim-vsnip"
     use "hrsh7th/nvim-cmp"
- 
+
     use "airblade/vim-gitgutter"
     use "plasticboy/vim-markdown"
-    use "ryanoasis/vim-devicons"
     use "kyazdani42/nvim-web-devicons"
     use "nvim-treesitter/nvim-treesitter"
     use "nvim-lua/popup.nvim"
@@ -66,25 +65,28 @@ return packer.startup(function(use)
     use "lukas-reineke/indent-blankline.nvim"
     use "glepnir/dashboard-nvim"
     use "tpope/vim-fugitive"
- 
+
     use "neovim/nvim-lspconfig"
-    use "williamboman/nvim-lsp-installer"
     use "sheerun/vim-polyglot"
- 
+
     use "rose-pine/neovim"
     use "romgrk/barbar.nvim"
     use "nvim-lualine/lualine.nvim"
- 
+
     use "shatur/neovim-session-manager"
     use({
-      'mvllow/modes.nvim',
-      config = function()
-        require('modes').setup()
-      end
+        "mvllow/modes.nvim",
+        config = function()
+            require('modes').setup()
+        end
     })
 
     use "ray-x/lsp_signature.nvim"
 
+    use {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+    }
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

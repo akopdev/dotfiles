@@ -34,3 +34,4 @@ azure-cli
 jq
 pgcli
 goband
+lua-language-server

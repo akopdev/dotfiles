@@ -77,9 +77,6 @@ function zvm_after_init() {
   bindkey -s '^P' 'projects^M'
   bindkey -s '^F' 'find-text^M'
   bindkey -s '^E' 'ranger^M'
-
-  local icur=$(zvm_cursor_style $ZVM_INSERT_MODE_CURSOR)
-  ZVM_INSERT_MODE_CURSOR=$icur'\e\e]12;green\a'
 }
 
 function zvm_after_lazy_keybindings() {
