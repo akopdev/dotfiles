@@ -46,8 +46,6 @@ map('n', 'y',          'wbvey<Esc>',                                        opts
 map('n', 'Y',          'yy',                                                opts)
 -- Paste     
 map('v', 'p',          '"_di<C-R>"<Esc>',                                   opts)
-map('n', 'p',          'a<C-R>"<Esc>',                                      opts)
-map('n', 'P',          ':pu<CR>',                                           opts)
 -- highlight
 map('n', 's',          '*N',                                                opts)
 -- Save sessions
