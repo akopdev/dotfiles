@@ -58,10 +58,9 @@ map('n', '<Tab>',      ':BufferNext<CR>',                                   opts
 map('n', '<S-Tab>',    ':BufferPrevious<CR>',                               opts)
 map('n', '<C-t>',      ':enew<CR>i',                                        opts)
 -- Close buffer
-map('t', '<C-w>',      '<C-\\><C-N><CR>:BufferClose!<CR>',                  opts)
 map('n', '<C-w>',      ':BufferClose<CR>',                                  opts)
 -- Select a word under cursor 
-map('n', '<leader>v',  'viw',                                               opts)
+map('n', 'vv',  'viw',                                                      opts)
 -- Backspace in normal mode
 map('n', '<BS>',       '"_x',                                               opts)
 map('v', '<BS>',       '"_x',                                               opts)
@@ -70,6 +69,7 @@ map('n', '<leader>c',  ':CommentToggle<CR>',                                opts
 map('v', '<leader>c',  ':CommentToggle<CR>',                                opts)
 -- Vertical split 
 map('n', '|',          ':vsplit<CR>',                                       opts)
+map('n', '-',          ':split<CR>',                                       opts)
 -- Telescope
 map('n', '<leader>f',  ':Telescope live_grep<CR>',                          opts)
 map('n', '<leader>ff', ':Telescope find_files theme=ivy<CR>',               opts)
