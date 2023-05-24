@@ -49,7 +49,7 @@ map('v', 'p',          '"_di<C-R>"<Esc>',                                   opts
 -- highlight
 map('n', 's',          '*N',                                                opts)
 -- Save sessions
-map('n', '<leader>ss', ':SessionManager save_current_session<CR>',          opts)
+map('n', '<leader>ss', ':SessionSave<CR>',                                  opts)
 -- Tree file explorer
 map('n', '<C-n>',      ':NvimTreeToggle<CR>',                               opts)
 -- Buffers
@@ -89,3 +89,8 @@ map('n', 'gi',         ':Telescope lsp_implementations<CR>',                opts
 map('n', '<leader>d',  ':lua vim.diagnostic.open_float()<CR>',              opts)
 map('n', '<leader>ca', ':lua vim.lsp.buf.code_action()<CR>',                opts)
 map("n", "<leader>cf", ':lua vim.lsp.buf.format({ async = true })<CR>',     opts)
+
+map('n', '<leader>dr', ':lua require("dap").continue()<CR>', opts)
+map('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', opts)
+map('n', '<leader>do', ':lua require("dap").repl.open()<CR>', opts)
+map('n', '<leader>dn', ':lua require("dap").step_into()<CR>', opts)

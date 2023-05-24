@@ -73,7 +73,7 @@ return packer.startup(function(use)
     use "romgrk/barbar.nvim"
     use "nvim-lualine/lualine.nvim"
 
-    use "shatur/neovim-session-manager"
+    use "olimorris/persisted.nvim"
     use({
         "mvllow/modes.nvim",
         config = function()
@@ -87,6 +87,10 @@ return packer.startup(function(use)
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
     }
+
+    use "nvim-telescope/telescope-dap.nvim"
+    use "mfussenegger/nvim-dap"
+    use "rcarriga/nvim-dap-ui"
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

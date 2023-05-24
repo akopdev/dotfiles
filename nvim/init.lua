@@ -12,12 +12,13 @@ local core_modules = {
     "plugins/gitsigns",
     "plugins/indent_blackline",
     "plugins/lsp",
+    "plugins/dap",
     "plugins/lualine",
     "plugins/barbar",
     "plugins/nvimtree",
     "plugins/telescope",
     "plugins/treesitter",
-    "plugins/session_manager",
+    "plugins/persisted",
 }
 
 --- Using pcall we can handle better any loading issues
