@@ -63,14 +63,14 @@ nvim_tree.setup {
   },
   view                = {
     width = 40,
-    adaptive_size = false,
+    adaptive_size = true,
   },
   actions             = {
     open_file = {
       quit_on_open = true
     }
   },
-  renderer            = {
+  renderer = {
     indent_markers = {
       enable = true
     },
@@ -86,7 +86,10 @@ nvim_tree.setup {
       'Makefile',
     },
   },
-  filters             = {
+  git = {
+    ignore = false,
+  },
+  filters = {
     custom = {
       '.git$',
       'node_modules',
