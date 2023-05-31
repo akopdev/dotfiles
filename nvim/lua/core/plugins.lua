@@ -74,12 +74,6 @@ return packer.startup(function(use)
     use "nvim-lualine/lualine.nvim"
 
     use "olimorris/persisted.nvim"
-    use({
-        "mvllow/modes.nvim",
-        config = function()
-            require('modes').setup()
-        end
-    })
 
     use "ray-x/lsp_signature.nvim"
 

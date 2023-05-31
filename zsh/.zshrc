@@ -86,6 +86,13 @@ function zvm_after_lazy_keybindings() {
   zvm_bindkey vicmd '^L' vi-end-of-line
 }
 
+zvm_before_init() {
+  local ncur=$(zvm_cursor_style $ZVM_NORMAL_MODE_CURSOR)
+  local icur=$(zvm_cursor_style $ZVM_INSERT_MODE_CURSOR)
+
+  ZVM_INSERT_MODE_CURSOR=$icur'\e\e]12;#eb6f92\a'
+  ZVM_NORMAL_MODE_CURSOR=$ncur'\e\e]12;#eb6f92\a'
+}
 # Replace zsh's default completion selection menu with fzf!
 zinit light Aloxaf/fzf-tab
 
