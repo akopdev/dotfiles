@@ -9,10 +9,20 @@ end
 
 
 cmp.setup {
+    window = {
+        completion = {
+            border = 'single',
+            scrollbar = false,
+        },
+        documentation = {
+            border = 'single',
+            scrollbar = false,
+        },
+    },
     snippet = {
         expand = function(args)
             vim.fn["vsnip#anonymous"](args.body)
-        end,
+        end
     },
     mapping = {
         ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -33,9 +43,8 @@ cmp.setup {
         {
             { name = 'vsnip' }, -- For vsnip users.
             { name = 'nvim_lsp' },
-        }, 
+        },
         {
-            { name = 'spell' },
             { name = 'buffer' },
         }
     )
@@ -44,15 +53,15 @@ cmp.setup {
 -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline('/', {
     sources = {
-      { name = 'buffer' }
+        { name = 'buffer' }
     }
 })
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
     sources = cmp.config.sources({
-      { name = 'path' }
+        { name = 'path' }
     }, {
-      { name = 'cmdline' }
+        { name = 'cmdline' }
     })
 })
