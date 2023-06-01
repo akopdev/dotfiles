@@ -39,7 +39,7 @@ fi
 
 if [[ ! -d "${DOTFILES}" ]]; then
   info "Download dotfiles ..."
-  git clone https://github.com/akopkesheshyan/dotfiles.git "$DOTFILES" 
+  git clone https://github.com/akopdev/dotfiles.git "$DOTFILES" 
 fi
 
 # shellcheck source=/dev/null

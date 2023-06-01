@@ -16,7 +16,7 @@ For the first-time install use a simple script that will download and install al
 a primary way of installation.
 
 ```sh
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/akopkesheshyan/dotfiles/HEAD/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/akopdev/dotfiles/HEAD/install.sh)"
 ```
 If you are not able to perform a complete installation, or you want to run dotfiles on unsupported platforms (ex. Windows), you can try docker image.
 
