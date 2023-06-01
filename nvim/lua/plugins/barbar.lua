@@ -7,9 +7,9 @@ end
 
 barbar.setup {
     auto_hide = false,
-    icons = { 
-        filetype = { 
-            enabled = false 
+    icons = {
+        filetype = {
+            enabled = false
         },
         inactive = {
             separator = {
