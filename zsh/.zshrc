@@ -18,6 +18,7 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 export DISPLAY=:0
+export HOMEBREW_NO_ANALYTICS=1
 
 fpath=($ZSH/bin $fpath)
 autoload -U $ZSH/bin/*(:t)
