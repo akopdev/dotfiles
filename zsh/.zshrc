@@ -19,6 +19,7 @@ export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 export DISPLAY=:0
 export HOMEBREW_NO_ANALYTICS=1
+export XDG_CONFIG_HOME=${ZSH}
 
 fpath=($ZSH/bin $fpath)
 autoload -U $ZSH/bin/*(:t)
