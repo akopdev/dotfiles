@@ -7,8 +7,8 @@ autopairs.setup {
     fast_wrap = {
         map = '<C-w>',
     },
-    disable_filetype = { 
-        "TelescopePrompt" , 
-        "vim" 
+    disable_filetype = {
+        "TelescopePrompt",
+        "vim"
     },
 }

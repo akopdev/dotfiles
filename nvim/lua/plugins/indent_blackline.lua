@@ -10,10 +10,11 @@ indent_blankline.setup {
     show_trailing_blankline_indent = false,
     filetype_exclude = {
         'help',
-        'dashboard', 
+        'dashboard',
         'markdown'
     },
     buftype_exclude = {
         "terminal"
     },
 }
+

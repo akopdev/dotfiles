@@ -70,7 +70,7 @@ nvim_tree.setup {
       quit_on_open = true
     }
   },
-  renderer = {
+  renderer            = {
     indent_markers = {
       enable = true
     },
@@ -86,10 +86,10 @@ nvim_tree.setup {
       'Makefile',
     },
   },
-  git = {
+  git                 = {
     ignore = false,
   },
-  filters = {
+  filters             = {
     custom = {
       '.git$',
       'node_modules',

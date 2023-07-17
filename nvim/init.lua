@@ -20,6 +20,7 @@ local core_modules = {
     "plugins/treesitter",
     "plugins/persisted",
     "plugins/null_ls",
+    "plugins/copilot",
 }
 
 --- Using pcall we can handle better any loading issues

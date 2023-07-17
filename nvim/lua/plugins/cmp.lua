@@ -41,6 +41,7 @@ cmp.setup {
     },
     sources = cmp.config.sources(
         {
+            { name = "copilot", group_index = 2 },
             { name = 'vsnip' }, -- For vsnip users.
             { name = 'nvim_lsp' },
         },

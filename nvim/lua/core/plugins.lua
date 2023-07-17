@@ -86,6 +86,14 @@ return packer.startup(function(use)
     use "mfussenegger/nvim-dap"
     use "rcarriga/nvim-dap-ui"
 
+    use "zbirenbaum/copilot.lua"
+    use {
+      "zbirenbaum/copilot-cmp",
+      after = { "copilot.lua" },
+      config = function ()
+        require("copilot_cmp").setup()
+      end
+    }
 
     use "jose-elias-alvarez/null-ls.nvim"
     -- Automatically set up your configuration after cloning packer.nvim
