@@ -94,3 +94,8 @@ map('n', '<leader>dr', ':lua require("dap").continue()<CR>', opts)
 map('n', '<leader>db', ':lua require("dap").toggle_breakpoint()<CR>', opts)
 map('n', '<leader>do', ':lua require("dap").repl.open()<CR>', opts)
 map('n', '<leader>dn', ':lua require("dap").step_into()<CR>', opts)
+
+-- GitSigns
+
+map('n', '<leader>gu', ':lua require"gitsigns".reset_hunk()<CR>', opts)
+map('n', '<leader>gp', ':lua require"gitsigns".preview_hunk()<CR>', opts)
