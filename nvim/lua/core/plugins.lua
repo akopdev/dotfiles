@@ -88,14 +88,21 @@ return packer.startup(function(use)
 
     use "zbirenbaum/copilot.lua"
     use {
-      "zbirenbaum/copilot-cmp",
-      after = { "copilot.lua" },
-      config = function ()
-        require("copilot_cmp").setup()
-      end
+        "zbirenbaum/copilot-cmp",
+        after = { "copilot.lua" },
+        config = function()
+            require("copilot_cmp").setup()
+        end
     }
 
     use "jose-elias-alvarez/null-ls.nvim"
+    use {
+        "yorickpeterse/nvim-pqf",
+        config = function()
+            require("pqf").setup()
+        end
+
+    }
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
