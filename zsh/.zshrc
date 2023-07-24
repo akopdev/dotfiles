@@ -79,6 +79,7 @@ function zvm_after_init() {
   bindkey -s '^P' 'projects^M'
   bindkey -s '^F' 'find-text^M'
   bindkey -s '^E' 'ranger^M'
+  bindkey '^l' end-of-line
 }
 
 function zvm_after_lazy_keybindings() {
