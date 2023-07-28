@@ -33,5 +33,5 @@ fd
 azure-cli
 jq
 pgcli
-goband
+tako8ki/tap/gobang
 lua-language-server
