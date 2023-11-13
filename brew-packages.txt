@@ -35,3 +35,4 @@ jq
 pgcli
 tako8ki/tap/gobang
 lua-language-server
+fx
