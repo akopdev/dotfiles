@@ -1,20 +1,28 @@
-local status_ok, indent_blankline = pcall(require, "indent_blankline")
+local status_ok, indent_blankline = pcall(require, "ibl")
 if not status_ok then
     return
 end
 
+local hooks = require "ibl.hooks"
+hooks.register(
+ hooks.type.WHITESPACE,
+ hooks.builtin.hide_first_space_indent_level
+)
+
 indent_blankline.setup {
-    use_treesitter = true,
-    space_char_blankline = " ",
-    show_first_indent_level = false,
-    show_trailing_blankline_indent = false,
-    filetype_exclude = {
-        'help',
-        'dashboard',
-        'markdown'
+    indent = {
+        char = "│",
     },
-    buftype_exclude = {
-        "terminal"
+    scope = {
+        enabled = false
+    },
+    whitespace = { highlight = { "Whitespace", "NonText" } },
+    exclude = {
+        filetypes = {
+            'help',
+            'dashboard',
+            'markdown'
+        }
     },
 }
 
