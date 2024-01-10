@@ -52,21 +52,11 @@ if [[ "${OS}" == "Linux" ]]; then
     abort "We support only Debian based distributives"
   fi
 
-  IS_LINUX=1
-
   info "Installing core packages ..."
-  # add extra repos for i3-gaps
-  add-apt-repository -y ppa:regolith-linux/release
-  add-apt-repository -y ppa:regolith-linux/stable
   apt_install build-essential \
-              procps \
+              git \
               curl \
-              file \
-              zsh \
-              i3-gaps \
-              rofi \
-              feh \
-              software-properties-common
+              zsh
 
   info "Installing brew package manager ..."
   yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -98,38 +88,7 @@ for folder in "Projects" ".config"; do
 done
 
 info "Installing brew packages"
-while read -r brew_package; 
-do
-  pkg_install "${brew_package}"
-done < "${DOTFILES}"/install/brew-packages.txt
-
-info "Installing npm packages"
-while read -r npm_package;
-do
-  npm i -g "${npm_package}"
-done < "${DOTFILES}"/install/npm-packages.txt
-
-# Run general setup scripts
-for file in "${DOTFILES}"/**/setup.sh
-do
-  # shellcheck source=/dev/null
-  source "$file"
-done
-
-# Run OS specific scripts
-if [[ -n "${IS_LINUX-}" ]]; then
-  for file in "${DOTFILES}"/**/setup-linux.sh 
-  do
-    # shellcheck source=/dev/null
-    source "$file"
-  done
-else
-  for file in "${DOTFILES}"/**/setup-osx.sh 
-  do
-    # shellcheck source=/dev/null
-    source "$file"
-  done
-fi
+zsh -c "${DOTFILES}"/bin/dotfiles update
 
 info "The installation was successfully completed!"
 exit 0

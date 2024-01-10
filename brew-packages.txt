@@ -1,4 +1,3 @@
-awscli
 bat
 ctop
 docker
@@ -30,9 +29,7 @@ tmux
 xclip
 zinit
 fd
-azure-cli
 jq
 pgcli
-tako8ki/tap/gobang
 lua-language-server
 fx
