@@ -1,5 +1,23 @@
+[user]
+    name = Akop Kesheshyan
+
 [include]
     path = ~/.gitconfig.local
+
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+    path = ~/.gitconfig.public
+
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+    path = ~/.gitconfig.public
+
+[log]
+    date = local
+
+[tag]
+    sort = version:refname
+
+[init]
+    defaultBranch = main
 
 [diff]
     tool = nvim
@@ -47,4 +65,4 @@
     keep-plus-minus-markers = false
 
 [credential]
-	helper = store
+    helper = store
