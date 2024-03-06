@@ -16,7 +16,7 @@ RUN apt-get update && \
                     locales --no-install-recommends -y && \
     rm -rf /var/lib/apt/lists/*
 
-RUN localedef -i en_US -f UTF-8 en_US.UTF-8
+RUN localedef -i en_US -f UTF-8 en_GB.UTF-8
 
 # Homebrew is not working under root user, so we should create custom
 RUN useradd -m -s /usr/bin/zsh ${username} && \

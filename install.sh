@@ -31,15 +31,10 @@ Don't run this as root!
 
 This is how to create a new user:
 
-# adduser <username>
-# usermod -aG sudo <username>
+adduser <username>
+usermod -aG sudo <username>
 EOF
 exit 1
-fi
-
-if [[ ! -d "${DOTFILES}" ]]; then
-  info "Download dotfiles ..."
-  git clone https://github.com/akopdev/dotfiles.git "$DOTFILES" 
 fi
 
 # shellcheck source=/dev/null
@@ -79,6 +74,12 @@ if [[ "${OS}" == "Linux" ]]; then
 elif [[ "${OS}" != "Darwin" ]]; then
   abort "Not supported OS."
 fi
+
+if [[ ! -d "${DOTFILES}" ]]; then
+  info "Download dotfiles ..."
+  git clone https://github.com/akopdev/dotfiles.git "${DOTFILES}" 
+fi
+
 
 info "Setting up local folders ..."
 for folder in "Projects" ".config"; do
