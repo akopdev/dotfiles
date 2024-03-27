@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+# Show usage information
+usage() {
+cat << HELP
+JSON pretty formatter in terminal.
+
+Usage: 
+    pjson [OPTION]... [file]
+
+Options:
+    -y, --yank    Copy formatted JSON to clipboard.
+    
+HELP
+}
+
+unset file
+
+# Parse command line options
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        -y|--yank)
+            yank=true
+            shift
+            ;;
+        -h|--help)
+            usage
+            return
+            ;;
+        *)
+            file="$1"
+            shift
+            ;;
+    esac
+done
+
+if [[ -z "${temp_file}" ]]; then
+    temp_file=$(mktemp)
+fi
+
+if [[ -z "${file}" ]]; then
+    # Open editor to accept input
+    $EDITOR "${temp_file}" || exit 1
+    file="${temp_file}"
+    # Clean up the temporary file
+fi
+
+# Format JSON and output the result
+input=$(jq '.' "${file}")
+
+if [[ -z "${input}" ]]; then
+    echo -e "\033[1;31mError proccessing JSON input.\033[0m" 1>&2
+    return
+fi
+
+# Clean up the temporary file
+if [[ -n "${temp_file}" ]]; then
+    rm "${temp_file}"
+fi
+
+echo "${input}" | fx
+
+# Copy to clipboard
+if [[ "${yank}" = true ]]; then
+    echo "${input}" | copy
+fi
