@@ -103,6 +103,19 @@ return packer.startup(function(use)
         end
 
     }
+    use { 
+      "folke/which-key.nvim",
+        config = function()
+        require('which-key').setup {
+          plugins = {
+            spelling = {
+              enabled = true,
+              suggestions = 20,
+            },
+          }
+        }
+        end
+    }
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
