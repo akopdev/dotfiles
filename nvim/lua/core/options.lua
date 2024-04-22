@@ -2,12 +2,12 @@ local set = vim.opt
 
 set.spell = true
 set.spelllang = { 'en_gb' }
-set.number = true
+set.relativenumber = true
 set.ruler = true
 set.encoding = 'utf-8'
 set.fileencoding = 'utf-8'
 set.backspace = {'indent','eol','start'}
-set.scrolloff = 3
+set.scrolloff = 999
 set.wrap = false
 set.cursorline = true
 set.showtabline = 2
