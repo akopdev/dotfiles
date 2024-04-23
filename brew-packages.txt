@@ -1,7 +1,5 @@
 bat
 ctop
-docker
-docker-compose
 exa
 ranger
 fzf
@@ -17,7 +15,6 @@ node
 pass
 python@3.10
 ripgrep
-shellcheck
 tmux
 xclip
 zinit

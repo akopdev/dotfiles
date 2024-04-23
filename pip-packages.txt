@@ -3,8 +3,6 @@ neovim
 pip-tools
 flake8
 pytest
-poetry
-pre-commit
 django-stub
 debugpy
 mdformat
