@@ -7,7 +7,7 @@ config.color_scheme = "rose-pine-moon"
 -- Custom font-size
 config.font_size = 10
 if wezterm.target_triple == "x86_64-apple-darwin" then
-	config.font_size = 13
+	config.font_size = 12
 end
 
 -- Disable multiplexer elements as we are using tmux
