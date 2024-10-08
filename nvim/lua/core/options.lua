@@ -32,6 +32,7 @@ set.clipboard = 'unnamedplus'
 set.foldenable = false
 set.breakindent = true
 set.wildmenu = true -- Better command-line completion
+set.path = set.path + "**" -- Search for files in subdirectories
 
 -- Use case insensitive search, except when using capital letters
 set.ignorecase = true
