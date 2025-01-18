@@ -4,7 +4,7 @@ unset PROJECT_DIR
 
 if [ -z "$1" ]; then
   # shellcheck disable=SC2016
-  PROJECT_NAME="$(exa -D "${PROJECTS}" | fzf --preview-window 'up:80%,border-bottom' --preview='(bat --color=always --style=changes --paging=never --language=md "${PROJECTS}/$(echo {1})/README.md" || (clear && git --git-dir='"${PROJECTS}/{1}/.git"' log --graph --color=always --abbrev-commit)) << {}')"
+  PROJECT_NAME="$(eza -D "${PROJECTS}" | fzf --preview-window 'up:80%,border-bottom' --preview='(bat --color=always --style=changes --paging=never --language=md "${PROJECTS}/$(echo {1})/README.md" || (clear && git --git-dir='"${PROJECTS}/{1}/.git"' log --graph --color=always --abbrev-commit)) << {}')"
   if [[ -n ${PROJECT_NAME} ]]; then
     PROJECT_DIR="${PROJECTS}/${PROJECT_NAME}"
   fi

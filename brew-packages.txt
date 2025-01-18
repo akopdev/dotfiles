@@ -1,6 +1,6 @@
 bat
 ctop
-exa
+eza
 ranger
 fzf
 git-delta
