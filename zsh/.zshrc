@@ -78,7 +78,7 @@ function zvm_after_init() {
   bindkey -s "^N" 'nvim^M'
   bindkey -s '^P' 'projects^M'
   bindkey -s '^F' 'find-text^M'
-  bindkey -s '^E' 'ranger^M'
+  bindkey -s '^E' 'nnn^M'
   bindkey '^l' end-of-line
 }
 

@@ -1,7 +1,7 @@
 bat
 ctop
 eza
-ranger
+nnn
 fzf
 git-delta
 go

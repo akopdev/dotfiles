@@ -19,7 +19,10 @@ alias dl="docker-logs"
 alias de="docker-exec"
 alias ds="docker-search"
 alias dk="docker kill"
-alias dps="docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}'"
+alias dps="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}'"
+alias di="docker images -a --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'"
+alias drm='docker rm $(docker ps -aq)'
+alias drmi='docker rmi $(docker images -q)'
 
 # Git
 alias ga="git add"
