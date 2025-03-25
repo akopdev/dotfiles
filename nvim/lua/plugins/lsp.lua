@@ -162,3 +162,16 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagn
   underline = true,
   update_in_insert = false,
 })
+
+
+vim.diagnostic.config {
+  virtual_text = false,
+  signs = false,
+  underline = true,
+  update_in_insert = false,
+  float = {
+    -- UI.
+    header = false,
+    border = "rounded",
+  }
+}
