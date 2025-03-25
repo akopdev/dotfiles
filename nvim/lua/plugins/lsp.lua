@@ -49,7 +49,8 @@ end
 
 
 mason.setup {
-  ensure_installed = { "pyright", "tsserver" }
+  ensure_installed = { "basedpyright", "ts_ls" },
+  automatic_installation = true
 }
 
 mason_lspconfig.setup {
@@ -94,8 +95,10 @@ mason_lspconfig.setup_handlers {
         yaml = {
           schemas = {
             ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-            ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab-ci.yml",
-            ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "/docker-compose*.yml",
+            ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] =
+            "/.gitlab-ci.yml",
+            ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] =
+            "/docker-compose*.yml",
             kubernetes = "globPattern",
           },
         }
@@ -120,20 +123,25 @@ mason_lspconfig.setup_handlers {
       }
     }))
   end,
-  ["tsserver"] = function()
-    nvim_lsp.tsserver.setup(config({
+  ["ts_ls"] = function()
+    nvim_lsp.ts_ls.setup(config({
       filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
       cmd = { "typescript-language-server", "--stdio" },
     }))
   end,
-  ["pyright"] = function()
-    nvim_lsp.pyright.setup(config({
+  ["basedpyright"] = function()
+    nvim_lsp.basedpyright.setup(config({
       settings = {
-        python = {
+        basedpyright = {
           analysis = {
             diagnosticMode = "openFilesOnly",
             extraPaths = { "third_party" },
-            typeCheckingMode = "off",
+            useLibraryCodeForTypes = true,
+            autoSearchPaths = true,
+            diagnosticSeverityOverrides = {
+              reportUnannotatedClassAttribute = false,
+              reportUnusedCallResult = false
+            }
           },
         },
       },

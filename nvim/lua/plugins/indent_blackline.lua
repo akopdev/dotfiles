@@ -3,7 +3,11 @@ if not status_ok then
     return
 end
 
-local hooks = require "ibl.hooks"
+local hooks_status_ok, hooks = pcall(require, "ibl.hooks")
+if not hooks_status_ok then
+    return
+end
+
 hooks.register(
  hooks.type.WHITESPACE,
  hooks.builtin.hide_first_space_indent_level
