@@ -95,7 +95,6 @@ return packer.startup(function(use)
         end
     }
 
-    use "jose-elias-alvarez/null-ls.nvim"
     use {
         "yorickpeterse/nvim-pqf",
         config = function()
