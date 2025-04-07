@@ -6,11 +6,24 @@ export EDITOR="nvim"
 export LANG="en_US.UTF-8"
 # On linux add PATH to brew 
 if ! command -v "brew" &> /dev/null; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  if [[ $(uname) == "Darwin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  else
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+  fi
 fi
 
 if [ -z "$HOMEBREW_PREFIX" ]; then
   HOMEBREW_PREFIX=$(brew --prefix)
+fi
+
+
+# Check if tmux is already running
+if command -v tmux >/dev/null 2>&1; then
+  # Only start a new tmux session if not already inside tmux
+  if [[ -z "$TMUX" ]]; then
+    tmux attach || tmux new-session
+  fi
 fi
 
 export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
@@ -116,3 +129,4 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=info:#9ccfd8,prompt:#f6c177,pointer:#c4a7e7
  --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97,border:#e0def4"
 
+### End of Zinit's installer chunk

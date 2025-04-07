@@ -1,14 +1,17 @@
 local wezterm = require "wezterm"
 local config = wezterm.config_builder()
+local is_darwin <const> = wezterm.target_triple:find("darwin") ~= nil
+local is_windows = wezterm.target_triple:find("windows") ~= nil
 
 -- Default theme
 config.color_scheme = "rose-pine-moon"
 
 -- Custom font-size
-config.font_size = 11
-if wezterm.target_triple == "x86_64-apple-darwin" then
-	config.font_size = 13
-end
+config.font_size = 12
+
+-- Default window size
+config.initial_cols = 140
+config.initial_rows = 80
 
 -- Disable multiplexer elements as we are using tmux
 config.enable_tab_bar = false
@@ -17,7 +20,7 @@ config.window_close_confirmation = "NeverPrompt"
 
 -- Keybindings
 local mod = "ALT"
-if wezterm.target_triple == "x86_64-apple-darwin" then
+if is_darwin then
 	mod = "CMD"
 end
 
@@ -49,10 +52,9 @@ config.keys = {
 	{ key = "9", mods = mod,             action = wezterm.action.SendString("\x00\x39") },
 }
 
--- Setup tmux on start
-config.default_prog = { "wsl", "--exec", "bash", "-c", "tmux attach || tmux" }
-if wezterm.target_triple == "x86_64-apple-darwin" then
-	config.default_prog = { "/bin/zsh", "-l", "-c", "tmux attach || tmux" }
+-- Start WSL on windows
+if is_windows then
+	config.default_prog = { "wsl", "--exec", "zsh" }
 end
 
 -- End
