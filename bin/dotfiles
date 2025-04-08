@@ -102,7 +102,7 @@ _post_install_setup() {
 _update() {
   # Should not be a root user
   if [[ $(id -u) == 0 ]]; then
-    error "Don't run this as root!"
+    error "Don't run this script as root!"
     return 1
   fi
 
@@ -112,21 +112,26 @@ _update() {
     return 1
   fi
 
-  info "Pull latest version of dotfiles"
+  info "Get latest version of dotfiles."
   cd "${DOTFILES}" && git pull
 
-  info "Updating system packages"
+  info "Updating system packages."
   OS="$(uname)"
   if [[ "${OS}" == "Linux" ]]; then
     sudo apt-get update && sudo apt-get -y upgrade
   fi
-
   brew update
+
+  info "Update all existing packages."
   brew upgrade
+
+  info "Install new packages."
   brew bundle
+
+  info "Clean up installation."
   brew cleanup
 
-  info "Setting up local environment"
+  info "Install custom configurations."
   _post_install_setup
 
   info "Update was successfully completed!"
