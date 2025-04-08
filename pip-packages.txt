@@ -1,7 +1,0 @@
-neovim
-pip-tools
-flake8
-pytest
-django-stub
-debugpy
-mdformat

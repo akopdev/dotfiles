@@ -26,8 +26,7 @@ fi
 # Prepare environment 
 ###################################################################################################
 
-IFS=$'\n\t'
-DOTFILES="$(eval echo "~$(id -un)")/.dotfiles"
+DOTFILES="${HOME}/.dotfiles"
 GREEN='\033[1;32m'
 RED='\033[1;31m'
 RESET='\033[0m'
@@ -49,27 +48,26 @@ warn() {
   fi
 }
 
-abort() {
+error() {
   if [[ $LOG_LEVEL -ge $LOG_LEVEL_ERROR ]]; then
     echo -e "${RED}[X]${RESET} $*" 1>&2
   fi
-  exit 1
 }
 
 
 brew_update() {
   if ! brew list "${1}" &> /dev/null; then
-    brew install "${1}" || abort "Failed to install ${1}."
+    brew install "${1}" || error "Failed to install ${1}."
   else
-    brew upgrade "${1}" || abort "Failed to update ${1}."
+    brew upgrade "${1}" || error "Failed to update ${1}."
   fi
 }
 
 npm_update() {
   if ! npm list -g "${1}" &> /dev/null; then
-    npm in -g "${1}" || abort "Failed to install ${1}."
+    npm in -g "${1}" || error "Failed to install ${1}."
   else
-    npm up -g "${1}" || abort "Failed to update ${1}."
+    npm up -g "${1}" || error "Failed to update ${1}."
   fi
 }
 
@@ -105,7 +103,7 @@ _post_install_setup() {
   # Place config files in proper places. We use .config for folders
   link_dir "bat"
   link_dir "nvim"
-  link_dir "ranger"
+  link_dir "pgcli"
   link_file "git/.gitconfig"
   link_file "tmux/.tmux.conf"
   link_file "zsh/.zshrc"
@@ -119,14 +117,14 @@ _post_install_setup() {
 _update() {
   # Should not be a root user
   if [[ $(id -u) == 0 ]]; then
-    echo "Don't run this as root!"
-    exit 1
+    error "Don't run this as root!"
+    return 1
   fi
 
   # Check if dotfiles exists
   if [[ ! -d "${DOTFILES}" ]]; then
-    echo "'${DOTFILES}' not found. Please, run install.sh first!"
-    exit 1
+    error "'${DOTFILES}' not found. Please, run install.sh first!"
+    return 1
   fi
 
   info "Pulling latest version from GitHub"
@@ -138,9 +136,6 @@ _update() {
     info "Updating system packages"
     sudo apt-get update && sudo apt-get -y upgrade
   fi
-
-  info "Installing python packages"
-  pip3 install -U -r "${DOTFILES}"/pip-packages.txt
 
   info "Updating brew packages"
   while read -r brew_package; 

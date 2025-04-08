@@ -5,6 +5,34 @@ HOME=$(eval echo "~${username}")
 DOTFILES="${HOME}/.dotfiles"
 INSTALL_SCRIPT_VERSION="1.0.0"
 
+GREEN='\033[1;32m'
+RED='\033[1;31m'
+RESET='\033[0m'
+YELLOW='\033[1;33m'
+
+error() {
+  if [[ $LOG_LEVEL -ge $LOG_LEVEL_ERROR ]]; then
+    echo -e "${RED}[X]${RESET} $*" 1>&2
+  fi
+}
+
+info() {
+  if [[ $LOG_LEVEL -ge $LOG_LEVEL_INFO ]]; then
+    echo -e "${GREEN}[+]${RESET} $*" 1>&2
+  fi
+}
+
+warn() {
+  if [[ $LOG_LEVEL -ge $LOG_LEVEL_WARNING ]]; then
+    echo -e "${YELLOW}[!]${RESET} $*" 1>&2
+  fi
+}
+
+abort() {
+  error "$@"
+  exit 1
+}
+
 clear
 cat << EOF
  _____        _    __ _ _           
@@ -48,20 +76,18 @@ if [[ "${OS}" == "Linux" ]]; then
   fi
 
   info "Installing core packages ..."
-  apt_install build-essential \
-              git \
-              curl \
-              zsh
+  sudo apt-get update && \
+  sudo apt-get install -y build-essential git curl zsh
 
   info "Installing brew package manager ..."
   yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # make visible to shell
-  echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'" >> "/home/$(whoami)/.profile"
+  echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'" >> "${HOME}/.profile"
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
   # Check, if brew was installed correctly
-  if ! check_if_installed "brew"; then
+  if ! command -v "brew" &> /dev/null; then
     abort "Failed to install brew package manager"
   fi
 
@@ -82,14 +108,9 @@ fi
 
 
 info "Setting up local folders ..."
-for folder in "Projects" ".config"; do
-  if [[ ! -d "${HOME}/${folder}" ]]; then 
-    mkdir "${HOME}/${folder}"
-  fi
-done
+mkdir -p "${HOME}"/{Projects,.config}
 
 info "Installing brew packages"
-zsh -c "${DOTFILES}"/bin/dotfiles update
+zsh -c dotfiles update
 
 info "The installation was successfully completed!"
-exit 0

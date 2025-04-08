@@ -24,3 +24,4 @@ pgcli
 lua-language-server
 fx
 basedpyright
+uv
