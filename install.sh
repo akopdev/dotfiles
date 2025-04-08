@@ -110,7 +110,7 @@ fi
 info "Setting up local folders ..."
 mkdir -p "${HOME}"/{Projects,.config}
 
-info "Installing brew packages"
+info "Installing all packages"
 zsh -c dotfiles update
 
 info "The installation was successfully completed!"

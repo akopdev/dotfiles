@@ -55,22 +55,6 @@ error() {
 }
 
 
-brew_update() {
-  if ! brew list "${1}" &> /dev/null; then
-    brew install "${1}" || error "Failed to install ${1}."
-  else
-    brew upgrade "${1}" || error "Failed to update ${1}."
-  fi
-}
-
-npm_update() {
-  if ! npm list -g "${1}" &> /dev/null; then
-    npm in -g "${1}" || error "Failed to install ${1}."
-  else
-    npm up -g "${1}" || error "Failed to update ${1}."
-  fi
-}
-
 link_dir() {
   if [ ! -d "${HOME}/.config/${1}" ]; then
     ln -s "${DOTFILES}/${1}" "${HOME}/.config/${1}"
@@ -127,27 +111,19 @@ _update() {
     return 1
   fi
 
-  info "Pulling latest version from GitHub"
+  info "Pull latest version of dotfiles"
   cd "${DOTFILES}" && git pull
 
-  # Update system packages on Linux/WSL
+  info "Updating system packages"
   OS="$(uname)"
   if [[ "${OS}" == "Linux" ]]; then
-    info "Updating system packages"
     sudo apt-get update && sudo apt-get -y upgrade
   fi
 
-  info "Updating brew packages"
-  while read -r brew_package; 
-  do
-    brew_update "${brew_package}"
-  done < "${DOTFILES}"/brew-packages.txt
-
-  info "Updating npm packages"
-  while read -r npm_package;
-  do
-    npm_update "${npm_package}"
-  done < "${DOTFILES}"/npm-packages.txt
+  brew update
+  brew upgrade
+  brew bundle
+  brew cleanup
 
   info "Setting up local environment"
   _post_install_setup

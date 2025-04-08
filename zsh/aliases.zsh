@@ -10,7 +10,6 @@ alias top="htop"
 
 # Neovim
 alias vim="nvim"
-alias vi="nvim"
 alias vimdiff='nvim -d'
 
 # Docker
