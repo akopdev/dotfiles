@@ -92,6 +92,7 @@ _post_install_setup() {
   link_file "tmux/.tmux.conf"
   link_file "zsh/.zshrc"
   link_file "wezterm/.wezterm.lua"
+  link_file "vi/.exrc"
 }
 
 ###################################################################################################
