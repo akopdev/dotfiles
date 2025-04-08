@@ -7,7 +7,7 @@ local is_windows = wezterm.target_triple:find("windows") ~= nil
 config.color_scheme = "rose-pine-moon"
 
 -- Custom font-size
-config.font_size = 12
+config.font_size = 11
 
 -- Default window size
 config.initial_cols = 140
