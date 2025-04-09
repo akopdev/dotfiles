@@ -47,10 +47,11 @@ brew "zinit"
 
 # Cask (MacOS X only)
 cask "docker"
+cask "font-jetbrains-mono"
 cask "google-chrome"
 cask "obsidian"
+cask "raspberry-pi-imager"
 cask "raycast"
 cask "visual-studio-code"
 cask "wezterm"
-cask "font-jetbrains-mono"
-cask "raspberry-pi-imager"
+cask "zoom"
