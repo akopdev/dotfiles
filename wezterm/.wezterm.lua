@@ -27,6 +27,7 @@ end
 config.use_dead_keys = false
 config.keys = {
 	{ key = "p", mods = mod,             action = wezterm.action.PasteFrom("Clipboard") },
+	{ key = "e", mods = mod,             action = wezterm.action.SendString("\x00\x65") },
 	{ key = "z", mods = mod,             action = wezterm.action.SendString("\x00\x7a") },
 	{ key = "v", mods = mod,             action = wezterm.action.SendString("\x00\x76") },
 	{ key = "w", mods = mod,             action = wezterm.action.SendString("\x00\x77") },
