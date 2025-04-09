@@ -1,51 +1,64 @@
 # Dotfiles
+This repository contains configuration files and installer for quick spinning up a personalised 
+productivity workstation. It also includes custom scripts, designed to enhance my regular workflow.
 
-![Running dotfiles on Linux](preview.png)
+## Motivation
 
-My highly personalized productivity setup for Linux and Mac OS with [Rose Pine](https://rosepinetheme.com/) vibes. 
+On a daily basis, I’m continuously switching between my main machine running MacOS X and my 
+work PC laptop with Windows 11. I also maintain small raspberry pi Homelab server running Debian, 
+and occasionally code on a go with my iPad Pro.
 
-The main idea is to have a highly portable setup, that can be run the same way on different devices, including tablets and remote servers. 
+I wanted to have a simple and yet effective enough tool/approach to be able to quickly deploy 
+a fully functional workspace and synchronise changes across all my devices.
 
-## System requirements
+As for now, I can nuke my laptop and get a completely working environment back in less than 10 minutes. 
+Awesome.
 
-As I'm using [homebrew package manager](https://brew.sh) for maintaining packages, **only MacOS and Debian** are currently supported. 
-
-> Using Homebrew in Linux environment may look controversial, however, I find it less trade-off when it comes to maintaining modern versions of 
-> all packages on both OSX and Unix.
 
 ## Install
 
-For the first-time install use a simple script that will download and install all required packages. It covers most  and can be considered as 
-a primary way of installation.
+To install from scratch use installer.
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/akopdev/dotfiles/HEAD/install.sh)"
 ```
 
-## Update
+Later, you can use `dotfiles update` to keep machine up-to-date.
 
-If you have already installed dotfiles, you can frequently run an update script that will bring the latest changes to your machine. 
+## Three rules I follow
 
-```sh 
-dotfiles update
-```
+### Keep it simple
 
-> As Homebrew is currently not supporting version definitions, you will always get the latest available version of the package directly from the server. 
-> It is impossible to guarantee that all existing software is compatible with each other, so I suggest not to run it too often.
+I’m trying to avoid fancy tools and third-party dependencies as much as possible. 
+If a problem can be solved with commands and apps that come as a part of the standard system 
+distribution, then I rely on them.
 
-## Client setup
+I use Homebrew as a cross-platform package manager (it is the default package manager on 
+MacOS, and almost all packages are available for Debian/Ubuntu through Linuxbrew). Some 
+Linux-specific apps can be installed by apt.
 
-Currently, I'm using `Alacritty` as a cross-platform terminal emulator, that you need to set up manually on your host machine. Custom fonts can be found in the `fonts` directory.
+With the same idea in mind, I use bash scripts for simple automation instead of writing 
+“yet another fancy tool.” You may be surprised how much you can do with simple bash scripts.
 
-1. Install [Alacritty](https://alacritty.org/)
-2. Install fonts
-3. Install optional packages, like `kubectl`, `helm`, etc.
+### Terminal over GUI
 
-For Windows users, it is required manually install alacritty configs.
+I’m using text interfaces pretty much everywhere I can. It is universal across all 
+environments (local, remote, container), resource-efficient and lets me better focus on the task.
 
-1. Create a folder `%APPDATA%\alacritty\`
-2. Copy all files from `alacritty` directory to `%APPDATA%\alacritty\`
-3. Rename `windows.yml` to `alacritty.yml`
-4. Replace filenames in `include` section with the absolute path to the files.
+### Configurations as a code
 
+Pretty much all customisations should live as code in the repository. It will be easy to 
+track changes and revert back if needed. And yes, I regularly fall back to some old approach
+as they might work for me better.
 
+## Should you use this repo for yourself?
+
+Well, I don’t think that you can just take and use this setup as it is. 
+
+All code and settings, are adapted to my individual needs and requirements. And as they are
+continuously changing over time, the code of this repo will remain to change.
+
+However, I encourage you to check my code for inspiration. And if you find that some stuff 
+can be done better, don’t hesitate to open an issue or drop me a line. 
+
+I appreciate all kinds of feedback.
