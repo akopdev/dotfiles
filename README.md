@@ -26,9 +26,6 @@ To prepare Debian container for installation, make sure you have all necessary d
 
 ```sh 
 apt update && apt upgrade && apt install -y curl sudo
-
-mkdir /home/Linuxbrew
-
 ```
 
 Later, you can use `dotfiles update` to keep machine up-to-date.

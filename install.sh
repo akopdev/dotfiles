@@ -65,9 +65,6 @@ EOF
 exit 1
 fi
 
-# shellcheck source=/dev/null
-source "${DOTFILES}"/install/common.sh
-
 # Check operation system
 OS="$(uname)"
 if [[ "${OS}" == "Linux" ]]; then
@@ -78,6 +75,8 @@ if [[ "${OS}" == "Linux" ]]; then
   info "Installing core packages ..."
   sudo apt-get update && \
   sudo apt-get install -y build-essential git curl zsh
+
+  mkdir -p /home/linuxbrew
 
   info "Installing brew package manager ..."
   yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -102,17 +101,15 @@ elif [[ "${OS}" != "Darwin" ]]; then
 fi
 
 if [[ ! -d "${DOTFILES}" ]]; then
-  info "Download dotfiles ..."
+  info "Download dotfiles."
   git clone https://github.com/akopdev/dotfiles.git "${DOTFILES}" 
 fi
 
 
 info "Setup required folders."
 mkdir -p "${HOME}"/{Projects,.config}
-source "${DOTFILES}/bin/dotfiles"
-_install_config_files
 
 info "Install all packages."
-zsh -c dotfiles update
+"${DOTFILES}"/bin/dotfiles update
 
 info "The installation was successfully completed!"
