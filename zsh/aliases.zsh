@@ -22,6 +22,7 @@ alias dps="docker ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}'"
 alias di="docker images -a --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'"
 alias drm='docker rm $(docker ps -aq)'
 alias drmi='docker rmi $(docker images -q)'
+alias dr='docker run -it --rm'
 
 # Git
 alias ga="git add"
