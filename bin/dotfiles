@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ $# -lt 1 ]; then
+if [[ "${BASH_SOURCE[0]}" == "${0}" && $# -lt 1 ]]; then
 cat << HELP
  _____        _    __ _ _           
 |  __ \      | |  / _(_) |          
@@ -16,7 +16,6 @@ Usage: dotfiles [command]
 Commands:
     update    Update all installed packages
     open      Open project in editor
-    remove    Backup existing setup and then remove config files. Packages will be remained
 
 HELP
 return 
@@ -73,7 +72,7 @@ link_file() {
 # Configuring installed apps to use dotfiles configs
 ###################################################################################################
 
-_post_install_setup() {
+_install_config_files() {
   # create a private gitconfig in user folder
   if [[ ! -f "${HOME}/.gitconfig.local" ]]; then
     cp "${DOTFILES}/git/gitconfig.local.example" "${HOME}/.gitconfig.local"
@@ -132,7 +131,7 @@ _update() {
   brew cleanup
 
   info "Install custom configurations."
-  _post_install_setup
+  _install_config_files
 
   info "Update was successfully completed!"
 }

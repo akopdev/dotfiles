@@ -17,10 +17,18 @@ Awesome.
 
 ## Install
 
-To install from scratch use installer.
+Use installation script:
 
 ```sh
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/akopdev/dotfiles/HEAD/install.sh)"
+```
+To prepare Debian container for installation, make sure you have all necessary dependencies installed.
+
+```sh 
+apt update && apt upgrade && apt install -y curl sudo
+
+mkdir /home/Linuxbrew
+
 ```
 
 Later, you can use `dotfiles update` to keep machine up-to-date.

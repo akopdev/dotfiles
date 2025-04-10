@@ -107,10 +107,12 @@ if [[ ! -d "${DOTFILES}" ]]; then
 fi
 
 
-info "Setting up local folders ..."
+info "Setup required folders."
 mkdir -p "${HOME}"/{Projects,.config}
+source "${DOTFILES}/bin/dotfiles"
+_install_config_files
 
-info "Installing all packages"
+info "Install all packages."
 zsh -c dotfiles update
 
 info "The installation was successfully completed!"
