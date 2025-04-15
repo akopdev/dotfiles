@@ -6,11 +6,19 @@ export EDITOR="nvim"
 export LANG="en_US.UTF-8"
 # On linux add PATH to brew 
 if ! command -v "brew" &> /dev/null; then
-  if [[ $(uname) == "Darwin" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  else
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-  fi
+  case "$(uname)" in
+    Darwin)
+      arch_name="$(uname -m)"
+      if [[ "$arch_name" == "arm64" ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"  # Apple Silicon
+      else
+        eval "$(/usr/local/bin/brew shellenv)"     # Intel macOS
+      fi
+      ;;
+    Linux)
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+      ;;
+  esac
 fi
 
 if [ -z "$HOMEBREW_PREFIX" ]; then
