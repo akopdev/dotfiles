@@ -99,7 +99,7 @@ zinit light jeffreytse/zsh-vi-mode
 # rebind some of keys defined by zsh-vi-mode plugin
 function zvm_after_init() {
   bindkey -s "^N" 'nvim^M'
-  bindkey -s '^P' 'projects^M'
+  bindkey -s '^P' 'projects open^M'
   bindkey -s '^F' 'find-text^M'
   bindkey -s '^E' 'nnn^M'
   bindkey '^l' end-of-line

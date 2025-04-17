@@ -1,19 +1,65 @@
 #!/usr/bin/env bash
 
-unset PROJECT_DIR
+_open() {
+  local project_dir
 
-if [ -z "$1" ]; then
-  # shellcheck disable=SC2016
-  PROJECT_NAME="$(eza -D "${PROJECTS}" | fzf --preview-window 'up:80%,border-bottom' --preview='(bat --color=always --style=changes --paging=never --language=md "${PROJECTS}/$(echo {1})/README.md" || (clear && git --git-dir='"${PROJECTS}/{1}/.git"' log --graph --color=always --abbrev-commit)) << {}')"
-  if [[ -n ${PROJECT_NAME} ]]; then
-    PROJECT_DIR="${PROJECTS}/${PROJECT_NAME}"
+  if [ -z "$1" ]; then
+    local project_name
+    project_name="$(eza -D "${PROJECTS}" | fzf --preview-window 'up:80%,border-bottom' \
+      --preview='(bat --color=always --style=changes --paging=never --language=md "${PROJECTS}/$(echo {1})/README.md" || (clear && git --git-dir='"${PROJECTS}/{1}/.git"' log --graph --color=always --abbrev-commit)) << {}')"
+    if [[ -n ${project_name} ]]; then
+      project_dir="${PROJECTS}/${project_name}"
+    fi
   fi
-else
-  PROJECT_DIR="${PROJECTS}/${1}"
-fi
 
-if [[ -n "${PROJECT_DIR}" ]] && [ -d "${PROJECT_DIR}" ]; then
-  cd "${PROJECT_DIR}" || exit && nvim
-else
-  cd "${PROJECTS}" || exit
-fi
+  if [[ -n "${project_dir}" ]] && [ -d "${project_dir}" ]; then
+    cd "${project_dir}" || exit
+    nvim
+  else
+    cd "${PROJECTS}" || exit
+  fi
+}
+
+
+_help() {
+cat << HELP
+
+Usage: projects [command]
+
+Commands:
+    new       Create a new project from template
+    open      Open project in editor
+HELP
+}
+
+_create() {
+  if [ -z "$1" ]; then
+    local project_template_name
+    path_to_templates="${HOME}/.cookiecutters"
+    project_template_name="$(eza -D ${path_to_templates} | fzf --preview-window 'up:80%,border-bottom' \
+      --preview='bat --color=always --style=changes --paging=never --language=md ~/.cookiecutters/$(echo {1})/README.md << {}')"
+
+    if [[ -n ${project_template_name} ]]; then
+      cookiecutter "${path_to_templates}/${project_template_name}" -o "${PROJECTS}" 
+    fi
+  else
+    mkdir "${PROJECTS}/$1"
+    _open "$1"
+  fi
+
+
+}
+
+case "$1" in
+  open)
+    _open "$2"
+    ;;
+  create)
+    _create "$2"
+    ;;
+  *)
+    _help
+
+    ;;
+esac
+
