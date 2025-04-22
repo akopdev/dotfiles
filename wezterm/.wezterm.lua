@@ -10,8 +10,8 @@ config.color_scheme = "rose-pine-moon"
 config.font_size = 11
 
 -- Default window size
-config.initial_cols = 140
-config.initial_rows = 80
+config.initial_cols = 180
+config.initial_rows = 100
 
 -- Disable multiplexer elements as we are using tmux
 config.enable_tab_bar = false
