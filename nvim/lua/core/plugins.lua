@@ -86,34 +86,12 @@ return packer.startup(function(use)
     use "mfussenegger/nvim-dap"
     use "rcarriga/nvim-dap-ui"
 
-    use "zbirenbaum/copilot.lua"
-    use {
-        "zbirenbaum/copilot-cmp",
-        after = { "copilot.lua" },
-        config = function()
-            require("copilot_cmp").setup()
-        end
-    }
-
     use {
         "yorickpeterse/nvim-pqf",
         config = function()
             require("pqf").setup()
         end
 
-    }
-    use { 
-      "folke/which-key.nvim",
-        config = function()
-        require('which-key').setup {
-          plugins = {
-            spelling = {
-              enabled = true,
-              suggestions = 20,
-            },
-          }
-        }
-        end
     }
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
