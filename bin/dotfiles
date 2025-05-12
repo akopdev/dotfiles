@@ -121,6 +121,9 @@ _update() {
   fi
   brew update
 
+  info "Clean local cache"
+  brew update-reset
+
   info "Update all existing packages."
   brew upgrade
 
