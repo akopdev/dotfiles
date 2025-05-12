@@ -1,3 +1,5 @@
+tap "akopdev/formulas"
+
 # Normal apps
 brew "awscli"
 brew "azure-cli"
@@ -34,6 +36,7 @@ brew "nnn"
 brew "node"
 brew "pgcli"
 brew "python@3.13"
+brew "ranger"
 brew "ripgrep"
 brew "tea"
 brew "tmux"
