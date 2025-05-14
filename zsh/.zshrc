@@ -26,14 +26,6 @@ if [ -z "$HOMEBREW_PREFIX" ]; then
 fi
 
 
-# Check if tmux is already running
-if command -v tmux >/dev/null 2>&1; then
-  # Only start a new tmux session if not already inside tmux
-  if [[ -z "$TMUX" ]]; then
-    tmux attach || tmux new-session
-  fi
-fi
-
 export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin
 export LSCOLORS="exfxcxdxbxegedabagacad"
