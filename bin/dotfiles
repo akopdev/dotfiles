@@ -87,6 +87,7 @@ _install_config_files() {
   link_dir "bat"
   link_dir "nvim"
   link_dir "pgcli"
+  link_dir "kitty"
   link_file "git/.gitconfig"
   link_file "tmux/.tmux.conf"
   link_file "zsh/.zshrc"
