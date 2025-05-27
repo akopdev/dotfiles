@@ -1,6 +1,6 @@
 tap "akopdev/formulas"
 
-# Normal apps
+# Packages
 brew "awscli"
 brew "azure-cli"
 brew "basedpyright"
@@ -52,7 +52,8 @@ brew "yaml-language-server"
 brew "yarn", link: false
 brew "zinit"
 
-# Cask (MacOS X only)
+# Casks
+cask_args appdir: "~/Applications"
 cask "docker"
 cask "font-jetbrains-mono"
 cask "google-chrome"
@@ -61,6 +62,7 @@ cask "obsidian"
 cask "raspberry-pi-imager"
 cask "raycast"
 cask "the-unarchiver"
+cask "virtualbox"
 cask "visual-studio-code"
 cask "wezterm"
 cask "zoom"
