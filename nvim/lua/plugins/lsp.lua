@@ -47,6 +47,85 @@ local function config(_config)
   }, _config or {})
 end
 
+vim.lsp.config.lua_ls = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = {
+        version = "LuaJIT",
+        path = vim.split(package.path, ";"),
+      },
+      diagnostics = {
+        globals = { "vim" },
+      },
+      workspace = {
+        library = {
+          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+        },
+      },
+    },
+  },
+}
+
+vim.lsp.config.yamlls = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    yaml = {
+      schemas = {
+        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+        ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab-ci.yml",
+        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "/docker-compose*.yml",
+        kubernetes = "globPattern",
+      },
+    },
+  },
+}
+
+vim.lsp.config.gopls = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "gopls", "serve" },
+  settings = {
+    gopls = {
+      experimentalPostfixCompletions = true,
+      analyses = {
+        unusedparams = true,
+        shadow = true,
+      },
+      staticcheck = true,
+    },
+  },
+}
+
+vim.lsp.config.ts_ls = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "typescript-language-server", "--stdio" },
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+}
+
+vim.lsp.config.basedpyright = {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    basedpyright = {
+      analysis = {
+        diagnosticMode = "openFilesOnly",
+        extraPaths = { "third_party" },
+        useLibraryCodeForTypes = true,
+        autoSearchPaths = true,
+        diagnosticSeverityOverrides = {
+          reportUnannotatedClassAttribute = false,
+          reportUnusedCallResult = false,
+        },
+      },
+    },
+  },
+}
+
 
 mason.setup {
   ensure_installed = { "basedpyright", "ts_ls" },
@@ -61,93 +140,16 @@ mason_lspconfig.setup {
       server_pending = "➜",
       server_uninstalled = "✗"
     }
-  }
+  },
+  ensure_installed = {
+    "lua_ls",
+    "yamlls",
+    "gopls",
+    "ts_ls",
+    "basedpyright",
+  },
 }
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    nvim_lsp[server_name].setup(config())
-  end,
-  ["lua_ls"] = function()
-    nvim_lsp.lua_ls.setup(config({
-      settings = {
-        Lua = {
-          runtime = {
-            version = "LuaJIT",
-            path = vim.split(package.path, ";"),
-          },
-          diagnostics = {
-            globals = { "vim" },
-          },
-          workspace = {
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-            },
-          },
-        },
-      },
-    }))
-  end,
-  ["yamlls"] = function()
-    nvim_lsp.yamlls.setup(config({
-      settings = {
-        yaml = {
-          schemas = {
-            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-            ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] =
-            "/.gitlab-ci.yml",
-            ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] =
-            "/docker-compose*.yml",
-            kubernetes = "globPattern",
-          },
-        }
-      }
-    }))
-  end,
-  ["gopls"] = function()
-    nvim_lsp.gopls.setup(config({
-      cmd = {
-        "gopls",
-        "serve"
-      },
-      settings = {
-        gopls = {
-          experimentalPostfixCompletions = true,
-          analyses = {
-            unusedparams = true,
-            shadow = true,
-          },
-          staticcheck = true,
-        }
-      }
-    }))
-  end,
-  ["ts_ls"] = function()
-    nvim_lsp.ts_ls.setup(config({
-      filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-      cmd = { "typescript-language-server", "--stdio" },
-    }))
-  end,
-  ["basedpyright"] = function()
-    nvim_lsp.basedpyright.setup(config({
-      settings = {
-        basedpyright = {
-          analysis = {
-            diagnosticMode = "openFilesOnly",
-            extraPaths = { "third_party" },
-            useLibraryCodeForTypes = true,
-            autoSearchPaths = true,
-            diagnosticSeverityOverrides = {
-              reportUnannotatedClassAttribute = false,
-              reportUnusedCallResult = false
-            }
-          },
-        },
-      },
-    }))
-  end,
-}
 
 nvim_lsp.dockerls.setup(config())
 nvim_lsp.jsonls.setup(config())
