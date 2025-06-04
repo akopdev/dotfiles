@@ -1,7 +1,6 @@
 vim.g.mapleader = ' '
 
--- Tab in general mode will move to text buffer
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 local opts = { noremap = true }
 
 -- Shortcut to save changes
@@ -104,3 +103,11 @@ map('n', '<leader>dn', ':lua require("dap").step_into()<CR>', opts)
 
 map('n', '<leader>gu', ':lua require"gitsigns".reset_hunk()<CR>', opts)
 map('n', '<leader>gp', ':lua require"gitsigns".preview_hunk()<CR>', opts)
+
+-- Toggle between geek and normal modes
+local function toggleLineNumbers()
+    vim.opt.number = true
+    vim.opt.relativenumber = not vim.wo.relativenumber
+end
+
+vim.keymap.set("n", "<leader>n", toggleLineNumbers, opts)
