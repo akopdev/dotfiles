@@ -85,6 +85,7 @@ nvim_tree.setup {
   filters             = {
     custom = {
       '.git$',
+      '__pycache__'
     }
   },
 }
