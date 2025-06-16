@@ -54,6 +54,7 @@ brew "zinit"
 
 # Casks
 cask_args appdir: "~/Applications"
+cask "chatgpt"
 cask "docker"
 cask "font-jetbrains-mono"
 cask "google-chrome"
