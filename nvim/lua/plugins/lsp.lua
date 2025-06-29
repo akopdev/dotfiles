@@ -156,6 +156,7 @@ nvim_lsp.jsonls.setup(config())
 nvim_lsp.bashls.setup(config())
 nvim_lsp.sqlls.setup(config())
 nvim_lsp.cssls.setup(config())
+nvim_lsp.lua_ls.setup(config())
 
 -- Customizing how diagnostics are displayed
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
