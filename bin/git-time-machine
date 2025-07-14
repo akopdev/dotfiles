@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+# -------- Utility Functions --------
+help() {
+cat << HELP
+Compare files side by side using Git history.
+
+Usage: git-time-machine [filename]
+
+HELP
+}
+
+cleanup() { 
+  rm -rf "$TMPDIR"; 
+}
+
+error() {
+  if [[ $LOG_LEVEL -ge $LOG_LEVEL_ERROR ]]; then
+    echo -e "\033[1;31m$*\033[0m" 1>&2
+  fi
+}
+
+# -------- Main --------
+main() {
+
+  # Usage check
+  if [[ -z "${1}" ]]; then
+    help
+    return 1
+  fi
+
+  # Check if in git repo
+  if ! git rev-parse --is-inside-work-tree &>/dev/null; then
+    error "This script must be run inside a git repository."
+    return 1
+  fi
+
+  # Get relevant commits
+  REPO_ROOT=$(git rev-parse --show-toplevel)
+  FILE_PATH=$(realpath "${1}")
+  REL_PATH="${FILE_PATH#$REPO_ROOT/}"
+
+  # List commits that touched the file
+  COMMITS=$(git log --pretty=format:'%h %ad %s' --date=short -- "$REL_PATH" | fzf --multi --bind "ctrl-s:toggle" --reverse --prompt="Select versions of $REL_PATH (ctrl-s): ")
+
+  if [[ -z "$COMMITS" ]]; then
+    error "No commits selected."
+    return 0
+  fi
+
+  # Prepare temporary storage for recovered files
+  TMPDIR=$(mktemp -d)
+  trap cleanup EXIT
+
+  # Save each selected commit version to temp file
+  OUTPUT_FILES=()
+  while read -r LINE; do
+    read -r COMMIT_HASH COMMIT_DATE _ <<< "$LINE"
+    FILE_EXT="${REL_PATH##*.}"
+    [[ "$FILE_EXT" == "$REL_PATH" ]] && FILE_EXT="txt"
+
+
+    OUTFILE="$TMPDIR/${COMMIT_DATE// /_}.${FILE_EXT}"
+    git show "$COMMIT_HASH:$REL_PATH" > "$OUTFILE" 2>/dev/null || error "File missing in $COMMIT_HASH" > "$OUTFILE"
+    OUTPUT_FILES+=("$OUTFILE")
+  done <<< "$COMMITS"
+
+  # Open selected with text editor
+  if [[ -z "${OUTPUT_FILES}" ]]; then 
+    error "Nothing selected"
+    return 1
+  fi
+  nvim -O "${OUTPUT_FILES[@]}"
+}
+
+main "$@"

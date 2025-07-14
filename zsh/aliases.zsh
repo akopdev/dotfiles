@@ -43,6 +43,7 @@ alias gpl="git pull"
 alias gr="git rebase -i"
 alias grm="git-rebase-master"
 alias gs="git status"
+alias gtm="git-time-machine"
 
 # Kubectl
 alias k="kubectl"
