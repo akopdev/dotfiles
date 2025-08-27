@@ -50,6 +50,8 @@ map('n', 'y', 'wbvey<Esc>', opts)
 map('n', 'Y', 'yy', opts)
 -- Paste
 map('v', 'p', '"_di<C-R>"<Esc>', opts)
+-- Delete word word but don’t save it anywhere
+map('n', 'diw', '"_diw', opts)
 -- highlight
 map('n', 's', '*N', opts)
 -- Save sessions
