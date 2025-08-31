@@ -117,6 +117,28 @@ zinit light Aloxaf/fzf-tab
 # Fish-like fast/unobtrusive autosuggestions for zsh.
 zinit load zsh-users/zsh-autosuggestions
 
+# Man pages colors
+man() {
+	env \
+    LESS_TERMCAP_mb=$(tput bold; tput setaf 2) \
+    LESS_TERMCAP_md=$(tput bold; tput setaf 6) \
+    LESS_TERMCAP_me=$(tput sgr0) \
+    LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4) \
+    LESS_TERMCAP_se=$(tput rmso; tput sgr0) \
+    LESS_TERMCAP_us=$(tput bold; tput setaf 3) \
+    LESS_TERMCAP_ue=$(tput rmul; tput sgr0) \
+    LESS_TERMCAP_mr=$(tput rev) \
+    LESS_TERMCAP_mh=$(tput dim) \
+    LESS_TERMCAP_ZN=$(tput ssubm) \
+    LESS_TERMCAP_ZV=$(tput rsubm) \
+    LESS_TERMCAP_ZO=$(tput ssupm) \
+    LESS_TERMCAP_ZW=$(tput rsupm) \
+		PAGER="${commands[less]:-$PAGER}" \
+		_NROFF_U=1 \
+		PATH="$HOME/bin:$PATH" \
+			man "$@"
+}
+
 # fzf global setup
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --glob "!.git/*" --ignore-file ~/dotfiles/fzf-ignore'
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
