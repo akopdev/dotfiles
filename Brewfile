@@ -57,6 +57,7 @@ brew "xclip"
 brew "yaml-language-server"
 brew "yarn", link: false
 brew "zinit"
+brew "sass/sass/sass"
 
 # Casks
 cask_args appdir: "~/Applications"
