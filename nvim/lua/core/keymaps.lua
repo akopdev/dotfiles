@@ -78,7 +78,7 @@ map('n', '|', ':vsplit<CR>', opts)
 map('n', '-', ':split<CR>', opts)
 -- Telescope
 map('n', '<leader>f', ':Telescope live_grep<CR>', opts)
-map('n', '<leader>ff', ':Telescope find_files theme=ivy<CR>', opts)
+map('n', '<leader>ff', ':Telescope find_files theme=ivy previewer=false<CR>', opts)
 map('n', '<leader>cd', ':Telescope diagnostics bufnr=0 theme=ivy<CR>', opts)
 map('n', '<leader>ca', ':Telescope lsp_code_actions theme=ivy<CR>', opts)
 map('n', '<leader>gg', ':Telescope gh gist<CR>', opts)
