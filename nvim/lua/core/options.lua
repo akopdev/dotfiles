@@ -2,6 +2,7 @@ local set = vim.opt
 
 set.spell = true
 set.spelllang = { 'en_gb' }
+set.number = true
 set.relativenumber = true
 set.ruler = true
 set.encoding = 'utf-8'
