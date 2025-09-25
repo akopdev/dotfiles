@@ -13,7 +13,6 @@ alias vim="nvim"
 alias vimdiff='nvim -d'
 
 # Docker
-alias d="docker"
 alias dl="docker-logs"
 alias de="docker-exec"
 alias ds="docker-search"
@@ -23,6 +22,14 @@ alias di="docker images -a --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'
 alias drm='docker rm $(docker ps -aq)'
 alias drmi='docker rmi $(docker images -q)'
 alias dr='docker run -it --rm'
+
+# Podman
+alias pk="podman kill"
+alias pps="podman ps -a --format 'table {{.ID}}\t{{.Names}}\t{{.Status}}'"
+alias pi="podman images -a --format 'table {{.Repository}}\t{{.Tag}}\t{{.Size}}'"
+alias prm='podman rm $(podman ps -aq)'
+alias prmi='podman rmi $(podman images -q)'
+alias pr='podman run -it --rm'
 
 # Git
 alias ga="git add"
