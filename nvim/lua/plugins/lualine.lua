@@ -24,7 +24,7 @@ lualine.setup {
       }
     },
     lualine_x = { '' },
-    lualine_y = { 'progress' },
+    lualine_y = { 'location' },
     lualine_z = { 'mode' }
   }
 }
