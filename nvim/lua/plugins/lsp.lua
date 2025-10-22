@@ -140,7 +140,6 @@ vim.lsp.config("jsonls", {
 })
 vim.lsp.enable("jsonls")
 
-
 --[ HTML ]----------------------------------------------------
 vim.lsp.config("html", {
     cmd = { "vscode-html-language-server", "--stdio" },
@@ -190,6 +189,19 @@ vim.lsp.config("dockerls", {
     root_markers = { 'Dockerfile' },
 })
 vim.lsp.enable("dockerls")
+
+--[ Bash ]------------------------------------------------------------
+vim.lsp.config("bashls", {
+    cmd = { 'bash-language-server', 'start' },
+    filetypes = { "bash", "sh" },
+    root_markers = { ".git" },
+    settings = {
+        bashIde = {
+            globPattern = vim.env.GLOB_PATTERN or '*@(.sh|.inc|.bash|.command)',
+        },
+    },
+})
+vim.lsp.enable("bashls")
 
 --[ Customizing how diagnostics are displayed ]-----------------------
 
