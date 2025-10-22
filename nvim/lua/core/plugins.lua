@@ -66,7 +66,6 @@ return packer.startup(function(use)
     use "glepnir/dashboard-nvim"
     use "tpope/vim-fugitive"
 
-    use "neovim/nvim-lspconfig"
     use "sheerun/vim-polyglot"
 
     use "rose-pine/neovim"
@@ -76,11 +75,6 @@ return packer.startup(function(use)
     use "olimorris/persisted.nvim"
 
     use "ray-x/lsp_signature.nvim"
-
-    use {
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-    }
 
     use "nvim-telescope/telescope-dap.nvim"
     use "mfussenegger/nvim-dap"

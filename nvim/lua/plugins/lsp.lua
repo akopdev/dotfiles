@@ -1,180 +1,212 @@
-local status_ok, nvim_lsp = pcall(require, "lspconfig")
-if not status_ok then
-  return
-end
-
-local mason_status_ok, mason = pcall(require, "mason")
-if not mason_status_ok then
-  return
-end
-
-local mason_lspconfig_status_ok, mason_lspconfig = pcall(require, "mason-lspconfig")
-if not mason_lspconfig_status_ok then
-  return
-end
-
-local cmp_status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not cmp_status_ok then
-  return
-end
-
-local lsp_signature_status_ok, lsp_signature = pcall(require, "lsp_signature")
-if not lsp_signature_status_ok then
-  return
-end
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  local opts = { noremap = true, silent = true }
-  local function buf_set_keymap(lhs, rhs)
-    vim.api.nvim_buf_set_keymap(bufnr, "n", lhs, rhs, opts)
-  end
-  -- Disable highlighting from LSP as TreeSitter takes care of it
-  client.server_capabilities.semanticTokensProvider = nil
-
-  -- Show function signature when you type
-  lsp_signature.on_attach(client, bufnr)
-end
-
-local capabilities = cmp_nvim_lsp.default_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-local function config(_config)
-  return vim.tbl_deep_extend("force", {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }, _config or {})
-end
-
-vim.lsp.config.lua_ls = {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        version = "LuaJIT",
-        path = vim.split(package.path, ";"),
-      },
-      diagnostics = {
-        globals = { "vim" },
-      },
-      workspace = {
-        library = {
-          [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-          [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+--[ Lua ]-------------------------------------------------------
+vim.lsp.config("lua_ls", {
+    cmd = { "lua-language-server" },
+    settings = {
+        Lua = {
+            format = {
+                enable = true,
+                defaultConfig = {
+                    indent_style = "space",
+                    indent_size = "2",
+                },
+            },
         },
-      },
     },
-  },
-}
-
-vim.lsp.config.yamlls = {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    yaml = {
-      schemas = {
-        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-        ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = "/.gitlab-ci.yml",
-        ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "/docker-compose*.yml",
-        kubernetes = "globPattern",
-      },
+    filetypes = { "lua" },
+    root_markers = {
+        ".luarc.json",
+        ".luarc.jsonc",
+        ".luacheckrc",
+        ".stylua.toml",
+        "stylua.toml",
+        "selene.toml",
+        "selene.yml",
+        ".git",
     },
-  },
-}
+})
+vim.lsp.enable("lua_ls")
 
-vim.lsp.config.gopls = {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  cmd = { "gopls", "serve" },
-  settings = {
-    gopls = {
-      experimentalPostfixCompletions = true,
-      analyses = {
-        unusedparams = true,
-        shadow = true,
-      },
-      staticcheck = true,
-    },
-  },
-}
-
-vim.lsp.config.ts_ls = {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  cmd = { "typescript-language-server", "--stdio" },
-  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-}
-
-vim.lsp.config.basedpyright = {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    basedpyright = {
-      analysis = {
-        diagnosticMode = "openFilesOnly",
-        extraPaths = { "third_party" },
-        useLibraryCodeForTypes = true,
-        autoSearchPaths = true,
-        diagnosticSeverityOverrides = {
-          reportUnannotatedClassAttribute = false,
-          reportUnusedCallResult = false,
+--[ GO ]---------------------------------------------------------
+vim.lsp.config("gopls", {
+    cmd = { "gopls" },
+    filetypes = { "go", "gomod", "gowork", "gotmpl" },
+    root_markers = { "go.mod", "go.work", ".git" },
+    settings = {
+        gopls = {
+            gofumpt = true,
+            codelenses = {
+                gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+            },
+            hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+            },
+            analyses = {
+                fieldalignment = true,
+                nilness = true,
+                unusedparams = true,
+                unusedwrite = true,
+                useany = true,
+            },
+            usePlaceholders = true,
+            completeUnimported = true,
+            staticcheck = true,
+            directoryFilters = {
+                "-.git",
+                "-.vscode",
+                "-.idea",
+                "-.vscode-test",
+                "-node_modules",
+            },
         },
-      },
     },
-  },
-}
+})
+vim.lsp.enable("gopls")
+
+--[ Python ]-----------------------------------------------------
+vim.lsp.config("basedpyright", {
+    cmd = { 'basedpyright-langserver', '--stdio' },
+    filetypes = { "python" },
+    settings = {
+        basedpyright = {
+            analysis = {
+                diagnosticMode = "openFilesOnly",
+                extraPaths = { "third_party" },
+                useLibraryCodeForTypes = true,
+                autoSearchPaths = true,
+                diagnosticSeverityOverrides = {
+                    reportUnannotatedClassAttribute = false,
+                    reportUnusedCallResult = false,
+                },
+            },
+        },
+    },
+    root_markers = {
+        "pyproject.toml",
+        "setup.py",
+        "setup.cfg",
+        "requirements.txt",
+        "Pipfile",
+        ".git",
+    },
+})
+vim.lsp.enable("basedpyright")
+
+--[ Terraform ]-------------------------------------------------
+vim.lsp.config("terraformls", {
+    cmd = { "terraform-ls", "serve" },
+    filetypes = { "terraform", "terraform-vars" },
+    root_markers = { ".terraform", ".git" },
+})
+vim.lsp.enable("terraformls")
+
+--[ YAML ]------------------------------------------------------
+vim.lsp.config("yamlls", {
+    cmd = { "yaml-language-server", "--stdio" },
+    settings = {
+        redhat = {
+            telemetry = {
+                enabled = false,
+            },
+        },
+    },
+    filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+    root_markers = { ".git" },
+})
+vim.lsp.enable("yamlls")
+
+--[ JSON ]----------------------------------------------------
+vim.lsp.config("jsonls", {
+    cmd = { "vscode-json-language-server", "--stdio" },
+    filetypes = { "json", "jsonc" },
+    init_options = {
+        provideFormatter = true,
+    },
+    root_markers = {
+        ".git",
+    },
+})
+vim.lsp.enable("jsonls")
 
 
-mason.setup {
-  ensure_installed = { "basedpyright", "ts_ls" },
-  automatic_installation = true
-}
+--[ HTML ]----------------------------------------------------
+vim.lsp.config("html", {
+    cmd = { "vscode-html-language-server", "--stdio" },
+    filetypes = { "html", "templ" },
+    init_options = {
+        configurationSection = { "html", "css", "javascript" },
+        embeddedLanguages = {
+            css = true,
+            javascript = true,
+        },
+        provideFormatter = true,
+    },
+    root_markers = {
+        ".git",
+    },
+})
+vim.lsp.enable("html")
 
-mason_lspconfig.setup {
-  automatic_installation = true,
-  ui = {
-    icons = {
-      server_installed = "✓",
-      server_pending = "➜",
-      server_uninstalled = "✗"
-    }
-  },
-  ensure_installed = {
-    "lua_ls",
-    "yamlls",
-    "gopls",
-    "ts_ls",
-    "basedpyright",
-  },
-}
+--[ CSS ]----------------------------------------------------
+vim.lsp.config("cssls", {
+    cmd = { "vscode-css-language-server", "--stdio" },
+    filetypes = { "css", "scss", "less" },
+    root_markers = { "package.json", ".git" },
+})
+vim.lsp.enable("cssls")
 
 
-nvim_lsp.dockerls.setup(config())
-nvim_lsp.jsonls.setup(config())
-nvim_lsp.bashls.setup(config())
-nvim_lsp.sqlls.setup(config())
-nvim_lsp.cssls.setup(config())
-nvim_lsp.lua_ls.setup(config())
+--[ TypeScript ]------------------------------------------------------
+vim.lsp.config("ts_ls", {
+    cmd = { "typescript-language-server", "--stdio" },
+    filetypes = {
+        'javascript',
+        'javascriptreact',
+        'javascript.jsx',
+        'typescript',
+        'typescriptreact',
+        'typescript.tsx',
+    },
+})
+vim.lsp.enable("ts_ls")
 
--- Customizing how diagnostics are displayed
+
+--[ Docker ]----------------------------------------------------------
+vim.lsp.config("dockerls", {
+    cmd = { 'docker-langserver', '--stdio' },
+    filetypes = { 'dockerfile' },
+    root_markers = { 'Dockerfile' },
+})
+vim.lsp.enable("dockerls")
+
+--[ Customizing how diagnostics are displayed ]-----------------------
 vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  virtual_text = false,
-  signs = false,
-  underline = true,
-  update_in_insert = false,
+    virtual_text = false,
+    signs = false,
+    underline = true,
+    update_in_insert = false,
 })
 
-
 vim.diagnostic.config {
-  virtual_text = false,
-  signs = false,
-  underline = true,
-  update_in_insert = false,
-  float = {
-    -- UI.
-    header = false,
-    border = "rounded",
-  }
+    virtual_text = false,
+    signs = false,
+    underline = true,
+    update_in_insert = false,
+    float = {
+        -- UI.
+        header = false,
+        border = "rounded",
+    }
 }
