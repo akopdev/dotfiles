@@ -1,6 +1,7 @@
 local core_modules = {
 --- Core Settings ----------------------------------
     "core/plugins",
+    "core/autocmds",
     "core/keymaps",
     "core/options",
     "core/colorscheme",

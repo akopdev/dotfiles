@@ -1,7 +1,8 @@
 local set = vim.opt
 
 set.spell = true
-set.spelllang = { 'en_gb' }
+set.spelllang = { "en" }
+set.spellsuggest = { "best", 9 }
 set.number = true
 set.relativenumber = true
 set.ruler = true
@@ -43,11 +44,3 @@ set.smartcase = true
 -- While this behaviour deviates from that of Vi, it does what most users
 -- coming from other editors would expect.
 vim.g.nostartofline = true
-
-local status_ok, _ = pcall(vim.cmd, "filetype plugin on")
-if not status_ok then
-  return
-end
-
--- Setup python host 
--- vim.g.python3_host_prog = "/usr/local/bin/python3"
