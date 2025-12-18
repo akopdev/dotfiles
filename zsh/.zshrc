@@ -153,4 +153,5 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=info:#9ccfd8,prompt:#f6c177,pointer:#c4a7e7
  --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97,border:#e0def4"
 
-### End of Zinit's installer chunk
+# Load local, machine-specific overrides if present
+[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
