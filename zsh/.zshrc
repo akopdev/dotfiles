@@ -153,5 +153,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --color=info:#9ccfd8,prompt:#f6c177,pointer:#c4a7e7
  --color=marker:#ea9a97,spinner:#eb6f92,header:#ea9a97,border:#e0def4"
 
-# Load local, machine-specific overrides if present
-[[ -f "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+ # Private keys
+if [[ -o login ]]; then
+  export OPENAI_API_KEY="$(pass show openai/api-key 2>/dev/null)"
+fi
