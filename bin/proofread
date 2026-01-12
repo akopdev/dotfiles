@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+tmpfile=$(mktemp)
+
+${EDITOR:-vi} "$tmpfile"
+
+user_text=$(cat "$tmpfile")
+rm -f "$tmpfile"
+
+system_prompt=$(
+cat <<'PROMPT'
+You are a professional copywriter writing in British English dialect. 
+Proofread and correct the following text.
+
+Requirements:
+- Use Standard British English.
+- Return the corrected text only.
+- Do not add explanations, comments, or extra content.
+- Keep the original tone and meaning.
+- Sound professional but not overly formal.
+- Use simple, clear language.
+- Avoid flowery or academic wording.
+- Use only necessary punctuation and symbols.
+
+Output must be plain text only.
+
+User input:
+
+PROMPT
+)
+
+openai "${system_prompt} ${user_text}" | copy
+
+echo "Copied to clipboard!"
