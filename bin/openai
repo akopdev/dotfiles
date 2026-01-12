@@ -14,6 +14,9 @@ HELP
 return 
 fi
 
+
+export OPENAI_API_KEY="$(pass show openai/api-key 2>/dev/null)"
+
 if [[ -z "${OPENAI_API_KEY:-}" ]]; then
   print -u2 "Error: 'OPENAI_API_KEY' environment variable is not set"
   return

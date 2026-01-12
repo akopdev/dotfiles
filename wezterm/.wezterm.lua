@@ -20,7 +20,6 @@ config.initial_rows = 100
 
 -- Disable multiplexer elements as we are using tmux
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
-config.window_close_confirmation = "NeverPrompt"
 
 -- Keybindings
 local mod = "ALT"
