@@ -28,7 +28,7 @@ To prepare Debian container for installation, make sure you have all necessary d
 apt update && apt upgrade && apt install -y curl sudo
 ```
 
-Later, you can use `dotfiles update` to keep machine up-to-date.
+Later, you can use `dotfiles --update` to keep machine up-to-date.
 
 ## Three rules I follow
 

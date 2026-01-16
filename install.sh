@@ -110,6 +110,6 @@ info "Setup required folders."
 mkdir -p "${HOME}"/{Projects,.config}
 
 info "Install all packages."
-"${DOTFILES}"/bin/dotfiles update
+"${DOTFILES}"/bin/dotfiles --update
 
 info "The installation was successfully completed!"
