@@ -13,7 +13,7 @@ autocmd("BufWinEnter", {
 
 autocmd({ "BufRead", "BufNewFile" }, {
     pattern = "*.{md,txt}",
-    command = "setlocal tw=80 colorcolumn=80 fo=awqtc comments+=nb:> spell"
+    command = "setlocal colorcolumn=80 fo=awqtc comments+=nb:> spell"
         .. " tabstop=2 shiftwidth=2 expandtab nocursorline",
 })
 
