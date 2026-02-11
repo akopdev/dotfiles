@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+C_YEL=$'\033[33m'
+C_BLU=$'\033[34m'
+C_GRY=$'\033[90m'
+C_RST=$'\033[0m'
+
+gh pr list --json number,title,author,headRefName \
+    --template '{{range .}}{{printf "_Y_%v_R_\t%v\t_B_@%v_R_\t_G_%v_R_\n" .number .title .author.login .headRefName}}{{end}}' |
+    column -t -s $'\t' |
+    sed "s/_Y_/${C_YEL}/g; s/_B_/${C_BLU}/g; s/_G_/${C_GRY}/g; s/_R_/${C_RST}/g" |
+    fzf --ansi \
+        --header "Ctrl-B: Copy Branch | Ctrl-O: Open in Browser" \
+        --bind 'enter:execute(gh pr diff {1} | delta --paging=always)' \
+        --bind 'ctrl-b:execute-silent(echo {-1} | tr -d "\n" | copy)' \
+        --bind 'ctrl-o:execute(gh pr view {1} --web)' \
+        --preview '(gh pr view {1}; echo "\n== Checks ==\n"; gh pr checks {1} --json state,name --template "{{range .}}{{tablerow .state .name}}{{end}}") | glow'
