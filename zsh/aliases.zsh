@@ -52,6 +52,10 @@ alias grm="git-rebase-master"
 alias gs="git status"
 alias gtm="git-time-machine"
 
+# Github
+alias ghpr="github-pull-requests"
+alias gha="github-actions"
+
 # Kubectl
 alias k="kubectl"
 alias kg="kubectl get all"

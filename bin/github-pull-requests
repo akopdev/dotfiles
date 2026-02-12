@@ -10,7 +10,7 @@ gh pr list --json number,title,author,headRefName \
     column -t -s $'\t' |
     sed "s/_Y_/${C_YEL}/g; s/_B_/${C_BLU}/g; s/_G_/${C_GRY}/g; s/_R_/${C_RST}/g" |
     fzf --ansi \
-        --header "Ctrl-B: Copy Branch | Ctrl-O: Open in Browser" \
+        --header "ctrl-b: Copy Branch | ctrl-o: Open in Browser" \
         --bind 'enter:execute(gh pr diff {1} | delta --paging=always)' \
         --bind 'ctrl-b:execute-silent(echo {-1} | tr -d "\n" | copy)' \
         --bind 'ctrl-o:execute(gh pr view {1} --web)' \
