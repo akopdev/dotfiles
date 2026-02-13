@@ -7,23 +7,27 @@ C_BLU=$'\033[34m'
 C_GRY=$'\033[90m'
 C_RST=$'\033[0m'
 
-echo "Fetching GitHub workflows..."
+if [[ -n "$1" ]]; then
+    workflow_id="$1"
+else
+    echo "Fetching GitHub workflows..."
 
-selected_id=$(
-    gh workflow list --all --limit 1000 --json id,name,state \
-        --template '{{range .}}{{printf "%.0f\t%v\t_G_%v_R_\n" .id .name .state}}{{end}}' |
-    column -t -s $'\t' |
-    sed "s/_G_/${C_GRY}/g; s/_R_/${C_RST}/g" |
-    fzf --ansi \
-        --header "Select a Workflow" \
-        --prompt "Workflow > " \
-        --preview 'echo "Select a workflow to view its runs."' \
-        --preview-window=up:2:hidden:wrap \
-    | awk '{print $1}')
+    workflow_id=$(
+        gh workflow list --all --limit 1000 --json id,name,state \
+            --template '{{range .}}{{printf "%.0f\t%v\t_G_%v_R_\n" .id .name .state}}{{end}}' |
+        column -t -s $'\t' |
+        sed "s/_G_/${C_GRY}/g; s/_R_/${C_RST}/g" |
+        fzf --ansi \
+            --header "Select a Workflow" \
+            --prompt "Workflow > " \
+            --preview 'echo "Select a workflow to view its runs."' \
+            --preview-window=up:2:hidden:wrap \
+        | awk '{print $1}')
+fi
 
-if [[ -n "$selected_id" ]]; then
+if [[ -n "$workflow_id" ]]; then
     fetch_runs="
-        gh run list --workflow $selected_id --limit 100 \
+        gh run list --workflow $workflow_id --limit 100 \
             --json databaseId,conclusion,status,headBranch,name,createdAt \
             --template '{{range .}}{{ \$s := .conclusion }}{{ \$c := \"_Y_\" }}{{ if eq \$s \"success\" }}{{ \$c = \"_G_\" }}{{ else if eq \$s \"failure\" }}{{ \$c = \"_R_\" }}{{ end }}{{ printf \"%.0f\t%s%v_rst_\t_B_%v_rst_\t%v\t_GR_%v_rst_\n\" .databaseId \$c .status .headBranch .name .createdAt }}{{ end }}' | \
         column -t -s $'\t' | \
