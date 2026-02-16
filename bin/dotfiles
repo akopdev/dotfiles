@@ -73,6 +73,7 @@ _install_config_files() {
   link_file "zsh/.zshrc"
   link_file "wezterm/.wezterm.lua"
   link_file "vi/.exrc"
+  link_file "aerospace/.aerospace.toml"
 }
 
 ###################################################################################################
