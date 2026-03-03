@@ -20,7 +20,7 @@ local core_modules = {
     "plugins/telescope",
     "plugins/treesitter",
     "plugins/persisted",
-    "plugins/null_ls",
+    "plugins/obsidian",
 }
 
 --- Using pcall we can handle better any loading issues

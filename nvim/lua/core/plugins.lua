@@ -88,6 +88,14 @@ return packer.startup(function(use)
 
     }
 
+    use {
+        "epwalsh/obsidian.nvim",
+        tag = "*",
+        requires = {
+            "nvim-lua/plenary.nvim",
+        }
+    }
+
     use "sindrets/diffview.nvim"
 
     -- Automatically set up your configuration after cloning packer.nvim
