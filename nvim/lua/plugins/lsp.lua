@@ -104,6 +104,18 @@ vim.lsp.config("basedpyright", {
 })
 vim.lsp.enable("basedpyright")
 
+--[ PHP ]------------------------------------------------------------
+vim.lsp.config("phpactor", {
+    cmd = { "phpactor", "language-server" },
+    filetypes = { "php" },
+    root_markers = { "composer.json", ".git" },
+    init_options = {
+        ["language_server_phpstan.enabled"] = false,
+        ["language_server_psalm.enabled"] = false,
+    }
+})
+vim.lsp.enable("phpactor")
+
 --[ Terraform ]-------------------------------------------------
 vim.lsp.config("terraformls", {
     cmd = { "terraform-ls", "serve" },
