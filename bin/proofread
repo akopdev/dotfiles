@@ -20,6 +20,8 @@ Requirements:
 - Use simple, clear language.
 - Avoid flowery or academic wording.
 - Use only necessary punctuation and symbols.
+- Replace all em dash usage with commas.
+- Keep original markdown formating if presented.
 
 Output must be plain text only.
 
