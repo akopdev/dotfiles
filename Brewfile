@@ -67,6 +67,7 @@ brew "zinit"
 # Casks
 cask_args appdir: "~/Applications"
 cask "font-jetbrains-mono"
+cask "krita"
 cask "nikitabobko/tap/aerospace"
 cask "raspberry-pi-imager"
 cask "the-unarchiver"
