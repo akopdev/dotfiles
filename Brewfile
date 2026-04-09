@@ -23,7 +23,6 @@ brew "glow"
 brew "gnupg"
 brew "go"
 brew "gopls"
-brew "gromgit/brewtils/taproom"
 brew "helm"
 brew "htop"
 brew "hugo"
@@ -67,6 +66,7 @@ brew "zinit"
 
 # Casks
 cask_args appdir: "~/Applications"
+
 cask "font-jetbrains-mono"
 cask "krita"
 cask "nikitabobko/tap/aerospace"
