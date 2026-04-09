@@ -1,0 +1,83 @@
+font-family = "JetBrains Mono"
+font-size = 11
+theme = "Rose Pine Moon"
+keybind=clear
+
+# --- TMUX MAPPING ---
+
+keybind = cmd+d=text:\x02d
+keybind = alt+d=text:\x02d
+keybind = cmd+shift+backslash=text:\x02|
+keybind = alt+shift+backslash=text:\x02|
+
+# Split vertical (-)
+keybind = cmd+minus=text:\x02-
+keybind = alt+minus=text:\x02-
+
+# Kill/Popup
+keybind = cmd+w=text:\x02w
+keybind = alt+w=text:\x02w
+keybind = cmd+e=text:\x02e
+keybind = alt+e=text:\x02e
+
+# --- Navigation & Windows ---
+keybind = cmd+t=text:\x02t
+keybind = alt+t=text:\x02t
+keybind = cmd+tab=text:\x02\x09
+keybind = alt+tab=text:\x02\x09
+keybind = cmd+shift+tab=text:\x02\x1b\x5b\x5a
+keybind = alt+shift+tab=text:\x02\x1b\x5b\x5a
+
+# Pane Selection (h, j, k, l)
+keybind = cmd+h=text:\x02h
+keybind = cmd+j=text:\x02j
+keybind = cmd+k=text:\x02k
+keybind = cmd+l=text:\x02l
+keybind = alt+h=text:\x02h
+keybind = alt+j=text:\x02j
+keybind = alt+k=text:\x02k
+keybind = alt+l=text:\x02l
+
+# --- Resizing & Zoom (Shifted) ---
+keybind = cmd+shift+h=text:\x02H
+keybind = cmd+shift+j=text:\x02J
+keybind = cmd+shift+k=text:\x02K
+keybind = cmd+shift+l=text:\x02L
+keybind = cmd+z=text:\x02z
+
+keybind = alt+shift+h=text:\x02H
+keybind = alt+shift+j=text:\x02J
+keybind = alt+shift+k=text:\x02K
+keybind = alt+shift+l=text:\x02L
+keybind = alt+z=text:\x02z
+
+# --- Sessions & Vim Mode ---
+keybind = cmd+q=text:\x02q
+keybind = alt+q=text:\x02q
+keybind = cmd+v=text:\x02v
+keybind = alt+v=text:\x02v
+
+# Reload Config
+keybind = cmd+shift+r=text:\x02R
+keybind = alt+shift+r=text:\x02R
+
+# --- Tabs ---
+keybind = cmd+1=text:\x021
+keybind = cmd+2=text:\x022
+keybind = cmd+3=text:\x023
+keybind = cmd+4=text:\x024
+keybind = cmd+5=text:\x025
+keybind = cmd+6=text:\x026
+keybind = cmd+7=text:\x027
+keybind = cmd+8=text:\x028
+keybind = cmd+9=text:\x029
+
+keybind = alt+1=text:\x021
+keybind = alt+2=text:\x022
+keybind = alt+3=text:\x023
+keybind = alt+4=text:\x024
+keybind = alt+5=text:\x025
+keybind = alt+6=text:\x026
+keybind = alt+7=text:\x027
+keybind = alt+8=text:\x028
+keybind = alt+9=text:\x029
