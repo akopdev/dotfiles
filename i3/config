@@ -68,7 +68,7 @@ floating_modifier $mod
 focus_follows_mouse no
 
 # start a terminal
-bindsym $mod+t exec alacritty
+bindsym $mod+t exec wezterm
 
 # take a screenshot
 bindsym --release $mod+s exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
@@ -231,8 +231,8 @@ mode "mouse" {
 	# release dragging
 	bindsym Shft+s exec xdotool mouseup 1
 
-    # back to normal: Enter or Escape or $mod+r
-    bindsym Return mode "default"
+  # back to normal: Enter or Escape or $mod+r
+  bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
 
