@@ -13,9 +13,8 @@ smart_gaps on
 # Hide window title bar
 default_border pixel 1
 default_floating_border pixel 1
+for_window [class="^.*"] border pixel 1
 
-for_window [class="^.*"] border pixel 3
-new_window 1pixel
 hide_edge_borders smart
 
 # Decorations
