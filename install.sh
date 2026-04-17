@@ -3,7 +3,6 @@
 # shellcheck disable=SC2154
 HOME=$(eval echo "~${username}")
 DOTFILES="${HOME}/.dotfiles"
-INSTALL_SCRIPT_VERSION="1.0.0"
 
 GREEN='\033[1;32m'
 RED='\033[1;31m'
@@ -42,14 +41,15 @@ cat << EOF
 | |__| | (_) | |_| | | | |  __/\__ \ 
 |_____/ \___/ \__|_| |_|_|\___||___/
 
-by Akop Kesheshyan           v${INSTALL_SCRIPT_VERSION}
 
 EOF
 
-read -p "This script will make changes on your current machine, continue? " -n 1 -r
-echo # add extra line after prompt
-if [[ ! $REPLY =~ ^[Yy]$ ]]; then
-  exit 1
+if [[ -z "$NONINTERACTIVE" ]]; then
+    read -p "This script will make changes on your current machine, continue? " -n 1 -r
+    echo # add extra line after prompt
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+      exit 1
+    fi
 fi
 
 # Should not be a root user
@@ -79,7 +79,7 @@ if [[ "${OS}" == "Linux" ]]; then
   mkdir -p /home/linuxbrew
 
   info "Installing brew package manager ..."
-  yes | bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  NONINTERACTIVE=1 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
   # make visible to shell
   echo "eval '$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)'" >> "${HOME}/.profile"
@@ -91,9 +91,9 @@ if [[ "${OS}" == "Linux" ]]; then
   fi
 
   # Change default shell to zsh
-  if [[ -n "${ZSH_VERSION}" ]]; then
+  if command -v zsh &> /dev/null; then
     info "Make zsh the default shell"
-    chsh -s "$(which zsh)"
+    sudo chsh -s "$(which zsh)" "${USER}"
   fi
 
 elif [[ "${OS}" != "Darwin" ]]; then
