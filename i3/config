@@ -2,7 +2,7 @@
 set $mod Mod4
 
 # Basic font
-font pango:JetBrains Mono 10
+font pango:JetBrainsMono Nerd Font 10
 
 # Change gap size
 gaps outer 0
@@ -67,8 +67,7 @@ floating_modifier $mod
 focus_follows_mouse no
 
 # start a terminal
-# bindsym $mod+t exec wezterm
-bindsym $mod+t exec i3-sensible-terminal 
+bindsym $mod+t exec wezterm 
 
 # take a screenshot
 bindsym --release $mod+s exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
@@ -80,16 +79,6 @@ bindsym $mod+f exec wezterm -e ranger
 bindsym $mod+b exec chromium
 
 # kill focused window
-set $close "Do you really want to close the window? (y/n)"
-
-mode $close {
-    bindsym y kill, mode default
-    bindsym Return kill, mode default
-
-    bindsym n mode default
-    bindsym Escape mode default
-}
-
 bindsym $mod+w kill
 
 # start dmenu (a program launcher)
