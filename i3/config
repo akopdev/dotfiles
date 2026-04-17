@@ -90,7 +90,7 @@ mode $close {
     bindsym Escape mode default
 }
 
-bindsym $mod+w exec "xdotool getactivewindow | xargs -I '{}' i3-nagbar -t warning -m 'Do you really want to close this?' -b 'Yes' 'killall i3-nagbar; i3-msg [id='{}'] kill' -b 'No' 'killall i3-nagbar; i3-msg nop'"
+bindsym $mod+w kill
 
 # start dmenu (a program launcher)
 bindsym $mod+space exec --no-startup-id rofi -show drun -theme .config/rofi/themes/rose-pine-moon 
@@ -119,6 +119,10 @@ bindsym $mod+Shift+k move up
 
 # enter full screen mode for the focused container
 bindsym $mod+z fullscreen toggle
+
+# copy/paste
+bindsym $mod+c exec xdotool key --clearmodifiers ctrl+c
+bindsym $mod+v exec xdotool key --clearmodifiers ctrl+v
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -161,6 +165,10 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+Shift+c reload
 # restart i3 in place (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
+
+# move/swap windows
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+l move right
 
 # resize window (you can also use the mouse for that)
 mode "resize" {

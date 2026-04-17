@@ -8,7 +8,7 @@ general {
     color_separator = "#586e75"
 }
 
-battery 0 {
+battery all {
     threshold_type = "time"
     integer_battery_capacity = "true"
     low_threshold = "15"
