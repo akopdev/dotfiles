@@ -35,6 +35,7 @@ export HOMEBREW_NO_ANALYTICS=1
 export XDG_CONFIG_HOME=${ZSH}
 export HOMEBREW_BUNDLE_FILE="${ZSH}/Brewfile"
 export HOMEBREW_NO_ANALYTICS=1
+export GH_TELEMETRY=0
 
 fpath=($ZSH/bin $fpath)
 autoload -U $ZSH/bin/*(:t)
