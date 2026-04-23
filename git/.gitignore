@@ -131,6 +131,11 @@ local_settings.py
 .ipynb_checkpoints
 
 ######################
+# PHP Notebook       #
+######################
+.phpactor.json
+
+######################
 # Celery stuff       #
 ######################
 celerybeat-schedule
