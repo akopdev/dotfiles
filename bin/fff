@@ -15,14 +15,6 @@ get_os() {
 
         haiku)
             opener=open
-
-            [[ -z $FFF_TRASH_CMD ]] &&
-                FFF_TRASH_CMD=trash
-
-            [[ $FFF_TRASH_CMD == trash ]] && {
-                FFF_TRASH=$(finddir -v "$PWD" B_TRASH_DIRECTORY)
-                mkdir -p "$FFF_TRASH"
-            }
         ;;
     esac
 }
@@ -500,11 +492,6 @@ mark() {
         ${FFF_KEY_MOVE:=m}|${FFF_KEY_MOVE_ALL:=M}) file_program=(mv -i)  ;;
         ${FFF_KEY_LINK:=s}|${FFF_KEY_LINK_ALL:=S}) file_program=(ln -s)  ;;
 
-        # These are 'fff' functions.
-        ${FFF_KEY_TRASH:=d}|${FFF_KEY_TRASH_ALL:=D})
-            file_program=(trash)
-        ;;
-
         ${FFF_KEY_BULK_RENAME:=b}|${FFF_KEY_BULK_RENAME_ALL:=B})
             file_program=(bulk_rename)
         ;;
@@ -513,31 +500,16 @@ mark() {
     status_line
 }
 
-trash() {
-    # Trash a file.
-    cmd_line "trash [${#marked_files[@]}] items? [y/n]: " y n
+remove() {
+    # Delete a file.
+    cmd_line "Remove ${1##*/}? [y/n]: " y n
 
     [[ $cmd_reply != y ]] &&
         return
 
-    if [[ $FFF_TRASH_CMD ]]; then
-        # Pass all but the last argument to the user's
-        # custom script. command is used to prevent this function
-        # from conflicting with commands named "trash".
-        command "$FFF_TRASH_CMD" "${@:1:$#-1}"
+    rm -rf "${1}"
 
-    else
-        cd "$FFF_TRASH" || cmd_line "error: Can't cd to trash directory."
-
-        if cp -alf "$@" &>/dev/null; then
-            rm -r "${@:1:$#-1}"
-        else
-            mv -f "$@"
-        fi
-
-        # Go back to where we were.
-        cd "$OLDPWD" ||:
-    fi
+    redraw full
 }
 
 bulk_rename() {
@@ -666,9 +638,8 @@ cmd_line() {
                 }
             ;;
 
-            # Escape / Custom 'no' value (used as a replacement for '-n 1').
-            $'\e'|${3:-null})
-                read "${read_flags[@]}" -rsn 2
+            # Escape.
+            $'\e')
                 cmd_reply=
                 break
             ;;
@@ -693,7 +664,7 @@ cmd_line() {
             ;;
 
             # Custom 'yes' value (used as a replacement for '-n 1').
-            ${2:-null})
+            ${2:-null}|${3:-null})
                 cmd_reply=$read_reply
                 break
             ;;
@@ -881,10 +852,14 @@ key() {
             redraw full
         ;;
 
+        # Spawn a shell.
+        ${FFF_KEY_REMOVE:=d})
+            remove "${list[scroll]}"
+        ;;
+
         # Mark files for operation.
         ${FFF_KEY_YANK:=y}|\
         ${FFF_KEY_MOVE:=m}|\
-        ${FFF_KEY_TRASH:=d}|\
         ${FFF_KEY_LINK:=s}|\
         ${FFF_KEY_BULK_RENAME:=b})
             mark "$scroll" "$1"
@@ -893,7 +868,6 @@ key() {
         # Mark all files for operation.
         ${FFF_KEY_YANK_ALL:=Y}|\
         ${FFF_KEY_MOVE_ALL:=M}|\
-        ${FFF_KEY_TRASH_ALL:=D}|\
         ${FFF_KEY_LINK_ALL:=S}|\
         ${FFF_KEY_BULK_RENAME_ALL:=B})
             mark all "$1"
@@ -1030,12 +1004,6 @@ key() {
             open ~
         ;;
 
-        # Go to trash.
-        ${FFF_KEY_GO_TRASH:=t})
-            get_os
-            open "$FFF_TRASH"
-        ;;
-
         # Go to previous dir.
         ${FFF_KEY_PREVIOUS:=-})
             open "$OLDPWD"
@@ -1110,12 +1078,12 @@ main() {
     ((${FFF_LS_COLORS:=1} == 1)) &&
         get_ls_colors
 
-    ((${FFF_HIDDEN:=0} == 1)) &&
+    # Show hidden by default
+    ((${FFF_HIDDEN:=1} == 1)) &&
         shopt -s dotglob
 
-    # Create the trash and cache directory if they don't exist.
-    mkdir -p "${XDG_CACHE_HOME:=${HOME}/.cache}/fff" \
-             "${FFF_TRASH:=${XDG_DATA_HOME:=${HOME}/.local/share}/fff/trash}"
+    # Create the cache directory if they don't exist.
+    mkdir -p "${XDG_CACHE_HOME:=${HOME}/.cache}/fff"
 
     # 'nocaseglob': Glob case insensitively (Used for case insensitive search).
     # 'nullglob':   Don't expand non-matching globs to themselves.
