@@ -73,7 +73,7 @@ bindsym $mod+t exec wezterm
 bindsym --release $mod+s exec scrot -s -e 'xclip -selection clipboard -t image/png -i $f && rm $f'
 
 # open file manager
-bindsym $mod+f exec wezterm -e ranger
+bindsym $mod+f exec wezterm -e fff
 
 # open browser
 bindsym $mod+b exec chromium
