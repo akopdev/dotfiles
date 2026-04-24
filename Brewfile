@@ -5,6 +5,7 @@ brew "basedpyright"
 brew "bash-language-server"
 brew "bat"
 brew "cask"
+brew "charmbracelet/tap/crush"
 brew "chojs23/tap/ec"
 brew "cookiecutter"
 brew "ctop"
@@ -61,6 +62,7 @@ brew "wget"
 brew "xclip"
 brew "yaml-language-server"
 brew "yarn", link: false
+brew "zinit"
 brew "zinit"
 
 # Casks
