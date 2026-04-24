@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
-
-
-# fff - fucking fast file-manager.
+#==============================================================================
+#  This script is based on and inspired by "fff" (Fucking Fast File-Manager)
+#  originally developed by dylanaraps (https://github.com/dylanaraps/fff) 
+#  
+#  I stripped off unnecessary functionality and adopted some of it's behavior
+#  for my own needs.
+#==============================================================================
 
 get_os() {
     # Figure out the current operating system to set some specific variables.
