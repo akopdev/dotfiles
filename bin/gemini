@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+MODEL="gemini-2.5-flash"
+USER_PROMPT=()
+
+if [ $# -lt 1 ]; then
+cat << HELP
+Usage: gemini <prompt> [flags]
+
+Flags:
+  -m, --model   Gemini Model, default: '${MODEL}'
+
+HELP
+return
+fi
+
+
+export GEMINI_API_KEY="$(pass show gemini/api-key 2>/dev/null)"
+
+if [[ -z "${GEMINI_API_KEY:-}" ]]; then
+  echo "Error: 'GEMINI_API_KEY' environment variable is not set" >&2
+  return
+fi
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -m|--model)
+      MODEL="${2}"
+      shift 2
+      ;;
+    *)
+      USER_PROMPT+=("$1")
+      shift
+      ;;
+  esac
+done
+
+if [[ ${#USER_PROMPT[@]} -eq 0 ]]; then
+  echo "Error: prompt is required" >&2
+  return
+fi
+
+# Send the request to the Gemini API
+curl -s -X POST "https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent" \
+  -H "x-goog-api-key: ${GEMINI_API_KEY}" \
+  -H "Content-Type: application/json" \
+  -d "$(jq -n \
+    --arg text "${USER_PROMPT[*]}" \
+    '{
+      contents: [{
+        parts: [{
+          text: $text
+        }]
+      }]
+    }'
+  )" \
+| jq -r '.candidates[0].content.parts[0].text // "Error: Could not parse response. Raw output:\n" + tostring'

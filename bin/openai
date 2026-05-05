@@ -26,8 +26,7 @@ while [[ $# -gt 0 ]]; do
   case $1 in
     -m|--model)
       MODEL="${2}"
-      shift
-      shift
+      shift 2
       ;;
     *)
       USER_PROMPT+=("$1")
@@ -52,4 +51,4 @@ curl -s https://api.openai.com/v1/responses \
       input: $input
     }'
   )" \
-| jq -r '.output[0].content[0].text'
+| jq -r '.output[0].content[0].text // "Error: Could not parse response. Raw output:\n" + tostring'

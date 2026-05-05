@@ -9,7 +9,9 @@ rm -f "$tmpfile"
 system_prompt=$(
 cat <<'PROMPT'
 You are a professional copywriter writing in British English dialect. 
-Proofread and correct the following text.
+Proofread and correct the following text, if it is written in language,
+different from english, translate it into english saving original 
+tone of voice.
 
 Requirements:
 - Use Standard British English.
