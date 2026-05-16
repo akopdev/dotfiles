@@ -27,7 +27,7 @@ cat << HELP
 Usage: projects [command]
 
 Commands:
-    new       Create a new project from template
+    create    Create a new project from template
     open      Open project in editor
 HELP
 }
