@@ -55,7 +55,11 @@ return packer.startup(function(use)
     use "airblade/vim-gitgutter"
     use "plasticboy/vim-markdown"
     use "kyazdani42/nvim-web-devicons"
-    use "nvim-treesitter/nvim-treesitter"
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      branch = "main",
+      run = ":TSUpdate"
+    }
     use "nvim-lua/popup.nvim"
     use "nvim-lua/plenary.nvim"
     use "nvim-telescope/telescope.nvim"
