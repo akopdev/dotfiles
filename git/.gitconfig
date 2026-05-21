@@ -45,12 +45,12 @@
     excludesfile = ~/.dotfiles/git/.gitignore
 
 [pager]
-    diff = delta
-    log = delta
-    reflog = delta
+    diff = delta --navigate
+    log = delta --navigate
+    reflog = delta --navigate
 
 [interactive]
-    diffFilter = delta --color-only --features=interactive
+    diffFilter = delta --color-only --features=interactive --navigate
 
 [delta]
     features = diff-so-fancy
