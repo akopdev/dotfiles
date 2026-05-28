@@ -1,102 +1,50 @@
-local fn = vim.fn
+vim.pack.add({
+    "https://github.com/terrortylor/nvim-comment",
+    "https://github.com/windwp/nvim-autopairs",
+    "https://github.com/lewis6991/gitsigns.nvim",
 
--- Automatically install packer
-local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-    PACKER_BOOTSTRAP = fn.system {
-        "git",
-        "clone",
-        "--depth",
-        "1",
-        "https://github.com/wbthomason/packer.nvim",
-        install_path,
-    }
-    print "Installing packer close and reopen Neovim..."
-    vim.cmd [[packadd packer.nvim]]
-end
+    -- Autocompletion & Snippets
+    "https://github.com/hrsh7th/cmp-nvim-lsp",
+    "https://github.com/hrsh7th/cmp-buffer",
+    "https://github.com/hrsh7th/cmp-path",
+    "https://github.com/hrsh7th/cmp-cmdline",
+    "https://github.com/hrsh7th/cmp-vsnip",
+    "https://github.com/hrsh7th/vim-vsnip",
+    "https://github.com/hrsh7th/nvim-cmp",
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd [[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]]
+    -- UI, File Explorer, and Tools
+    "https://github.com/airblade/vim-gitgutter",
+    "https://github.com/plasticboy/vim-markdown",
+    "https://github.com/kyazdani42/nvim-web-devicons",
+    "https://github.com/nvim-lua/popup.nvim",
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/nvim-telescope/telescope.nvim",
+    "https://github.com/kyazdani42/nvim-tree.lua",
+    "https://github.com/RishabhRD/popfix",
+    "https://github.com/lukas-reineke/indent-blankline.nvim",
+    "https://github.com/glepnir/dashboard-nvim",
+    "https://github.com/tpope/vim-fugitive",
 
--- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-    return
-end
+    -- Theme & Status/Tablines
+    "https://github.com/rose-pine/neovim",
+    "https://github.com/romgrk/barbar.nvim",
+    "https://github.com/nvim-lualine/lualine.nvim",
+    "https://github.com/yorickpeterse/nvim-pqf",
 
--- Have packer use a popup window
-packer.init {
-    display = {
-        open_fn = function()
-            return require("packer.util").float { border = "rounded" }
-        end,
-    },
-}
+    -- Utilities
+    "https://github.com/olimorris/persisted.nvim",
+    "https://github.com/ray-x/lsp_signature.nvim",
 
--- Install your plugins here
-return packer.startup(function(use)
-    use "terrortylor/nvim-comment"
-    use "windwp/nvim-autopairs"
-    use "lewis6991/gitsigns.nvim"
+    -- Debugging
+    "https://github.com/nvim-telescope/telescope-dap.nvim",
+    "https://github.com/mfussenegger/nvim-dap",
+    "https://github.com/rcarriga/nvim-dap-ui",
 
-    use "hrsh7th/cmp-nvim-lsp"
-    use "hrsh7th/cmp-buffer"
-    use "hrsh7th/cmp-path"
-    use "hrsh7th/cmp-cmdline"
-    use "hrsh7th/cmp-vsnip"
-    use "hrsh7th/vim-vsnip"
-    use "hrsh7th/nvim-cmp"
+    -- Experimental
+    "https://github.com/sindrets/diffview.nvim",
+})
 
-    use "airblade/vim-gitgutter"
-    use "plasticboy/vim-markdown"
-    use "kyazdani42/nvim-web-devicons"
-    use "nvim-lua/popup.nvim"
-    use "nvim-lua/plenary.nvim"
-    use "nvim-telescope/telescope.nvim"
-    use "kyazdani42/nvim-tree.lua"
-    use "RishabhRD/popfix"
-    use "lukas-reineke/indent-blankline.nvim"
-    use "glepnir/dashboard-nvim"
-    use "tpope/vim-fugitive"
-
-    use "rose-pine/neovim"
-    use "romgrk/barbar.nvim"
-    use "nvim-lualine/lualine.nvim"
-
-    use "olimorris/persisted.nvim"
-
-    use "ray-x/lsp_signature.nvim"
-
-    use "nvim-telescope/telescope-dap.nvim"
-    use "mfussenegger/nvim-dap"
-    use "rcarriga/nvim-dap-ui"
-
-    use {
-        "yorickpeterse/nvim-pqf",
-        config = function()
-            require("pqf").setup()
-        end
-
-    }
-
-    use {
-        "epwalsh/obsidian.nvim",
-        tag = "*",
-        requires = {
-            "nvim-lua/plenary.nvim",
-        }
-    }
-
-    use "sindrets/diffview.nvim"
-
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if PACKER_BOOTSTRAP then
-        require("packer").sync()
-    end
-end)
+-- Handy command for manual plugin update
+vim.api.nvim_create_user_command("PackUpdate", function()
+  require("vim.pack").update()
+end, { desc = "Update all plugins using native package manager" })

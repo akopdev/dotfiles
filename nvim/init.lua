@@ -1,11 +1,11 @@
 local core_modules = {
---- Core Settings ----------------------------------
+    -- Core Settings 
     "core/plugins",
     "core/autocmds",
     "core/keymaps",
     "core/options",
     "core/colorscheme",
---- Plugin Configurations --------------------------
+    -- Plugin Configurations
     "plugins/autopairs",
     "plugins/cmp",
     "plugins/comment",
@@ -19,7 +19,7 @@ local core_modules = {
     "plugins/nvimtree",
     "plugins/telescope",
     "plugins/persisted",
-    "plugins/obsidian",
+    "plugins/pqf",
 }
 
 --- Using pcall we can handle better any loading issues
