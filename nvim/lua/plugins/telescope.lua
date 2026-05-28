@@ -45,7 +45,6 @@ telescope.setup {
   },
 }
 
-telescope.load_extension('gh')
 telescope.load_extension('dap')
 telescope.load_extension("persisted")
 

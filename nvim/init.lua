@@ -18,7 +18,6 @@ local core_modules = {
     "plugins/barbar",
     "plugins/nvimtree",
     "plugins/telescope",
-    "plugins/treesitter",
     "plugins/persisted",
     "plugins/obsidian",
 }

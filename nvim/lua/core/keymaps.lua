@@ -55,7 +55,7 @@ map('n', 'diw', '"_diw', opts)
 -- highlight
 map('n', 's', '*N', opts)
 -- Save sessions
-map('n', '<leader>ss', ':SessionSave<CR>', opts)
+map('n', '<leader>ss', ':Persisted save<CR>', opts)
 -- Tree file explorer
 map('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
 -- Buffers

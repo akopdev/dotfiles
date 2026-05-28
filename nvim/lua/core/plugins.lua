@@ -55,22 +55,14 @@ return packer.startup(function(use)
     use "airblade/vim-gitgutter"
     use "plasticboy/vim-markdown"
     use "kyazdani42/nvim-web-devicons"
-    use {
-      "nvim-treesitter/nvim-treesitter",
-      branch = "main",
-      run = ":TSUpdate"
-    }
     use "nvim-lua/popup.nvim"
     use "nvim-lua/plenary.nvim"
     use "nvim-telescope/telescope.nvim"
-    use "nvim-telescope/telescope-github.nvim"
     use "kyazdani42/nvim-tree.lua"
     use "RishabhRD/popfix"
     use "lukas-reineke/indent-blankline.nvim"
     use "glepnir/dashboard-nvim"
     use "tpope/vim-fugitive"
-
-    use "sheerun/vim-polyglot"
 
     use "rose-pine/neovim"
     use "romgrk/barbar.nvim"
