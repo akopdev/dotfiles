@@ -58,6 +58,7 @@ brew "typescript"
 brew "typescript-language-server"
 brew "uv"
 brew "wget"
+brew "weechat"
 brew "xclip"
 brew "yaml-language-server"
 brew "yarn", link: false
