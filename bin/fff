@@ -458,6 +458,26 @@ redraw() {
     status_line
 }
 
+execute_operation() {
+    [[ ! -w $PWD ]] && {
+        cmd_line "warn: no write access to dir."
+        return
+    }
+
+    # Clear the screen to make room for a prompt if needed.
+    clear_screen
+    reset_terminal
+
+    stty echo
+    printf '\e[1mfff\e[m: %s\n' "Running ${file_program[0]} please wait ..."
+    "${file_program[@]}" "${marked_files[@]}" .
+    stty -echo
+
+    marked_files=()
+    setup_terminal
+    redraw full
+}
+
 mark() {
     # Mark file for operation.
     # If an item is marked in a second directory,
@@ -492,10 +512,6 @@ mark() {
     case "$2" in
         ${FFF_KEY_YANK:=y}|${FFF_KEY_YANK_ALL:=Y}) file_program=(cp -iR) ;;
         ${FFF_KEY_MOVE:=m}|${FFF_KEY_MOVE_ALL:=M}) file_program=(mv -i)  ;;
-
-        ${FFF_KEY_BULK_RENAME:=b}|${FFF_KEY_BULK_RENAME_ALL:=B})
-            file_program=(bulk_rename)
-        ;;
     esac
 
     status_line
@@ -509,6 +525,18 @@ remove() {
         return
 
     rm -rf "${1}"
+
+    redraw full
+}
+
+remove_all() {
+    # Delete selected file.
+    cmd_line "Remove $# selected files? [y/n]: " y n
+
+    [[ $cmd_reply != y ]] &&
+        return
+
+    rm -rf "$@"
 
     redraw full
 }
@@ -853,45 +881,33 @@ key() {
             redraw full
         ;;
 
-        # Spawn a shell.
+        # Remove file(s).
         ${FFF_KEY_REMOVE:=d})
-            remove "${list[scroll]}"
+            if [[ ${#marked_files[@]} -gt 0 ]]; then
+                remove_all "${marked_files[@]}"
+            else
+                remove "${list[scroll]}"
+            fi
         ;;
 
         # Mark files for operation.
         ${FFF_KEY_YANK:=y}|\
         ${FFF_KEY_MOVE:=x}|\
-        ${FFF_KEY_BULK_RENAME:=b})
+        ${FFF_KEY_VISUAL:=v})
             mark "$scroll" "$1"
         ;;
 
         # Mark all files for operation.
         ${FFF_KEY_YANK_ALL:=Y}|\
         ${FFF_KEY_MOVE_ALL:=X}|\
-        ${FFF_KEY_BULK_RENAME_ALL:=B})
+        ${FFF_KEY_VISUAL_ALL:=V})
             mark all "$1"
         ;;
 
         # Do the file operation.
         ${FFF_KEY_PASTE:=p})
             [[ ${marked_files[*]} ]] && {
-                [[ ! -w $PWD ]] && {
-                    cmd_line "warn: no write access to dir."
-                    return
-                }
-
-                # Clear the screen to make room for a prompt if needed.
-                clear_screen
-                reset_terminal
-
-                stty echo
-                printf '\e[1mfff\e[m: %s\n' "Running ${file_program[0]} please wait ..."
-                "${file_program[@]}" "${marked_files[@]}" .
-                stty -echo
-
-                marked_files=()
-                setup_terminal
-                redraw full
+                execute_operation
             }
         ;;
 
@@ -905,6 +921,13 @@ key() {
 
         # Rename list item.
         ${FFF_KEY_RENAME:=r})
+
+            [[ ${marked_files[*]} ]] && {
+                file_program=(bulk_rename)
+                execute_operation
+                return
+            }
+
             [[ ! -e ${list[scroll]} ]] &&
                 return
 
