@@ -585,6 +585,14 @@ bulk_rename() {
     setup_terminal
 }
 
+execute() {
+    clear_screen
+    reset_terminal
+    "$@"
+    setup_terminal
+    redraw full
+}
+
 open() {
     # Open directories and files.
     if [[ -d $1/ ]]; then
@@ -600,6 +608,10 @@ open() {
         # Open all text-based files in '$EDITOR'.
         # Everything else goes through 'xdg-open'/'open'.
         case "$mime_type" in
+            text/csv*)
+                execute sheets "$1"
+            ;;
+
             text/*|*x-empty*|*json*)
                 # If 'fff' was opened as a file picker, save the opened
                 # file in a file called 'opened_file'.
@@ -609,11 +621,7 @@ open() {
                     exit
                 }
 
-                clear_screen
-                reset_terminal
-                "${VISUAL:-${EDITOR:-vi}}" "$1"
-                setup_terminal
-                redraw full
+                execute "${VISUAL:-${EDITOR:-vi}}" "$1"
             ;;
 
             *)
