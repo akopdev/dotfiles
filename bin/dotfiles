@@ -96,27 +96,39 @@ _update() {
     return 1
   fi
 
+  local skip_brewing=false
+  for arg in "$@"; do
+    if [[ "${arg}" == "--skip-brewing" ]]; then
+      skip_brewing=true
+    fi
+  done
+
   info "Get latest version of dotfiles."
-  cd "${DOTFILES}" && git pull
-
-  info "Updating system packages."
-  OS="$(uname)"
-  if [[ "${OS}" == "Linux" ]]; then
-    sudo apt-get update && sudo apt-get -y upgrade
+  if ! cd "${DOTFILES}" || ! git pull; then
+    error "Failed to pull latest dotfiles. Aborting."
+    return 1
   fi
-  brew update
 
-  info "Clean local cache"
-  brew update-reset
+  if [[ "${skip_brewing}" == false ]]; then
+    info "Updating system packages."
+    OS="$(uname)"
+    if [[ "${OS}" == "Linux" ]]; then
+      sudo apt-get update && sudo apt-get -y upgrade
+    fi
+    brew update
 
-  info "Update all existing packages."
-  brew upgrade
+    info "Clean local cache"
+    brew update-reset
 
-  info "Install new packages."
-  brew bundle
+    info "Update all existing packages."
+    brew upgrade
 
-  info "Clean up installation."
-  brew cleanup
+    info "Install new packages."
+    brew bundle
+
+    info "Clean up installation."
+    brew cleanup
+  fi
 
   info "Install custom configurations."
   _install_config_files
@@ -146,11 +158,14 @@ cat << HELP
 
 by Akop Kesheshyan
 
-Usage: dotfiles [--update] [--help]
+Usage: dotfiles [--update [--skip-brewing]] [--help]
 
 Commands:
-    --update    Update all installed packages
-    --help      Show this help message
+    --update              Update all installed packages
+    --help                Show this help message
+
+Options:
+    --skip-brewing        Update without running brew commands
 
 HELP
 return 
@@ -162,21 +177,26 @@ return
 ###################################################################################################
 
 _main() {
-  case "${1:-}" in
-    "" )
-      _open
-      ;;
-    --help|-h )
-      _help
-      ;;
-    --update )
-      _update "$@"
-      ;;
-    * )
-      error "Unknown option: ${1}"
-      _help
-      return 1
-      ;;
+  local cmd=""
+  local extra_args=()
+
+  for arg in "$@"; do
+    case "${arg}" in
+      --help|-h )      cmd="help" ;;
+      --update )       cmd="update" ;;
+      --skip-brewing ) extra_args+=("${arg}") ;;
+      * )
+        error "Unknown option: ${arg}"
+        _help
+        return 1
+        ;;
+    esac
+  done
+
+  case "${cmd}" in
+    "" )      _open ;;
+    help )    _help ;;
+    update )  _update "${extra_args[@]}" ;;
   esac
 }
 _main "$@"
