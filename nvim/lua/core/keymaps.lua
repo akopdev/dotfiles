@@ -27,8 +27,8 @@ map('n', '<', 'v<<Esc>', opts)
 map('n', 'dd', '"_dd', opts)
 map('n', '<C-d>', 'Yp', opts)
 -- Quicker right-hand navigation
-map('', '<S-k>', '5k', opts)
-map('', '<S-j>', '5j', opts)
+-- map('', '<S-k>', '5k', opts)
+-- map('', '<S-j>', '5j', opts)
 map('', '<S-h>', 'b', opts)
 map('', '<S-l>', 'e<Right>', opts)
 -- Beginning and end rows
@@ -108,8 +108,8 @@ map('n', '<leader>gp', ':lua require"gitsigns".preview_hunk()<CR>', opts)
 
 -- Toggle between geek and normal modes
 local function toggleLineNumbers()
-    vim.opt.number = true
-    vim.opt.relativenumber = not vim.wo.relativenumber
+  vim.opt.number = true
+  vim.opt.relativenumber = not vim.wo.relativenumber
 end
 
 vim.keymap.set("n", "<leader>n", toggleLineNumbers, opts)
