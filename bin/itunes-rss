@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+cat << HELP
+Extract original RSS url from Apple Podcasts.
+
+Usage:
+  itunes-rss [URL]
+
+HELP
+return 
+fi
+
+for url do
+    if [[ $url =~ id([0-9]+) ]]; then
+        curl -s "https://itunes.apple.com/lookup?id=${match[1]}&entity=podcast" | jq -r '.results[0].feedUrl'
+    else
+        echo "invalid URL $url" >&2
+    fi
+done
