@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+cat << HELP
+Extract RSS url from a YouTube channel.
+
+Usage:
+  youtube-rss [URL] [@username]
+
+HELP
+return
+fi
+
+for input do
+    # If the input starts with '@', treat it as a username and build the URL
+    if [[ $input == @* ]]; then
+        url="https://www.youtube.com/$input"
+    else
+        url="$input"
+    fi
+
+    # Fetch the page and extract the canonical channel ID using ripgrep
+    channel_id=$(curl -s "$url" | rg -o '<link rel="canonical" href="https://www.youtube.com/channel/([^"]+)">' -r '$1')
+    
+    if [[ -n "$channel_id" ]]; then
+        echo "https://www.youtube.com/feeds/videos.xml?channel_id=${channel_id}"
+    else
+        echo "invalid URL or channel ID not found: $input" >&2
+    fi
+done
