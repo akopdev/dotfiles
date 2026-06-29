@@ -42,6 +42,9 @@ vim.pack.add({
 
     -- Experimental
     "https://github.com/sindrets/diffview.nvim",
+
+    -- Text processing
+    "https://github.com/zk-org/zk-nvim"
 })
 
 -- Handy command for manual plugin update

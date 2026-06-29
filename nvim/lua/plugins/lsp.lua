@@ -210,6 +210,15 @@ vim.lsp.config("bashls", {
 })
 vim.lsp.enable("bashls")
 
+
+--[ ZK ]--------------------------------------------------------------
+vim.lsp.config("zk", {
+    cmd = { 'zk', 'lsp' },
+    filetypes = { "txt", "markdown" },
+    root_markers = { ".git" },
+})
+vim.lsp.enable("zk")
+
 --[ Customizing how diagnostics are displayed ]-----------------------
 
 vim.diagnostic.config {

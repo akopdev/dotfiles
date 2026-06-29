@@ -20,6 +20,7 @@ local core_modules = {
     "plugins/telescope",
     "plugins/persisted",
     "plugins/pqf",
+    "plugins/zk",
 }
 
 --- Using pcall we can handle better any loading issues
