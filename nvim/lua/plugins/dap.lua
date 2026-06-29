@@ -53,7 +53,7 @@ dap.configurations.python = {
 
 }
 
-dapui.setup{}
+dapui.setup {}
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()

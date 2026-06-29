@@ -1,10 +1,10 @@
 local status_ok, zk = pcall(require, "zk")
 if not status_ok then
-    return
+  return
 end
 
 zk.setup {
-    picker_options = {
-        telescope = require("telescope.themes").get_ivy(),
-    },
+  picker_options = {
+    telescope = require("telescope.themes").get_ivy(),
+  },
 }
