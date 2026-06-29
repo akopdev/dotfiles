@@ -1,0 +1,14 @@
+{
+  "trustedformulae": [
+    "akopdev/formulas/nbcat",
+    "charmbracelet/tap/crush",
+    "chojs23/tap/ec",
+    "dart-lang/dart/dart",
+    "dart-lang/dart/dart-beta",
+    "hashicorp/tap/terraform",
+    "sass/sass/sass"
+  ],
+  "trustedcasks": [
+    "nikitabobko/tap/aerospace"
+  ]
+}
