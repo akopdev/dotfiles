@@ -1,0 +1,11 @@
+{
+  "theme": "dark-ansi",
+  "editorMode": "vim",
+  "permissions": {
+    "deny": ["Bash(git commit:*)"]
+  },
+  "env": {
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": true,
+    "CLAUDE_CODE_DISABLE_MOUSE_CLICKS": true
+  }
+}
