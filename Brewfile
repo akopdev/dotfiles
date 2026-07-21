@@ -1,4 +1,5 @@
 # Packages
+brew "akopdev/formulas/ghgrab"
 brew "akopdev/formulas/nbcat"
 brew "awscli"
 brew "basedpyright"

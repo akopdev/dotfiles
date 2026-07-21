@@ -1,6 +1,5 @@
 {
   "trustedformulae": [
-    "akopdev/formulas/nbcat",
     "charmbracelet/tap/crush",
     "chojs23/tap/ec",
     "dart-lang/dart/dart",
@@ -10,5 +9,8 @@
   ],
   "trustedcasks": [
     "nikitabobko/tap/aerospace"
+  ],
+  "trustedtaps": [
+    "akopdev/formulas"
   ]
 }
