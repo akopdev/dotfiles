@@ -1,5 +1,6 @@
 {
   "trustedformulae": [
+    "akopdev/formulas/ghgrab",
     "charmbracelet/tap/crush",
     "chojs23/tap/ec",
     "dart-lang/dart/dart",
