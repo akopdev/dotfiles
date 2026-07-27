@@ -94,7 +94,7 @@ function zvm_after_init() {
   bindkey -s "^N" 'nvim^M'
   bindkey -s '^P' 'projects open^M'
   bindkey -s '^F' 'find-text^M'
-  bindkey -s '^E' 'bash -c fff^M'
+  bindkey -s '^E' 'files^M'
   bindkey '^l' end-of-line
 }
 

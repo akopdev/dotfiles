@@ -8,6 +8,7 @@ alias f="find-text"
 alias ff="find-file"
 alias top="htop"
 alias wifi="wifitui"
+alias files="bash -c fff"
 case "$(uname)" in
   Darwin) alias poweroff="sudo shutdown -h now" ;;
   Linux) alias poweroff="systemctl poweroff" ;;
