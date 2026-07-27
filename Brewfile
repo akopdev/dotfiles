@@ -65,6 +65,7 @@ brew "yaml-language-server"
 brew "yarn", link: false
 brew "zinit"
 brew "zk"
+brew "wifitui"
 
 # Casks
 cask_args appdir: "~/Applications"
