@@ -7,6 +7,11 @@ alias lt="eza --group-directories-first --icons --tree --all --level=3 --ignore-
 alias f="find-text"
 alias ff="find-file"
 alias top="htop"
+alias wifi="wifitui"
+case "$(uname)" in
+  Darwin) alias poweroff="sudo shutdown -h now" ;;
+  Linux) alias poweroff="systemctl poweroff" ;;
+esac
 
 # Neovim
 alias vim="nvim"

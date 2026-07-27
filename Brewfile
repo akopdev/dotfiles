@@ -60,12 +60,12 @@ brew "typescript"
 brew "typescript-language-server"
 brew "uv"
 brew "wget"
+brew "wifitui"
 brew "xclip"
 brew "yaml-language-server"
 brew "yarn", link: false
 brew "zinit"
 brew "zk"
-brew "wifitui"
 
 # Casks
 cask_args appdir: "~/Applications"
