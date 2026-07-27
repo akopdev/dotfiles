@@ -151,3 +151,5 @@ celerybeat.pid
 # Local scripts      #
 ######################
 *.local.sh
+
+**/.claude/settings.local.json
