@@ -175,6 +175,7 @@ bindsym $mod+r mode "resize"
 bar {
     status_command i3status
     position top
+    font pango:JetBrainsMono Nerd Font 10
 
     colors {
         background $base01

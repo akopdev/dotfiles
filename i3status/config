@@ -33,6 +33,6 @@ time {
     format = "%A, %d %B %H:%M"
 }
 
-order += "battery 0"
+order += "battery all"
 order += "volume master"
 order += "time"

@@ -70,7 +70,7 @@ brew "wifitui"
 # Casks
 cask_args appdir: "~/Applications"
 
-cask "font-jetbrains-mono"
+cask "font-jetbrains-mono-nerd-font"
 cask "krita"
 cask "nikitabobko/tap/aerospace"
 cask "raspberry-pi-imager"
