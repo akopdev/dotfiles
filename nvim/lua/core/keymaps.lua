@@ -6,7 +6,7 @@ local opts = { noremap = true }
 -- Shortcut to save changes
 map('n', '<leader>w', ':w<CR>', opts)
 map('n', 'qq', ':q<CR>', opts)
-map('n', 'qa', ':qall<CR>', opts)
+map('n', 'qa', ':qall!<CR>', opts)
 -- Quicker window movement
 map('n', '<leader>j', '<C-w>j', opts)
 map('n', '<leader>k', '<C-w>k', opts)
@@ -26,11 +26,6 @@ map('n', '<', 'v<<Esc>', opts)
 -- Duplicate and remove rows
 map('n', 'dd', '"_dd', opts)
 map('n', '<C-d>', 'Yp', opts)
--- Quicker right-hand navigation
--- map('', '<S-k>', '5k', opts)
--- map('', '<S-j>', '5j', opts)
-map('', '<S-h>', 'b', opts)
-map('', '<S-l>', 'e<Right>', opts)
 -- Beginning and end rows
 map('n', '<C-l>', '$l', opts)
 map('i', '<C-l>', '<C-o>$', opts)
@@ -80,8 +75,6 @@ map('n', '-', ':split<CR>', opts)
 map('n', '<leader>f', ':Telescope live_grep<CR>', opts)
 map('n', '<leader>ff', ':Telescope find_files theme=ivy previewer=false<CR>', opts)
 map('n', '<leader>cd', ':Telescope diagnostics bufnr=0 theme=ivy<CR>', opts)
-map('n', '<leader>ca', ':Telescope lsp_code_actions theme=ivy<CR>', opts)
-map('n', '<leader>gg', ':Telescope gh gist<CR>', opts)
 map('n', '<leader>gb', ':Telescope git_branches<CR>', opts)
 map('n', '<leader>q', ':Telescope quickfix<CR>', opts)
 map('n', '<leader>r', ':Telescope command_history<CR>', opts)
