@@ -1,7 +1,7 @@
 general {
     color_degraded = "#cb4b16"
     output_format = "i3bar"
-    interval = "15"
+    interval = "5"
     color_bad = "#dc322f"
     colors = "true"
     color_good = "#859900"
@@ -11,8 +11,7 @@ general {
 battery all {
     threshold_type = "time"
     integer_battery_capacity = "true"
-    low_threshold = "15"
-    format = "%status %percentage "
+    format = " %status  %percentage "
     format_down = ""
     status_chr = ""
     status_bat = ""
@@ -26,13 +25,19 @@ volume master {
     device = "default"
     mixer_idx = "0"
     mixer = "Master"
-    format = "♪ %volume "
+    format = "  ♪ %volume "
 }
 
 time {
-    format = "%A, %d %B %H:%M"
+    format = "%A, %d %B %H:%M "
+}
+
+wireless _first_ {
+  format_up = " W: %quality at %essid "
+  format_down = "W: down"
 }
 
 order += "battery all"
 order += "volume master"
+order += "wireless _first_"
 order += "time"
