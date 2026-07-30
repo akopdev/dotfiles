@@ -4,6 +4,22 @@
 # neovim will paste "xsel -o -b"
 # neovim will copy using "xsel --nodetach -i -b"
 
+if [[ -z "$WSL_DISTRO_NAME" ]] && ! grep -qi microsoft /proc/version 2>/dev/null; then
+  for i in "$@"
+  do
+    case "$i" in
+      -o|--output )
+        exec xclip -selection clipboard -o
+        ;;
+
+      -i|--input )
+        exec xclip -selection clipboard -i
+        ;;
+    esac
+  done
+  exit 0
+fi
+
 for i in "$@"
 do
   case "$i" in
@@ -14,7 +30,7 @@ do
       # line break so we will added sed with -z
       powershell.exe Get-Clipboard | sed 's/\r$//'
       ;;
-      
+
     -i|--input )
       # for copy we'll direct stdin to clip.exe
       tee <&0 | clip.exe
