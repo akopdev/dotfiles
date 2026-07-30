@@ -9,14 +9,15 @@ font pango:JetBrainsMono Nerd Font 10
 gaps outer 0
 gaps inner 10
 gaps top 0
-smart_gaps on
 
 # Hide window title bar
 default_border pixel 1
 default_floating_border pixel 1
 for_window [class="^.*"] border pixel 1
 
-hide_edge_borders smart
+# Enable this to same extra 20px of your screen
+# smart_gaps on
+# hide_edge_borders smart
 
 # Decorations
 set $base00 #232136
