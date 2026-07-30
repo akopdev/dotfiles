@@ -34,7 +34,7 @@ time {
 
 wireless _first_ {
   format_up = "  %quality "
-  format_down = "  down"
+  format_down = "  "
 }
 
 order += "battery all"
