@@ -2,6 +2,7 @@ local wezterm = require "wezterm"
 local config = wezterm.config_builder()
 local is_darwin <const> = wezterm.target_triple:find("darwin") ~= nil
 local is_windows = wezterm.target_triple:find("windows") ~= nil
+local is_linux = wezterm.target_triple:find("linux") ~= nil
 
 -- Default theme
 config.color_scheme = "rose-pine-moon"
@@ -13,6 +14,9 @@ config.hide_tab_bar_if_only_one_tab = true
 
 -- Custom font-size
 config.font_size = 11
+if is_linux then
+	config.font_size = 10
+end
 
 -- Default window size
 config.initial_cols = 180
