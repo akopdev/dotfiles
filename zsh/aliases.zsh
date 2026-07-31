@@ -6,13 +6,17 @@ alias ll="eza --group-directories-first --icons --long --all --git"
 alias lt="eza --group-directories-first --icons --tree --all --level=3 --ignore-glob '.git|node_modules|.pytest_cache|__pycache__'"
 alias f="find-text"
 alias ff="find-file"
-alias top="htop"
-alias wifi="wifitui"
-alias files="bash -c fff"
 case "$(uname)" in
   Darwin) alias poweroff="sudo shutdown -h now" ;;
   Linux) alias poweroff="systemctl poweroff" ;;
 esac
+
+# Applications
+alias top="htop"
+alias wifi="wifitui"
+alias files="bash -c fff"
+alias xmpp="profanity"
+alias irc="irssi"
 
 # Neovim
 alias vim="nvim"
