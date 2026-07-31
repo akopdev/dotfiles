@@ -73,6 +73,7 @@ _install_config_files() {
   link_dir "i3status"
   link_dir "rofi"
   link_dir "zk"
+  link_dir "luakit"
 
   link_file "git/.gitconfig"
   link_file "tmux/.tmux.conf"
