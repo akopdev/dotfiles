@@ -118,21 +118,40 @@ _update() {
     info "Updating system packages."
     OS="$(uname)"
     if [[ "${OS}" == "Linux" ]]; then
-      sudo apt-get update && sudo apt-get -y upgrade
+      if ! sudo apt-get update || ! sudo apt-get -y upgrade; then
+        error "Failed to update system packages. Aborting."
+        return 1
+      fi
     fi
-    brew update
+
+    if ! brew update; then
+      error "'brew update' failed. Aborting."
+      return 1
+    fi
 
     info "Clean local cache"
-    brew update-reset
+    if ! brew update-reset; then
+      error "'brew update-reset' failed. Aborting."
+      return 1
+    fi
 
     info "Update all existing packages."
-    brew upgrade
+    if ! brew upgrade; then
+      error "'brew upgrade' failed. Aborting."
+      return 1
+    fi
 
     info "Install new packages."
-    brew bundle
+    if ! brew bundle; then
+      error "'brew bundle' failed. Aborting."
+      return 1
+    fi
 
     info "Clean up installation."
-    brew cleanup
+    if ! brew cleanup; then
+      error "'brew cleanup' failed. Aborting."
+      return 1
+    fi
   fi
 
   info "Install custom configurations."
