@@ -10,6 +10,10 @@ case "$(uname)" in
   Darwin) alias poweroff="sudo shutdown -h now" ;;
   Linux) alias poweroff="systemctl poweroff" ;;
 esac
+case "$(uname)" in
+  Darwin) alias reboot="sudo shutdown -r now" ;;
+  Linux) alias reboot="systemctl reboot" ;;
+esac
 
 # Applications
 alias top="htop"
