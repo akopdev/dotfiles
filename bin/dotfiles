@@ -88,6 +88,15 @@ _install_config_files() {
 # Update all installed packages
 ###################################################################################################
 
+_fix_brew_trust_store() {
+  local trust_dir="${HOMEBREW_USER_CONFIG_HOME:-${HOME}/.homebrew}"
+
+  # Homebrew refuses to write to this directory if it's group or world writtable
+  if [[ -d "${trust_dir}" ]]; then
+    chmod go-w "${trust_dir}"
+  fi
+}
+
 _update() {
   # Should not be a root user
   if [[ $(id -u) == 0 ]]; then
@@ -123,6 +132,8 @@ _update() {
         return 1
       fi
     fi
+
+    _fix_brew_trust_store
 
     if ! brew update; then
       error "'brew update' failed. Aborting."
