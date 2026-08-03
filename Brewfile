@@ -37,8 +37,6 @@ brew "k9s"
 brew "kubernetes-cli"
 brew "lazysql"
 brew "lua-language-server"
-brew "mole"
-brew "mosh"
 brew "mtools"
 brew "ncdu"
 brew "neovim"
@@ -69,13 +67,18 @@ brew "yarn", link: false
 brew "zinit"
 brew "zk"
 
-# Casks
-cask_args appdir: "~/Applications"
+if OS.mac?
+  # Packages
+  brew "mole"
 
-cask "font-jetbrains-mono-nerd-font"
-cask "krita"
-cask "nikitabobko/tap/aerospace"
-cask "raspberry-pi-imager"
-cask "the-unarchiver"
-cask "wezterm"
-cask "ghostty"
+  # Casks
+  cask_args appdir: "~/Applications"
+
+  cask "font-jetbrains-mono-nerd-font"
+  cask "krita"
+  cask "nikitabobko/tap/aerospace"
+  cask "raspberry-pi-imager"
+  cask "the-unarchiver"
+  cask "wezterm"
+  cask "ghostty"
+end
