@@ -21,6 +21,7 @@ alias wifi="wifitui"
 alias files="bash -c fff"
 alias xmpp="profanity"
 alias irc="irssi"
+alias browser="nohup qutebrowser > /dev/null 2>&1 &"
 
 # Neovim
 alias vim="nvim"
