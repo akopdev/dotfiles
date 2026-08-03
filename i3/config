@@ -114,8 +114,8 @@ bindsym $mod+Shift+k move up
 bindsym $mod+z fullscreen toggle
 
 # copy/paste
-bindsym $cmd+c exec xdotool key --clearmodifiers ctrl+c
-bindsym $cmd+v exec xdotool key --clearmodifiers ctrl+v
+bindsym $mod+c exec xdotool key --clearmodifiers ctrl+c
+bindsym $mod+v exec xdotool key --clearmodifiers ctrl+v
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
