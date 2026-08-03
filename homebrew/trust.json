@@ -5,10 +5,7 @@
     "akopdev/formulas/qutebrowser",
     "charmbracelet/tap/crush",
     "chojs23/tap/ec",
-    "dart-lang/dart/dart",
-    "dart-lang/dart/dart-beta",
-    "hashicorp/tap/terraform",
-    "sass/sass/sass"
+    "hashicorp/tap/terraform"
   ],
   "trustedcasks": [
     "nikitabobko/tap/aerospace"
