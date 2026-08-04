@@ -74,10 +74,11 @@ if OS.mac?
   cask_args appdir: "~/Applications"
 
   cask "font-jetbrains-mono-nerd-font"
+  cask "ghostty"
   cask "krita"
   cask "nikitabobko/tap/aerospace"
   cask "raspberry-pi-imager"
   cask "the-unarchiver"
+  cask "ungoogled-chromium"
   cask "wezterm"
-  cask "ghostty"
 end
