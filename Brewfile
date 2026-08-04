@@ -1,7 +1,6 @@
 # Packages
 brew "akopdev/formulas/ghgrab"
 brew "akopdev/formulas/nbcat"
-brew "akopdev/formulas/qutebrowser"
 brew "awscli"
 brew "basedpyright"
 brew "bash-language-server"
