@@ -4,7 +4,6 @@
     "akopdev/formulas/nbcat",
     "akopdev/formulas/qutebrowser",
     "charmbracelet/tap/crush",
-    "chojs23/tap/ec",
     "hashicorp/tap/terraform"
   ],
   "trustedcasks": [
