@@ -68,6 +68,9 @@ set $kbd_backlight sysfs/leds/apple::kbd_backlight
 bindsym XF86KbdBrightnessUp exec --no-startup-id light -s $kbd_backlight -A 10
 bindsym XF86KbdBrightnessDown exec --no-startup-id light -s $kbd_backlight -U 10
 
+# Keyboard layout
+exec --no-startup-id setxkbmap -layout us,ru -option grp:ctrl_space_toggle
+
 # Media player controls
 bindsym XF86AudioPlay exec --no-startup-id playerctl play-pause
 bindsym XF86AudioNext exec --no-startup-id playerctl next
