@@ -1,13 +1,12 @@
-# Packages
-brew "akopdev/formulas/ghgrab"
-brew "akopdev/formulas/nbcat"
+# Global
+brew "akopdev/formulas/nbcat", trusted: true
 brew "awscli"
 brew "basedpyright"
 brew "bash-language-server"
 brew "bat"
 brew "bc"
 brew "cask"
-brew "charmbracelet/tap/crush"
+brew "charmbracelet/tap/crush", trusted: true
 brew "ec"
 brew "cookiecutter"
 brew "ctop"
@@ -25,7 +24,7 @@ brew "glow"
 brew "gnupg"
 brew "go"
 brew "gopls"
-brew "hashicorp/tap/terraform"
+brew "hashicorp/tap/terraform", trusted: true
 brew "helm"
 brew "htop"
 brew "hugo"
@@ -50,7 +49,7 @@ brew "profanity"
 brew "python@3.13"
 brew "qemu"
 brew "ripgrep"
-brew "dart-sass"
+brew "dart-sass", trusted: true
 brew "sheets"
 brew "tea"
 brew "terraform-ls"
@@ -66,19 +65,18 @@ brew "yarn", link: false
 brew "zinit"
 brew "zk"
 
-if OS.mac?
-  # Packages
-  brew "mole"
+cargo "ghgrab"
 
-  # Casks
-  cask_args appdir: "~/Applications"
+# MacOS
+brew "mole" if OS.mac?
 
-  cask "font-jetbrains-mono-nerd-font"
-  cask "ghostty"
-  cask "krita"
-  cask "nikitabobko/tap/aerospace"
-  cask "raspberry-pi-imager"
-  cask "the-unarchiver"
-  cask "ungoogled-chromium"
-  cask "wezterm"
-end
+cask_args appdir: "~/Applications"
+
+cask "font-jetbrains-mono-nerd-font"
+cask "ghostty"
+cask "krita"
+cask "nikitabobko/tap/aerospace", trusted: true
+cask "raspberry-pi-imager"
+cask "the-unarchiver"
+cask "ungoogled-chromium"
+cask "wezterm"

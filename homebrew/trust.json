@@ -1,15 +1,10 @@
 {
   "trustedformulae": [
-    "akopdev/formulas/ghgrab",
     "akopdev/formulas/nbcat",
     "charmbracelet/tap/crush",
     "hashicorp/tap/terraform"
   ],
   "trustedcasks": [
     "nikitabobko/tap/aerospace"
-  ],
-  "trustedtaps": [
-    "akopdev/formulas",
-    "dart-lang/dart"
   ]
 }
