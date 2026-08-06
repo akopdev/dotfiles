@@ -27,7 +27,7 @@ fi
 
 
 export GOROOT="${HOMEBREW_PREFIX}/opt/go/libexec"
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin
+export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$ZSH/bin:$HOME/.cargo/bin:$HOME/.local/bin
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
 export DISPLAY=:0
