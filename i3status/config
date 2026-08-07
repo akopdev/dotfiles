@@ -37,6 +37,13 @@ wireless _first_ {
   format_down = "  "
 }
 
+read_file kbd_layout {
+    format = " %content "
+    format_bad = " US "
+    path = "/tmp/i3status-kbd-layout"
+}
+
+order += "read_file kbd_layout"
 order += "battery all"
 order += "volume master"
 order += "wireless _first_"
