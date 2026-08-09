@@ -67,6 +67,10 @@ brew "yarn", link: false
 brew "zinit"
 brew "zk"
 
+go "github.com/msprev/fzf-bibtex/cmd/bibtex-ls"
+go "github.com/msprev/fzf-bibtex/cmd/bibtex-markdown"
+go "github.com/msprev/fzf-bibtex/cmd/bibtex-cite"
+
 cargo "ghgrab"
 
 # MacOS
