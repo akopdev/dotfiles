@@ -2,6 +2,7 @@
   "trustedformulae": [
     "akopdev/formulas/nbcat",
     "charmbracelet/tap/crush",
+    "dart-lang/dart/dart",
     "hashicorp/tap/terraform"
   ],
   "trustedcasks": [
