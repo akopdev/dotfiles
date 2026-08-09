@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+CITIES=("Amsterdam" "Barcelona")
+SELECTED_INDEX=0
+
+while true; do
+    clear
+
+    echo "========================================================================="
+
+    counter=0
+    for city in "${CITIES[@]}"; do
+        key=$((counter + 1))
+        
+        if [ "$counter" -eq "$SELECTED_INDEX" ]; then
+            echo -n -e "  \033[1;32m[$key] $city\033[0m  "
+        else
+            echo -n "  [$key] $city  "
+        fi
+        counter=$((counter + 1))
+    done
+    
+    echo ""
+    echo "========================================================================="
+    echo ""
+
+    stormy --city "${CITIES[$SELECTED_INDEX+1]}"
+
+    read -r -s -k 1 key  # reading 1 key
+
+    case "$key" in
+        q|Q)
+            echo -e "\nExiting..."
+            exit 0
+            ;;
+        [1-9])
+            new_index=$((key - 1))
+            
+            if [ "$new_index" -ge 0 ] && [ "$new_index" -lt "$counter" ]; then
+                SELECTED_INDEX=$new_index
+            fi
+            ;;
+    esac
+done
