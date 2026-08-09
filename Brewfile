@@ -10,6 +10,7 @@ brew "cask"
 brew "charmbracelet/tap/crush", trusted: true
 brew "cookiecutter"
 brew "ctop"
+brew "dart-lang/dart/dart", trusted: true
 brew "dart-sass", trusted: true
 brew "dockerfile-language-server"
 brew "dosfstools"
@@ -73,6 +74,7 @@ brew "mole" if OS.mac?
 
 cask_args appdir: "~/Applications"
 
+cask "bibdesk"
 cask "font-jetbrains-mono-nerd-font"
 cask "ghostty"
 cask "krita"
