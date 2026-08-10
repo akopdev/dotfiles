@@ -74,6 +74,10 @@ go "github.com/msprev/fzf-bibtex/cmd/bibtex-cite"
 
 cargo "ghgrab"
 
+# Linux
+flatpak "org.wezfurlong.wezterm"
+flatpak "io.github.ungoogled_software.ungoogled_chromium"
+
 # MacOS
 brew "mole" if OS.mac?
 
