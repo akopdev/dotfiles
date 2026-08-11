@@ -75,20 +75,24 @@ go "github.com/msprev/fzf-bibtex/cmd/bibtex-cite"
 cargo "ghgrab"
 
 # Linux
-flatpak "org.wezfurlong.wezterm"
-flatpak "io.github.ungoogled_software.ungoogled_chromium"
+if OS.linux?
+  flatpak "org.wezfurlong.wezterm"
+  flatpak "io.github.ungoogled_software.ungoogled_chromium"
+end
 
 # MacOS
-brew "mole" if OS.mac?
+if OS.mac?
+  brew "mole"
 
-cask_args appdir: "~/Applications"
+  cask_args appdir: "~/Applications"
 
-cask "bibdesk"
-cask "font-jetbrains-mono-nerd-font"
-cask "ghostty"
-cask "krita"
-cask "nikitabobko/tap/aerospace", trusted: true
-cask "raspberry-pi-imager"
-cask "the-unarchiver"
-cask "ungoogled-chromium"
-cask "wezterm"
+  cask "bibdesk"
+  cask "font-jetbrains-mono-nerd-font"
+  cask "ghostty"
+  cask "krita"
+  cask "nikitabobko/tap/aerospace", trusted: true
+  cask "raspberry-pi-imager"
+  cask "the-unarchiver"
+  cask "ungoogled-chromium"
+  cask "wezterm"
+end
