@@ -10,8 +10,6 @@ brew "cask"
 brew "charmbracelet/tap/crush", trusted: true
 brew "cookiecutter"
 brew "ctop"
-brew "dart-lang/dart/dart", trusted: true
-brew "dart-sass", trusted: true
 brew "dockerfile-language-server"
 brew "dosfstools"
 brew "ec"
