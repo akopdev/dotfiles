@@ -8,7 +8,7 @@ Usage:
   docker-search [IMAGE NAME]
 
 HELP
-return 
+exit 1
 fi
 
 get_docker_image_tags() {

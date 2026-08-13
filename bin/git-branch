@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-git rev-parse HEAD > /dev/null 2>&1 || return
+git rev-parse HEAD > /dev/null 2>&1 || exit 1
 
 # shellcheck disable=SC2016
 if [ -z "$1" ]; then
@@ -11,7 +11,7 @@ if [ -z "$1" ]; then
     )
     if [[ "${branch}" = "" ]]; then
         echo "No branch selected."
-        return
+        exit 1
     fi
 else
     branch="${1}"

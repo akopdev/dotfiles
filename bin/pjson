@@ -25,7 +25,7 @@ while [[ "$#" -gt 0 ]]; do
             ;;
         -h|--help)
             usage
-            return
+            exit 0
             ;;
         *)
             file="$1"
@@ -50,7 +50,7 @@ input=$(jq '.' "${file}")
 
 if [[ -z "${input}" ]]; then
     echo -e "\033[1;31mError proccessing JSON input.\033[0m" 1>&2
-    return
+    exit 1
 fi
 
 # Clean up the temporary file

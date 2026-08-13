@@ -13,7 +13,7 @@ Flags:
   -j, --json    Force output to be strictly JSON
 
 HELP
-return
+exit 1
 fi
 
 
@@ -21,7 +21,7 @@ export GEMINI_API_KEY="$(pass show gemini/api-key 2>/dev/null)"
 
 if [[ -z "${GEMINI_API_KEY:-}" ]]; then
   echo "Error: 'GEMINI_API_KEY' environment variable is not set" >&2
-  return
+  exit 1
 fi
 
 while [[ $# -gt 0 ]]; do
@@ -43,7 +43,7 @@ done
 
 if [[ ${#USER_PROMPT[@]} -eq 0 ]]; then
   echo "Error: prompt is required" >&2
-  return
+  exit 1
 fi
 
 PAYLOAD=$(jq -n \

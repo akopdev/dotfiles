@@ -37,9 +37,6 @@ export HOMEBREW_BUNDLE_FILE="${ZSH}/Brewfile"
 export HOMEBREW_NO_ANALYTICS=1
 export GH_TELEMETRY=0
 
-fpath=($ZSH/bin $fpath)
-autoload -U $ZSH/bin/*(:t)
-
 HISTFILE=~/.zsh_history
 HISTSIZE=10000
 SAVEHIST=10000
@@ -96,13 +93,6 @@ function zvm_after_init() {
   bindkey -s '^F' 'find-text^M'
   bindkey -s '^E' 'files^M'
   bindkey '^l' end-of-line
-}
-
-function zvm_after_lazy_keybindings() {
-  zvm_bindkey vicmd 'H' vi-backward-word
-  zvm_bindkey vicmd 'L' vi-forward-word
-  zvm_bindkey vicmd '^H' vi-first-non-blank
-  zvm_bindkey vicmd '^L' vi-end-of-line
 }
 
 zvm_before_init() {

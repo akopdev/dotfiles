@@ -15,10 +15,14 @@ case "$(uname)" in
   Linux) alias reboot="systemctl reboot" ;;
 esac
 
+# Execute apps in a current shell
+alias dotfiles="source dotfiles"
+alias projects="source projects"
+
 # Applications
 alias top="htop"
 alias wifi="wifitui"
-alias files="bash -c fff"
+alias files="fff"
 alias xmpp="profanity"
 alias irc="irssi"
 
