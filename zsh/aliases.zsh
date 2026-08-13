@@ -25,6 +25,7 @@ alias wifi="wifitui"
 alias files="fff"
 alias xmpp="profanity"
 alias irc="irssi"
+alias db="vi-sql"
 
 # Neovim
 alias vim="nvim"
