@@ -8,6 +8,10 @@ command=xkb-switch | tr '[:lower:]' '[:upper:]'
 label= 
 interval=1
 
+[syncthing]
+command=if /home/linuxbrew/.linuxbrew/bin/syncthing cli show system >/dev/null 2>&1; then printf '󰓦\n\n#859900\n'; else printf '󰓧\n\n#dc322f\n'; fi
+interval=10
+
 [battery]
 command=acpi | grep -oP '\d+%'
 label= 
