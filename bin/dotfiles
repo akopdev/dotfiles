@@ -71,6 +71,7 @@ _install_config_files() {
   link_dir "profanity"
   link_dir "i3"
   link_dir "i3status"
+  link_dir "i3blocks"
   link_dir "rofi"
   link_dir "zk"
 

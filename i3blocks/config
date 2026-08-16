@@ -1,0 +1,29 @@
+command=$XDG_CONFIG_HOME/i3blocks/scripts/$BLOCK_NAME
+markup=pango
+separator=true
+separator_block_width=20
+
+[kbd_layout]
+command=xkb-switch | tr '[:lower:]' '[:upper:]'
+label= 
+interval=1
+
+[battery]
+command=acpi | grep -oP '\d+%'
+label= 
+interval=30
+
+[volume]
+command=wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{vol=int($2*100); print vol "%"}'
+label=󰕾
+interval=1
+signal=1
+
+[wireless]
+command=awk 'NR==3 {sub(/\.$/, "%", $3); print $3}' /proc/net/wireless
+label= 
+interval=10
+
+[time]
+command=date '+%A, %d %B %H:%M  '
+interval=5
