@@ -1,6 +1,7 @@
 font-family = "JetBrains Mono"
 font-size = 11
 theme = "Rose Pine Moon"
+command = /bin/zsh -i -l -c "tmux new-session -A -s main"
 keybind=clear
 
 # --- TMUX MAPPING ---
