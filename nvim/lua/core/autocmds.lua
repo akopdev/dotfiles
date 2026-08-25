@@ -31,6 +31,7 @@ autocmd({ "BufRead", "BufNewFile" }, {
     vim.opt_local.expandtab = true
 
     vim.opt_local.cursorline = false
+    vim.opt_local.filetype = "markdown"
   end,
 })
 
