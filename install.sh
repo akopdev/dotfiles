@@ -107,7 +107,7 @@ fi
 
 
 info "Setup required folders."
-mkdir -p "${HOME}"/{Projects,.config}
+mkdir -p "${HOME}"/{Projects,Literature,.config}
 
 info "Install all packages."
 if ! "${DOTFILES}"/bin/dotfiles --update; then

@@ -132,6 +132,7 @@ man() {
 
 # fzf global setup
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --follow --glob "!.git/*" --ignore-file ~/dotfiles/fzf-ignore'
+export FZF_BIBTEX_SOURCES="${HOME}/Literature/References.bib"
 export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS"
  --border
  --reverse 

@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+if [ $# -lt 1 ]; then
+cat << HELP
+Fetch BibTeX data for a given DOI.
+
+Usage:
+  doi2bib [DOI_URL]
+
+Set default arguments with environment variables:
+  \$FZF_BIBTEX_SOURCES   path to the destination .bib file
+HELP
+exit 1
+fi
+
+if [ -z "$FZF_BIBTEX_SOURCES" ]; then
+    echo "[ ERROR ]: \$FZF_BIBTEX_SOURCES is not set" >&2
+    exit 1
+fi
+
+# Strip common prefixes just in case the user pastes a full URL
+input=$1
+doi="${input#*doi.org/}"
+doi="${doi#doi:}"
+
+# Let curl run immediately and fail if the DOI is bad
+bibtex=$(curl -f -sLH "Accept: application/x-bibtex" "https://doi.org/$doi" \
+    | tr -d '\r' \
+    | sed 's/^[[:space:]]*//' \
+    | sed '/^$/d')
+
+if [ $? -eq 0 ] && [ -n "$bibtex" ]; then
+    echo -e "\n$bibtex" >> "$FZF_BIBTEX_SOURCES"
+    echo "[  OK  ]: $doi added to $FZF_BIBTEX_SOURCES"
+else
+    echo "[ ERROR ]: Failed to fetch BibTeX for $input" >&2
+    exit 1
+fi
