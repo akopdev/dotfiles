@@ -66,7 +66,6 @@ brew "xclip"
 brew "yaml-language-server"
 brew "yarn", link: false
 brew "zinit"
-brew "zk"
 
 go "github.com/msprev/fzf-bibtex/cmd/bibtex-ls"
 go "github.com/msprev/fzf-bibtex/cmd/bibtex-markdown"

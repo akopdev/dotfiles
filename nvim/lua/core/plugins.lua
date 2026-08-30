@@ -43,8 +43,10 @@ vim.pack.add({
     -- Experimental
     "https://github.com/sindrets/diffview.nvim",
 
-    -- Text processing
-    "https://github.com/zk-org/zk-nvim"
+    -- Note taking
+    "https://github.com/jakewvincent/mkdnflow.nvim",
+    "https://github.com/nvim-telescope/telescope-bibtex.nvim"
+
 })
 
 -- Handy command for manual plugin update

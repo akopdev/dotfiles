@@ -43,9 +43,32 @@ telescope.setup {
       }
     }
   },
+  extensions = {
+    bibtex = {
+      -- Depth for the *.bib file
+      depth = 1,
+      -- Insure my own external reference format
+      custom_formats = {
+        { id = 'plain', cite_marker = '[@%s]' }
+      },
+      format = 'plain',
+      -- Path to global bibliographies
+      global_files = { '~/Literatire/' },
+      -- Define the search keys to use in the picker
+      search_keys = { 'title', 'year' },
+      -- Template for the formatted citation
+      citation_format = '{{author}} ({{year}}), {{title}}.',
+      -- Only use initials for the authors first name
+      citation_trim_firstname = true,
+      -- Max number of authors to write in the formatted citation
+      -- following authors will be replaced by "et al."
+      citation_max_auth = 2,
+    },
+  }
 }
 
 telescope.load_extension('dap')
 telescope.load_extension("persisted")
+telescope.load_extension("bibtex")
 
 vim.cmd [[ autocmd User TelescopePreviewerLoaded setlocal number ]]
