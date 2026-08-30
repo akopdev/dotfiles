@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+
+help() {
+cat << HELP
+Interactively search a BibTeX file with fzf and print the selected citation key(s).
+
+Usage:
+  bibtex-ls [file.bib]
+
+Keys:
+  ctrl-o   open the highlighted entry's url/file
+
+Set default arguments with environment variables:
+  \$FZF_BIBTEX_SOURCES   path to the .bib file to search
+HELP
+}
+
+# Internal mode used by fzf's --preview to render one raw entry
+if [ "${1:-}" = "--entry" ]; then
+    awk -v RS='' -v key="$2" 'match($0, "\\{[ \t]*" key ",") { print; exit }' "$3" \
+        | bat -l bibtex --paging=never --style=plain --color=always
+    exit 0
+fi
+
+# Internal mode used by fzf's ctrl-o binding to open an entry's url/file field
+if [ "${1:-}" = "--open" ]; then
+    entry=$(awk -v RS='' -v key="$2" 'match($0, "\\{[ \t]*" key ",") { print; exit }' "$3")
+    target=$(printf '%s\n' "$entry" | awk '
+        {
+            eq = index($0, "=")
+            if (eq == 0) next
+            fname = tolower(substr($0, 1, eq - 1))
+            gsub(/[ \t]/, "", fname)
+            if (fname != "url" && fname != "file") next
+            fval = substr($0, eq + 1)
+            gsub(/^[ \t]+/, "", fval)
+            gsub(/[ \t]+$/, "", fval)
+            sub(/,[ \t]*$/, "", fval)
+            sub(/^\{/, "", fval)
+            sub(/\}$/, "", fval)
+            if (fname == "url") url = fval
+            else path = fval
+        }
+        END {
+            if (url != "") { print url; exit }
+            if (path != "") {
+                n = split(path, parts, ":")
+                print (n >= 2 ? parts[2] : path)
+            }
+        }
+    ')
+    [ -n "$target" ] && open "$target"
+    exit 0
+fi
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+    help
+    exit 0
+fi
+
+bib="${1:-$FZF_BIBTEX_SOURCES}"
+
+if [ -z "$bib" ]; then
+    echo "[ERROR]: no BibTeX file given and \$FZF_BIBTEX_SOURCES is not set" >&2
+    help
+    exit 1
+fi
+
+if [ ! -r "$bib" ]; then
+    echo "[ERROR]: cannot read $bib" >&2
+    exit 1
+fi
+
+norm=$(mktemp)
+trap 'rm -f "$norm"' EXIT
+
+bibtool -q -s -- 'print.line.length = 9999' "$bib" > "$norm"
+
+# This part is crazy AI generated code, because I'm not ready to 
+# go deep into bibtex parsing hell, and more over spend time 
+# looking for external package. I will stick to awk rather then 
+# rely on python package.
+list=$(awk '
+BEGIN { RS = ""; FS = "\n" }
+{
+    key = ""; type = ""; author = ""; title = ""; year = ""
+    n = split($0, lines, "\n")
+    line1 = lines[1]
+    if (match(line1, /^@[A-Za-z]+/)) {
+        type = substr(line1, RSTART + 1, RLENGTH - 1)
+    }
+    if (match(line1, /\{[ \t]*[^,]+,/)) {
+        key = substr(line1, RSTART + 1, RLENGTH - 2)
+        gsub(/[ \t]/, "", key)
+    }
+    if (key == "") next
+    for (i = 2; i <= n; i++) {
+        l = lines[i]
+        eq = index(l, "=")
+        if (eq == 0) continue
+        fname = substr(l, 1, eq - 1)
+        gsub(/[ \t]/, "", fname)
+        fname = tolower(fname)
+        fval = substr(l, eq + 1)
+        gsub(/^[ \t]+/, "", fval)
+        gsub(/[ \t]+$/, "", fval)
+        sub(/,[ \t]*$/, "", fval)
+        sub(/^\{/, "", fval)
+        sub(/\}$/, "", fval)
+        if (fname == "author") author = fval
+        else if (fname == "title") title = fval
+        else if (fname == "year") year = fval
+    }
+    nauth = split(author, alist, / and /)
+    surname = alist[1]
+    comma = index(surname, ",")
+    if (comma > 0) surname = substr(surname, 1, comma - 1)
+    if (nauth > 1) surname = surname " et al."
+    printf "%s\t\033[1;36m[%s]\033[0m \033[1;33m%s\033[0m %s (%s) %s\n", key, type, key, surname, year, title
+}
+' "$norm")
+
+if [ -z "$list" ]; then
+    echo "[ERROR]: no entries found in $bib" >&2
+    exit 1
+fi
+
+selection=$(printf '%s\n' "$list" | fzf \
+    --ansi \
+    --multi \
+    --delimiter='\t' \
+    --with-nth=2.. \
+    --preview="\"$0\" --entry {1} \"$norm\"" \
+    --bind="ctrl-o:execute-silent(\"$0\" --open {1} \"$norm\")") || true
+
+[ -n "$selection" ] || exit 1
+
+printf '%s\n' "$selection" | cut -f1

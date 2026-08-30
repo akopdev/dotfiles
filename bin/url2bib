@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+save=0
+input=""
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -s|--save)
+            save=1
+            shift
+            ;;
+        *)
+            input=$1
+            shift
+            ;;
+    esac
+done
+
+if [ -z "$input" ]; then
+cat << HELP
+Fetch BibTeX data for any item supported by Zotero's translators.
+
+Usage:
+  url2bib [-s|--save] [URL]
+
+Requires a local zotero/translation-server instance.
+Set default arguments with environment variables:
+  \$ZOTERO_TRANSLATION_SERVER   base URL of the translation-server (default: http://127.0.0.1:1969)
+  \$FZF_BIBTEX_SOURCES          path to the destination .bib file (required with -s/--save)
+
+Flags:
+  -s, --save   append the result to \$FZF_BIBTEX_SOURCES instead of printing to stdout
+HELP
+exit 1
+fi
+
+if [ "$save" -eq 1 ] && [ -z "$FZF_BIBTEX_SOURCES" ]; then
+    echo "[ERROR]: \$FZF_BIBTEX_SOURCES is not set" >&2
+    exit 1
+fi
+
+server="${ZOTERO_TRANSLATION_SERVER:-http://127.0.0.1:1969}"
+
+# Translate the URL into Zotero's JSON item format
+items=$(curl -f -sL -H "Content-Type: text/plain" -d "$input" "$server/web")
+
+if [ $? -ne 0 ] || [ -z "$items" ]; then
+    echo "[ERROR]: Failed to translate $input" >&2
+    exit 1
+fi
+
+# Export the translated items as BibTeX
+bibtex=$(curl -f -sL -H "Content-Type: application/json" -d "$items" "$server/export?format=bibtex")
+
+if [ $? -ne 0 ] || [ -z "$bibtex" ]; then
+    echo "[ERROR]: Failed to export BibTeX for $input" >&2
+    exit 1
+fi
+
+if [ "$save" -eq 1 ]; then
+    echo "$bibtex" | bat -l bibtex --paging=never  --style=plain
+    echo
+    read -n 1 -rp "Do you really want to add item to $FZF_BIBTEX_SOURCES? [y/N] " confirm
+    echo
+    if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]; then
+        echo -e "\n$bibtex" >> "$FZF_BIBTEX_SOURCES"
+        echo "[OK]: $input added to $FZF_BIBTEX_SOURCES"
+    fi
+else
+    echo "$bibtex"
+fi

@@ -81,6 +81,7 @@ _install_config_files() {
   link_file "vi/.exrc"
   link_file "aerospace/.aerospace.toml"
   link_file "claude/settings.json" "${HOME}/.claude/settings.json"
+  link_file "bibtool/.bibtoolrsc"
 }
 
 ###################################################################################################

@@ -1,0 +1,25 @@
+% ~/.bibtoolrsc
+
+% --- Key generation: LastName + Year (e.g. Smith2020) ---
+key.format = "%-1n(author)%4d(year)"
+key.generation = on
+key.number.separator = {}
+
+% --- Sorting ---
+sort = on
+sort.format = "%n(author)%d(year)"
+
+% --- Deduplication ---
+check.double = on
+check.double.delete = on
+pass.comments = off
+
+% --- Formatting ---
+print.align = 24
+print.line.length = 78
+print.use.tab = off
+print.indent = 2
+quote.comment = off
+
+% Consistent delimiters: use braces instead of double quotes
+field.delimiter.default = "{}"

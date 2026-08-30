@@ -67,10 +67,6 @@ brew "yaml-language-server"
 brew "yarn", link: false
 brew "zinit"
 
-go "github.com/msprev/fzf-bibtex/cmd/bibtex-ls"
-go "github.com/msprev/fzf-bibtex/cmd/bibtex-markdown"
-go "github.com/msprev/fzf-bibtex/cmd/bibtex-cite"
-
 cargo "ghgrab"
 
 # Linux
@@ -85,7 +81,6 @@ if OS.mac?
 
   cask_args appdir: "~/Applications"
 
-  cask "bibdesk"
   cask "font-jetbrains-mono-nerd-font"
   cask "ghostty"
   cask "krita"
