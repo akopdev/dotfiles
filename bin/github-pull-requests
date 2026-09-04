@@ -14,4 +14,4 @@ gh pr list --json number,title,author,headRefName \
         --bind 'enter:execute(gh pr diff {1} | delta --paging=always)' \
         --bind 'ctrl-b:execute-silent(echo {-1} | tr -d "\n" | copy)' \
         --bind 'ctrl-o:execute(gh pr view {1} --web)' \
-        --preview '(gh pr view {1}; echo "\n== Checks ==\n"; gh pr checks {1} --json state,name --template "{{range .}}{{tablerow .state .name}}{{end}}") | glow'
+        --preview '(gh pr view {1}; echo "\nChecks\n======\n"; gh pr checks {1} --json state,name --template "{{range .}}{{tablerow .state .name}}{{end}}")'
