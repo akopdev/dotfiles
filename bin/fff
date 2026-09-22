@@ -395,15 +395,31 @@ mark() {
         marked_files=()
 
     if [[ $1 == all ]]; then
-        if ((${#marked_files[@]} != ${#list[@]})); then
-            marked_files=("${list[@]}")
+        local all_marked=1
+
+        for ((i=0;i<${#list[@]};i++)); {
+            [[ ${list[i]##*/} == "." ]] &&
+                continue
+
+            [[ ${marked_files[i]} == "${list[i]}" ]] ||
+                all_marked=
+        }
+
+        if [[ -z $all_marked ]]; then
+            marked_files=()
+
+            for ((i=0;i<${#list[@]};i++)); {
+                [[ ${list[i]##*/} != "." ]] &&
+                    marked_files[i]=${list[i]}
+            }
+
             mark_dir=$PWD
         else
             marked_files=()
         fi
 
         redraw
-    else
+    elif [[ ${list[$1]##*/} != "." ]]; then
         if [[ ${marked_files[$1]} == "${list[$1]}" ]]; then
             unset 'marked_files[scroll]'
 
@@ -810,7 +826,8 @@ key() {
         # Mark files for operation.
         ${FFF_KEY_YANK:=y}|\
         ${FFF_KEY_MOVE:=x}|\
-        ${FFF_KEY_VISUAL:=v})
+        ${FFF_KEY_VISUAL:=v}|\
+        ${FFF_KEY_MARK:=' '})
             mark "$scroll" "$1"
         ;;
 
