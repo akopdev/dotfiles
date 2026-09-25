@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+branch=$(echo "$*" |
+  tr '[:upper:]' '[:lower:]' |
+  tr -c '[:alnum:]/' '-' |
+  sed -e 's/-\{2,\}/-/g' -e 's/^-//' -e 's/-$//')
+
+git checkout -b "${branch}"
