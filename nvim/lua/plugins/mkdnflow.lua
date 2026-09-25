@@ -8,10 +8,11 @@ mkdnflow.setup {
     MkdnNextLink = false,
     MkdnPrevLink = false,
     MkdnFollowLink = false, -- Disable and use custom action
-    MkdnToggleToDo = { { 'n', 'v' }, 'tt' },
+    MkdnToggleToDo = { { 'n', 'v' }, '<leader>td' },
     MkdnTableFormat = { { 'n' }, '<leader>cf' },
     MkdnTableFromSelection = { { 'v' }, '<leader>t' },
-    MkdnCreateLink = { { 'v' }, '<leader>l' }, -- Keep default behaviour when text selected
+    MkdnCreateLink = { { 'v' }, '<leader>a' }, -- Keep default behaviour when text selected
+    MkdnUpdateNumbering = { 'n', '<leader>nn' },
   },
   modules = {
     bib = true,
@@ -82,8 +83,8 @@ mkdnflow.setup {
 
     -- Custom create link method
     -- ~~~~~~~~~~~~~~~~~~~~~~~~~
-    -- If no text under cursor, insert an anchor to a new numeric note 
-    vim.keymap.set('n', '<leader>l', function()
+    -- If no text under cursor, insert an anchor to a new numeric note
+    vim.keymap.set('n', '<leader>a', function()
       local cword = vim.fn.expand('<cword>')
       if cword == '' or cword:match("^%s*$") then
         local dir = vim.fn.expand('%:p:h')
