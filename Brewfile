@@ -65,6 +65,7 @@ brew "wifitui"
 brew "xclip"
 brew "yaml-language-server"
 brew "yarn", link: false
+brew "yt-dlp"
 brew "zinit"
 
 cargo "ghgrab"

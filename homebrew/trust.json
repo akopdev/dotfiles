@@ -2,7 +2,8 @@
   "trustedformulae": [
     "akopdev/formulas/nbcat",
     "charmbracelet/tap/crush",
-    "hashicorp/tap/terraform"
+    "hashicorp/tap/terraform",
+    "hashicorp/tap/vlt"
   ],
   "trustedcasks": [
     "nikitabobko/tap/aerospace"
